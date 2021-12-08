@@ -1,16 +1,35 @@
 <?php
+//Start a session
+session_start();
+
+//Check if user is logged
+if (isset($_SESSION['email'])) {
+    //Send user to index.php
+    header('location: index.php');
+}
 //Include database connections
 require_once('../controllers/database/dbconnect.php');
 
-//Define variables
+//Define global variable(s)
 $error = array();
 
 /**
- * Function checkRegisterFields
- * 
+ * Function checkRegisterFields.
+ * Function to check if fields are correct and not empty.
+ * Display Error message if needed.
+ * @param string    $email  Filled in email
+ * @param string    $email  Filled in firstname
+ * @param string    $email  Filled in lastname
+ * @param string    $email  Filled in password
+ * @param string    $email  Filled in password2
+ * @param array     $error  Array with errors
+ * @return boolean          True or False
  */
-function checkRegisterFields($email, $firstname, $lastname, $password, $password2, $error)
+function checkRegisterFields($email, $firstname, $lastname, $password, $password2)
 {
+    //Call global variable(s)
+    global $error;
+
     if (!$email && empty($email)) {
         $error[] = 'Email is not correct';
     }
@@ -42,26 +61,51 @@ function checkRegisterFields($email, $firstname, $lastname, $password, $password
     }
 }
 
-function checkUserInDataBase($conn) {
+/**
+ * Function checkUserInDatabase
+ * Function to check if user already exists in database
+ * Display Error message if needed.
+ * @param object    $conn   Database connection
+ * @param string    $email  Filled in email
+ * @return boolean          True or False
+ */
+function checkUserInDataBase($conn, $email) {
+    //Call global variable(s)
+    global $error;
 
-    // $query = "SELECT * FROM user";
+    //SQL Query for selecting all users where an email is in DB
+    $query = "SELECT * FROM user WHERE email = ?";
 
-    // $stmt = mysqli_prepare($conn, $query) or die(mysqli_error($conn));
+    //Prpeparing SQL Query with database connection
+    $stmt = mysqli_prepare($conn, $query) or die(mysqli_error($conn));
+    
+    //Binding params into ? fields
+    mysqli_stmt_bind_param($stmt, "s", $email) or die('niet goed');
 
-    // mysqli_stmt_bind_param($stmt, "sssss", $firstname, $lastname, $email, $password, $test) or die('niet goed');
+    //Executing statement
+    mysqli_stmt_execute($stmt) or die('<br>message');
 
-    // mysqli_stmt_execute($stmt) or die('<br>message');
+    //Get STMT result
+    mysqli_stmt_get_result($stmt);
+    
+    //Check if a result has been found with number of rows
+    if (mysqli_stmt_num_rows($stmt) > 0) {
+        $error[] = 'Dit email is al in gebruik';
+        foreach ($error as $value) {
+            echo $value . '<br>';
+        }
+        return false;
+    } else {
+        return true;
+    }
 
-    // $test = mysqli_stmt_get_result($stmt);
-
-    // $test2 = mysqli_num_rows($test);
-
-    // echo $test2;
+    //Close the statement
+    mysqli_stmt_close($stmt);
 }
 
 //Check if submitted
 if (isset($_POST['submit'])) {
-    //Submitted form data
+    //Submitted form data validation
     $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
     $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS);
     $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -69,29 +113,33 @@ if (isset($_POST['submit'])) {
     $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_SPECIAL_CHARS);
 
     //Check form data fields
-    if (checkRegisterFields($email, $firstname, $lastname, $password, $password2, $error)) {
-        checkUserInDataBase($conn);
+    if (checkRegisterFields($email, $firstname, $lastname, $password, $password2)) {
+        if (checkUserInDataBase($conn, $email)) {
+            //Hash the password before putting in database
+            $password = password_hash($password, PASSWORD_DEFAULT);
 
+            //Define standard role, user
+            $role = 'user';
 
-        // //Hash the password before putting in database
-        // $password = password_hash($password, PASSWORD_DEFAULT);
-        // //Define standard role, user
-        // $test = 'user';
-        // define('ROLE', 'user');
+            //SQL Query for inserting into user table
+            $query = "INSERT INTO user (firstname, lastname, email, password, role) VALUES (?,?,?,?,?)";
 
-        // $query = "INSERT INTO user (firstname, lastname, email, password, role) VALUES (?,?,?,?,?)";
+            //Prpeparing SQL Query with database connection
+            $stmt = mysqli_prepare($conn, $query) or die(mysqli_error($conn));
 
-        // $stmt = mysqli_prepare($conn, $query) or die(mysqli_error($conn));
+            //Binding params into ? fields
+            mysqli_stmt_bind_param($stmt, "sssss", $firstname, $lastname, $email, $password, $role) or die('niet goed');
 
-        // mysqli_stmt_bind_param($stmt, "sssss", $firstname, $lastname, $email, $password, $test) or die('niet goed');
+            //Executing statement
+            mysqli_stmt_execute($stmt) or die('<br>message');
 
-        // mysqli_stmt_execute($stmt) or die('<br>message');
+            //Close the statement and connection
+            mysqli_stmt_close($stmt);
+            mysqli_close($conn);
 
-        // //Close the statement
-        // mysqli_stmt_close($stmt);
-        // mysqli_close($conn);
-
-        // header('location: index.php');
+            //Send user to index.php
+            header('location: index.php');
+        }
     }
 }
 ?>
