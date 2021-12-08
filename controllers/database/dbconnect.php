@@ -3,7 +3,7 @@
 require_once('env.php');
 
 // Connect to server (localhost server)
-$conn = mysqli_connect($_ENV["hostname"], $_ENV["username"], $_ENV["password"], $_ENV["database"]);
+$conn = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DATABASE);
 
 // Test the connection
 if (!$conn) {
