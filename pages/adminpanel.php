@@ -20,9 +20,8 @@
             <h2>Reservations</h2>
         </div>
         <div>        
-            <?php
-                echo "<table id=tablereserv>";
-                echo "<tr>
+            <table id=tablereserv>";
+                <tr>
                     <th>ID</th>
                     <th>User ID</th>
                     <th>Name user</th>
@@ -31,9 +30,16 @@
                     <th>Start date</th>
                     <th>End date</th>
                 </tr>";
-                // here comes code for the rest of the table
-                echo "</table>";
-            ?>
+                <?php
+                    $conn = mysqli("localhost","root","","nebulax");
+                    if($conn-> connect_error) {
+                        die("Connection failed");
+                    }
+
+                    //$reserview1 = mysqli_query("SELECT ID, USER_ID,  FROM reservation");
+                ?>
+            </table>";
+
         </div>
         <div>
             <h2>Contact Messages</h2>
