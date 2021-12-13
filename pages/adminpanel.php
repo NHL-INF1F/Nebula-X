@@ -10,52 +10,79 @@
             <h1>Admin panel</h1>
         </div>
         <?php
-            // Select queries
-            //$reservationview = mysqli_query("SELECT * FROM reservation", $conn);
-            //$contactview = mysqli_query("SELECT * FROM contact_messsage", $conn);
-            //$Suites = mysqli_query("SELECT * FROM suite", $conn);
-            //$USERS = mysqli_query("SELECT * FROM user", $conn); 
+            //Require ENV
+            //require_once('../controllers/database/env.php');
+
+            // Connect to server (localhost server)
+            $conn = mysqli_connect("localhost","root","","nebulax");
+
+            // Test the connection
+            if (!$conn) {
+                die("Could not connect: " . mysqli_connect_error());
+            }
         ?>
         <div>
             <h2>Reservations</h2>
         </div>
         <div>        
-            <table id=tablereserv>";
+            <table id=tablereserv>
                 <tr>
                     <th>ID</th>
                     <th>User ID</th>
-                    <th>Name user</th>
                     <th>Suite ID</th>
-                    <th>Suite Name</th>
                     <th>Start date</th>
                     <th>End date</th>
-                </tr>";
+                </tr>
                 <?php
-                    $conn = mysqli("localhost","root","","nebulax");
-                    if($conn-> connect_error) {
-                        die("Connection failed");
-                    }
+                    // run query from database
+                    $reservationsql = "SELECT * from reservation";
+                    $reservationresult = $conn-> query($reservationsql);
 
-                    //$reserview1 = mysqli_query("SELECT ID, USER_ID,  FROM reservation");
+                    // while loop to echo the query results in a table
+                    if ($reservationresult-> num_rows > 0) {
+                        while ($reservationrow = $reservationresult-> fetch_assoc()) {
+                            echo "<tr>
+                                <td>" . $reservationrow["ID"] ."</td>
+                                <td>" . $reservationrow["USER_ID"] ."</td>
+                                <td>" . $reservationrow["SUITE_ID"] ."</td>
+                                <td>" . $reservationrow["date_from"] ."</td>
+                                <td>" . $reservationrow["date_to"] . "</td>
+                            </tr>";
+                        }
+                    }
                 ?>
-            </table>";
+            </table>
 
         </div>
         <div>
             <h2>Contact Messages</h2>
         </div>
-        <div>        
-            <?php
-                echo "<table id=tablecontact>";
-                echo "<tr>
+        <div>
+            <table id=tablecontact>
+                <tr>
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Message</th>
-                </tr>";
-                // here comes code for the rest of the table
-                echo "</table>";
-            ?>
+                </tr>
+                <?php
+                    // run query from database
+                    $contactsql = "SELECT * from contact_message";
+                    $contactresult = $conn-> query($contactsql);
+                    
+                    // while loop to echo the query results in a table
+                    if ($contactresult-> num_rows > 0) {
+                        while ($contactrow = $contactresult-> fetch_assoc()) {
+                            echo "<tr>
+                                <td>" . $contactrow["ID"] ."</td>
+                                <td>" . $contactrow["name"] ."</td>
+                                <td>" . $contactrow["email"] ."</td>
+                                <td>" . $contactrow["message"] ."</td>
+                            </tr>";
+                        }
+                    }
+                ?>
+            </table>
         </div>
     </body>
 </html>
