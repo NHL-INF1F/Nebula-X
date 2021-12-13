@@ -1,6 +1,6 @@
 <?php
 
-function getSuite(int $id): ?Suite
+function getSuite(int $id): ?array
 {
     global $conn;
     if (!$result = $conn->query("SELECT * FROM suite WHERE ID = '$id'")) {
@@ -8,7 +8,7 @@ function getSuite(int $id): ?Suite
         return null;
     }
     if ($row = $result->fetch_assoc()) {
-        return new Suite($row);
+        return $row;
     }
     return null;
 }
@@ -22,8 +22,7 @@ function getSuites(): ?array
         return null;
     }
     while ($row = $result->fetch_assoc()) {
-        $suite = new Suite($row);
-        array_push($suites, $suite);
+        array_push($suites, $row);
     }
     return $suites;
 }
@@ -38,8 +37,7 @@ function getFreeSuites($startDate, $endDate): ?array {
         return null;
     }
     while ($row = $result->fetch_assoc()) {
-        $suite = new Suite($row);
-        array_push($suites, $suite);
+        array_push($suites, $row);
     }
     return $suites;
 }

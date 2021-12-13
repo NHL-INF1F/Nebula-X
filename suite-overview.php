@@ -10,13 +10,11 @@
     <?php
     include_once "controllers/database/dbconnect.php";
     include_once "controllers/database/reservation-db-functions.php";
-    include_once "Suite.class.php";
     $suites = getSuites();
-    /* @var $suite Suite */
     foreach ($suites as $suite) { ?>
         <div class="suite">
             <?php
-            $dirPath = "assets/img/suites/" . $suite->getId() . "/";
+            $dirPath = "assets/img/suites/" . $suite['ID'] . "/";
             if (!file_exists($dirPath)) {
                 mkdir($dirPath);
             }
@@ -31,15 +29,15 @@
                 $photoPath = $path;
                 break;
             }
-            echo "<div class='suite-image'><img src='" . $photoPath . "' alt='" . $suite->getName() . "'></div>";
+            echo "<div class='suite-image'><img src='" . $photoPath . "' alt='" . $suite['name']  . "'></div>";
             ?>
             <div class="suite-text">
-                <h2 style="display: inline-block"><a href="suite.php?id=<?php echo $suite->getId() ?>">
-                        <?php echo $suite->getName(); ?></a></h2>
+                <h2 style="display: inline-block"><a href="suite.php?id=<?php echo $suite['ID'] ?>">
+                        <?php echo $suite['name']  ?></a></h2>
                 <div class="suite-details">
-                    Size: <?php echo $suite->getSize(); ?>
+                    Size: <?php echo $suite['suite_size']  ?>
                 </div>
-                <p><?php echo $suite->getDescription(); ?></p>
+                <p><?php echo $suite['description']  ?></p>
                 <div style="text-align: right">price...</div>
             </div>
         </div>
@@ -58,8 +56,4 @@
     ?>
 </div>
 </body>
-<style>
-
-
-</style>
 </html>

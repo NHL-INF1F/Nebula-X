@@ -9,18 +9,16 @@
 <?php
 include_once "controllers/database/dbconnect.php";
 include_once "controllers/database/reservation-db-functions.php";
-include_once "Suite.class.php";
 
 if (!isset($_GET['id'])) {
     die("No suite ID was given.");
 }
 
 $suiteID = filter_input(INPUT_GET, "id");
-
 $suiteData = getSuite($suiteID);?>
 
 <div class="suite-single">
-    <h1><?php echo $suiteData->getName();?></h1>
+    <h1><?php echo $suiteData['name']?></h1>
     <?php
     $dirPath = "assets/img/suites/" . $suiteID . "/";
     if (!file_exists($dirPath)) {
@@ -34,19 +32,19 @@ $suiteData = getSuite($suiteID);?>
             continue;
         }
         $hasPhotos = true;
-        echo "<img src='" . $path . "' alt='" . $suiteData->getName() . "'>";
+        echo "<img src='" . $path . "' alt='" . $suiteData['name'] . "'>";
     }
 
     if(!$hasPhotos){
         echo "<img src='assets/img/suites/placeholder.png' alt='" .
-            $suiteData->getName() . "'>";
+            $suiteData['name'] . "'>";
     }
     ?>
-    <div class="suite-text>
+    <div class="suite-text">
         <div class="suite-details">
-            Size: <?php echo $suiteData->getSize(); ?>
+            Size: <?php echo $suiteData['suite_size'] ?>
         </div>
-        <p><?php echo $suiteData->getDescription()?></p>
+        <p><?php echo $suiteData['description']?></p>
     </div>
 </div>
 
@@ -63,8 +61,5 @@ function isImage($path) : bool {
 }
 ?>
 
-<style>
-
-</style>
 </body>
 </html>
