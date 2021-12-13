@@ -11,10 +11,10 @@
         </div>
         <?php
             //Require ENV
-            //require_once('../controllers/database/env.php');
+            require_once('../controllers/database/env.php');
 
             // Connect to server (localhost server)
-            $conn = mysqli_connect("localhost","root","","nebulax");
+            $conn = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DATABASE);
 
             // Test the connection
             if (!$conn) {
@@ -64,7 +64,9 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Message</th>
+                    <th>.</th>
                 </tr>
+                
                 <?php
                     // run query from database
                     $contactsql = "SELECT * from contact_message";
@@ -78,6 +80,7 @@
                                 <td>" . $contactrow["name"] ."</td>
                                 <td>" . $contactrow["email"] ."</td>
                                 <td>" . $contactrow["message"] ."</td>
+                                <td> <a href=mailto:$contactrow[email]>Respond</a></td>
                             </tr>";
                         }
                     }
