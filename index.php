@@ -1,5 +1,6 @@
 <?php
 require_once('controllers/database/dbconnect.php');
+require('en.php');
 ?>
 
 <!DOCTYPE html>
@@ -11,6 +12,6 @@ require_once('controllers/database/dbconnect.php');
     <title>Document</title>
 </head>
 <body>
-    <a href="pages/register.php">register</a>
+    <a href="pages/register.php" name="register"><?php echo ($messages['register']);?></a>
 </body>
 </html>
