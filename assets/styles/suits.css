@@ -24,6 +24,10 @@
     display: flex;
 }
 
+#suite-overview .suite-price {
+    text-align: right;
+}
+
 #suite-overview .suite-text{
     flex-grow: 4;
     padding-left: 15px;
@@ -31,7 +35,7 @@
 }
 
 /** Single Suite **/
-.suite-single{
+#suite-single{
     text-align: center;
     margin-left: auto;
     margin-right: auto;
@@ -39,11 +43,19 @@
     border: 1px solid;
 }
 
-.suite-single img {
-    width: 70%;
+.left-align{
+    text-align: left;
 }
 
-.suite-single .suite-text {
+#suite-single img {
+    width: 100%;
+}
+
+#suite-single .suite-text {
     display: inline-block;
     width: 69%;
+}
+
+#suite-single .suite-name{
+    text-align: left;
 }

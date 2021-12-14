@@ -17,8 +17,18 @@ if (!isset($_GET['id'])) {
 $suiteID = filter_input(INPUT_GET, "id");
 $suiteData = getSuite($suiteID);?>
 
-<div class="suite-single">
-    <h1><?php echo $suiteData['name']?></h1>
+<div id="suite-single">
+    <h1 class="suite-name"><?php echo $suiteData['name']?></h1>
+    <div class="suite-dates">
+        <label>
+            DateFrom
+            <input type="date" id="date-from">
+        </label>
+        <label>
+            DateTo
+            <input type="date" id="date-to">
+        </label>
+    </div>
     <?php
     $dirPath = "assets/img/suites/" . $suiteID . "/";
     if (!file_exists($dirPath)) {
@@ -43,8 +53,13 @@ $suiteData = getSuite($suiteID);?>
     <div class="suite-text">
         <div class="suite-details">
             Size: <?php echo $suiteData['suite_size'] ?>
+            Rooms: <?php echo $suiteData['rooms'] ?>
         </div>
         <p><?php echo $suiteData['description']?></p>
+        <div class="left-align">
+            <div class="suite-price">Price: &dollar;<?php echo $suiteData['price']?></div>
+            <input type="button" value="Book now!">
+        </div>
     </div>
 </div>
 

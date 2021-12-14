@@ -4,7 +4,7 @@ function getSuite(int $id): ?array
 {
     global $conn;
     if (!$result = $conn->query("SELECT * FROM suite WHERE ID = '$id'")) {
-        echo "Error met het ophalen van suite.";
+        echo "Error getting suite from database.";
         return null;
     }
     if ($row = $result->fetch_assoc()) {
@@ -18,7 +18,7 @@ function getSuites(): ?array
     global $conn;
     $suites = [];
     if (!$result = $conn->query("SELECT * FROM suite")) {
-        echo "Error met het ophalen van suites.";
+        echo "Error getting suites from database.";
         return null;
     }
     while ($row = $result->fetch_assoc()) {
@@ -33,7 +33,7 @@ function getFreeSuites($startDate, $endDate): ?array {
     if (!$result = $conn->query("SELECT suite.* FROM reservation 
     INNER JOIN suite ON suite.ID = reservation.SUITE_ID WHERE
     '$startDate' < reservation.date_from OR '$endDate' > reservation.date_to;")) {
-        echo "Error met het ophalen van suites.";
+        echo "Error getting suites from database.";
         return null;
     }
     while ($row = $result->fetch_assoc()) {
