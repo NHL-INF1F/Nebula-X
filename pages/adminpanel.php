@@ -10,16 +10,7 @@
             <h1>Admin panel</h1>
         </div>
         <?php
-            //Require ENV
-            require_once('../controllers/database/env.php');
-
-            // Connect to server (localhost server)
-            $conn = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DATABASE);
-
-            // Test the connection
-            if (!$conn) {
-                die("Could not connect: " . mysqli_connect_error());
-            }
+            require_once('../controllers/database/dbconnect.php');
         ?>
         <div>
             <h2>Reservations</h2>
@@ -63,8 +54,9 @@
                     <th>ID</th>
                     <th>Name</th>
                     <th>Email</th>
+                    <th>Subject</th>
                     <th>Message</th>
-                    <th>.</th>
+                    <th></th>
                 </tr>
                 
                 <?php
@@ -79,8 +71,9 @@
                                 <td>" . $contactrow["ID"] ."</td>
                                 <td>" . $contactrow["name"] ."</td>
                                 <td>" . $contactrow["email"] ."</td>
+                                <td>" . $contactrow["subject"] . "</td>
                                 <td>" . $contactrow["message"] ."</td>
-                                <td> <a href=mailto:$contactrow[email]>Respond</a></td>
+                                <td> <a href=mailto:$contactrow[email]?subject='Response to $contactrow[subject]'>Send Mail</a> </td>
                             </tr>";
                         }
                     }
