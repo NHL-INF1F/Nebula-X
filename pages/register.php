@@ -5,7 +5,7 @@ session_start();
 //Check if user is logged
 if (isset($_SESSION['email'])) {
     //Send user to index.php
-    header('location: index.php');
+    header('location: ../index.php');
 }
 //Include database connections
 require_once('../controllers/database/dbconnect.php');
@@ -23,7 +23,7 @@ $error = array();
  * @param string    $email  Filled in password
  * @param string    $email  Filled in password2
  * @param array     $error  Array with errors
- * @return boolean          True or False
+ * @return string/boolean  $error  False or error message
  */
 function checkRegisterFields($email, $firstname, $lastname, $password, $password2)
 {
@@ -37,7 +37,7 @@ function checkRegisterFields($email, $firstname, $lastname, $password, $password
         $error[] = 'Firstname may not be empty';
     }
     if (!$lastname && empty($lastname)) {
-        $error[] = 'Lastname is not correct';
+        $error[] = 'Lastname may not be empty';
     }
     if (!$password && empty($password)) {
         $error[] = 'Password may not be empty';
@@ -50,14 +50,9 @@ function checkRegisterFields($email, $firstname, $lastname, $password, $password
     }
 
     if (empty($error)) {
-        return true;
-    } else {
-        echo '<div class="errorBox">';
-        foreach ($error as $value) {
-            echo $value . '<br>';
-        }
-        echo '</div>';
         return false;
+    } else {
+        return $error;
     }
 }
 
@@ -65,11 +60,12 @@ function checkRegisterFields($email, $firstname, $lastname, $password, $password
  * Function checkUserInDatabase
  * Function to check if user already exists in database
  * Display Error message if needed.
- * @param object    $conn   Database connection
- * @param string    $email  Filled in email
- * @return boolean          True or False
+ * @param   object          $conn   Database connection
+ * @param   string          $email  Filled in email
+ * @return  string/boolean  $error  False or error message
  */
-function checkUserInDataBase($conn, $email) {
+function checkUserInDataBase($conn, $email)
+{
     //Call global variable(s)
     global $error;
 
@@ -78,25 +74,26 @@ function checkUserInDataBase($conn, $email) {
 
     //Prpeparing SQL Query with database connection
     $stmt = mysqli_prepare($conn, $query) or die(mysqli_error($conn));
-    
+
     //Binding params into ? fields
     mysqli_stmt_bind_param($stmt, "s", $email) or die('niet goed');
 
     //Executing statement
     mysqli_stmt_execute($stmt) or die('<br>message');
 
-    //Get STMT result
-    mysqli_stmt_get_result($stmt);
-    
+    //Bind the STMT results(sql statement) to variables
+    mysqli_stmt_bind_result($stmt, $ID, $one, $two, $three, $four, $five);
+
+    //Fetch STMT data
+    while (mysqli_stmt_fetch($stmt)) {
+    }
+
     //Check if a result has been found with number of rows
     if (mysqli_stmt_num_rows($stmt) > 0) {
         $error[] = 'Dit email is al in gebruik';
-        foreach ($error as $value) {
-            echo $value . '<br>';
-        }
-        return false;
+        return $error;
     } else {
-        return true;
+        return false;
     }
 
     //Close the statement
@@ -106,15 +103,15 @@ function checkUserInDataBase($conn, $email) {
 //Check if submitted
 if (isset($_POST['submit'])) {
     //Submitted form data validation
-    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
-    $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS);
-    $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_SPECIAL_CHARS);
-    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
-    $password2 = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_SPECIAL_CHARS);
+    $email      = filter_input(INPUT_POST, 'email',     FILTER_VALIDATE_EMAIL);
+    $firstname  = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_SPECIAL_CHARS);
+    $lastname   = filter_input(INPUT_POST, 'lastname',  FILTER_SANITIZE_SPECIAL_CHARS);
+    $password   = filter_input(INPUT_POST, 'password',  FILTER_SANITIZE_SPECIAL_CHARS);
+    $password2  = filter_input(INPUT_POST, 'password2', FILTER_SANITIZE_SPECIAL_CHARS);
 
     //Check form data fields
-    if (checkRegisterFields($email, $firstname, $lastname, $password, $password2)) {
-        if (checkUserInDataBase($conn, $email)) {
+    if (!checkRegisterFields($email, $firstname, $lastname, $password, $password2)) {
+        if (!checkUserInDataBase($conn, $email)) {
             //Hash the password before putting in database
             $password = password_hash($password, PASSWORD_DEFAULT);
 
@@ -137,8 +134,10 @@ if (isset($_POST['submit'])) {
             mysqli_stmt_close($stmt);
             mysqli_close($conn);
 
+            $_SESSION['registered'] = 'Account registered, you may now log in.';
+
             //Send user to index.php
-            header('location: index.php');
+            header('location: login.php');
         }
     }
 }
@@ -154,6 +153,11 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
+    <?php
+    foreach($error as $message) {
+        echo $message . '<br>';
+    }
+    ?>
     <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
         <div>
             <label for="email">Email</label>
