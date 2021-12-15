@@ -3,15 +3,26 @@
     <head>
         <title>Adminpanel</title>
         <meta charset="UTF-8">
-        <link href="../assets/styles/adminpanel.css" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles/adminpanel.css">
+
+        <!-- connect to database -->
+        <?php
+            include('../controllers/database/dbconnect.php');
+        ?>
+        <script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        </script>
+
     </head>
     <body>
-        <div>
-            <h1>Admin panel</h1>
-        </div>
-        <?php
-            require_once('../controllers/database/dbconnect.php');
-        ?>
         <div>
             <h2>Reservations</h2>
         </div>
@@ -45,6 +56,7 @@
             </table>
 
         </div>
+        
         <div>
             <h2>Contact Messages</h2>
         </div>
@@ -73,12 +85,33 @@
                                 <td>" . $contactrow["email"] ."</td>
                                 <td>" . $contactrow["subject"] . "</td>
                                 <td>" . $contactrow["message"] ."</td>
-                                <td> <a href=mailto:$contactrow[email]?subject='Response to $contactrow[subject]'>Send Mail</a> </td>
+                                <td> <a href=mailto:$contactrow[email]?subject=Response%20$contactrow[subject]>Send Mail</a></td>
+                                <td><button onclick=document.getElementById('id01').style.display='block'>Delete</button>
+                                
+                                </td>
                             </tr>";
                         }
                     }
                 ?>
             </table>
+            <div>
+                <p id=test></p>
+            </div>
         </div>
+<!-- the modal -->
+<div id="id01" class="modal">
+  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+  <form class="modal-content" action="/action_page.php">
+    <div class="container">
+      <h1>Delete Message</h1>
+      <p>Are you sure you want to delete the message?</p>
+    
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="deletebtn">Delete</button>
+      </div>
+    </div>
+  </form>
+</div>
     </body>
 </html>
