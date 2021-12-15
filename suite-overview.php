@@ -7,10 +7,20 @@
 </head>
 <body>
 <div id="suite-overview">
+    <div class="suite-dates">
+        <label>
+            DateFrom
+            <input type="date" id="date-from" name="date-from" required value="2021-01-01">
+        </label>
+        <label>
+            DateTo
+            <input type="date" id="date-to" name="date-to" required value="2021-01-01">
+        </label>
+    </div>
     <?php
     include_once "controllers/database/dbconnect.php";
     include_once "controllers/database/reservation-db-functions.php";
-    $suites = getSuites();
+    $suites = getFreeSuites('2021-05-01', '2021, 06-01');
     foreach ($suites as $suite) { ?>
         <div class="suite">
             <?php

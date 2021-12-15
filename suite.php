@@ -19,17 +19,39 @@ $suiteData = getSuite($suiteID);?>
 
 <div id="suite-single">
     <h1 class="suite-name"><?php echo $suiteData['name']?></h1>
+    <form method="post" action="suite.php?id=<?php echo $suiteID ?>">
     <div class="suite-dates">
         <label>
             DateFrom
-            <input type="date" id="date-from">
+            <input type="date" id="date-from" name="date-from" required value="2021-01-01">
         </label>
         <label>
             DateTo
-            <input type="date" id="date-to">
+            <input type="date" id="date-to" name="date-to" required value="2021-01-01">
         </label>
     </div>
     <?php
+    if(isset($_POST['booksuite'])){
+        $dateFrom = filter_input(INPUT_POST, "date-from");
+        $dateTo = filter_input(INPUT_POST, "date-to");
+
+        if(!strtotime($dateFrom) || !strtotime($dateTo)){
+            die("Invalid date.");
+        }
+
+        if($dateFrom > $dateTo){
+            die("The start date cannot be after the end date");
+        }
+
+        //Tijdelijk totdat het login systeem er is.
+        $userID = 1;
+
+        bookSuite($userID, $suiteID, $dateFrom, $dateTo);
+        die("Suite booked");
+
+    }
+
+
     $dirPath = "assets/img/suites/" . $suiteID . "/";
     if (!file_exists($dirPath)) {
         mkdir($dirPath);
@@ -58,9 +80,11 @@ $suiteData = getSuite($suiteID);?>
         <p><?php echo $suiteData['description']?></p>
         <div class="left-align">
             <div class="suite-price">Price: &dollar;<?php echo $suiteData['price']?></div>
-            <input type="button" value="Book now!">
+
+                <input type="submit" id="booksuite" name="booksuite" value="Book now!">
         </div>
     </div>
+    </form>
 </div>
 
 

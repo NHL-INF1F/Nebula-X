@@ -1,20 +1,20 @@
 <?php
 
-function getSuite(int $id): ?array
-{
+function getSuite(int $id): ?array {
     global $conn;
     if (!$result = $conn->query("SELECT * FROM suite WHERE ID = '$id'")) {
         echo "Error getting suite from database.";
         return null;
     }
     if ($row = $result->fetch_assoc()) {
+        //Tijdelijk
+        $row['description'] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pharetra neque tincidunt velit congue tempus. Mauris neque libero, aliquam non lorem ultricies, aliquet sagittis erat. Nunc finibus fermentum erat, nec vulputate nunc luctus vulputate. Donec ultrices sagittis felis ut malesuada. Mauris vitae viverra tellus. Nulla eleifend hendrerit venenatis. Praesent feugiat porttitor nisi, sed mollis tellus aliquet a. Duis convallis mauris ut dapibus condimentum. Aenean et egestas purus. Praesent bibendum dignissim ligula, non venenatis leo iaculis nec. Suspendisse diam tellus, tempor quis felis a, interdum tristique orci. Nulla egestas orci et varius lobortis. Fusce sed nisi lectus. Nullam sagittis, tellus eu euismod hendrerit, mauris neque posuere libero, quis facilisis elit diam id orci. Nunc at risus eu enim posuere euismod sed in tortor.";
         return $row;
     }
     return null;
 }
 
-function getSuites(): ?array
-{
+function getSuites(): ?array {
     global $conn;
     $suites = [];
     if (!$result = $conn->query("SELECT * FROM suite")) {
@@ -22,9 +22,22 @@ function getSuites(): ?array
         return null;
     }
     while ($row = $result->fetch_assoc()) {
+        //Tijdelijk
+        $row['description'] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pharetra neque tincidunt velit congue tempus. Mauris neque libero, aliquam non lorem ultricies, aliquet sagittis erat. Nunc finibus fermentum erat, nec vulputate nunc luctus vulputate. Donec ultrices sagittis felis ut malesuada. Mauris vitae viverra tellus. Nulla eleifend hendrerit venenatis. Praesent feugiat porttitor nisi, sed mollis tellus aliquet a. Duis convallis mauris ut dapibus condimentum. Aenean et egestas purus. Praesent bibendum dignissim ligula, non venenatis leo iaculis nec. Suspendisse diam tellus, tempor quis felis a, interdum tristique orci. Nulla egestas orci et varius lobortis. Fusce sed nisi lectus. Nullam sagittis, tellus eu euismod hendrerit, mauris neque posuere libero, quis facilisis elit diam id orci. Nunc at risus eu enim posuere euismod sed in tortor.";
         array_push($suites, $row);
     }
     return $suites;
+}
+
+function bookSuite($userID, $suiteID, $dateFrom, $dateTo){
+    global $conn;
+    $sql = "INSERT INTO reservation (`USER_ID`, `SUITE_ID`, `date_from`, `date_to`) VALUES
+  ('" . $userID . "', '" . $suiteID . "',
+'" . $dateFrom . "', '" . $dateTo . "')";
+
+    if ($conn->query($sql) !== TRUE) {
+        die("Error booking suite.");
+    }
 }
 
 function getFreeSuites($startDate, $endDate): ?array {
