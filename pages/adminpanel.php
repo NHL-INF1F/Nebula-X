@@ -23,6 +23,20 @@
 
     </head>
     <body>
+        <!-- the modal -->
+        <div id="id01" class="modal">
+            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+            <form class="modal-content" action="/action_page.php">
+                <div class="container">
+                    <h1>Delete Confirmation</h1>
+                    <p>Are you sure you want to delete the reservation?</p>
+                    <div class="clearfix">
+                        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="deletebtn">Delete</button>
+                    </div>
+                </div>
+            </form>
+        </div>
         <div>
             <h2>Reservations</h2>
         </div>
@@ -49,6 +63,8 @@
                                 <td>" . $reservationrow["SUITE_ID"] ."</td>
                                 <td>" . $reservationrow["date_from"] ."</td>
                                 <td>" . $reservationrow["date_to"] . "</td>
+                                <td>Details</td>
+                                <td><button onclick=document.getElementById('id01').style.display='block'>Delete</button></td>
                             </tr>";
                         }
                     }
@@ -86,32 +102,15 @@
                                 <td>" . $contactrow["subject"] . "</td>
                                 <td>" . $contactrow["message"] ."</td>
                                 <td> <a href=mailto:$contactrow[email]?subject=Response%20$contactrow[subject]>Send Mail</a></td>
-                                <td><button onclick=document.getElementById('id01').style.display='block'>Delete</button>
-                                
-                                </td>
+                                <td> <a href=../components/adminpanel/delete_message.php?id=".$contactrow["ID"].">Delete</a></td>
                             </tr>";
                         }
-                    }
+                   }
                 ?>
             </table>
             <div>
                 <p id=test></p>
             </div>
         </div>
-<!-- the modal -->
-<div id="id01" class="modal">
-  <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
-  <form class="modal-content" action="/action_page.php">
-    <div class="container">
-      <h1>Delete Message</h1>
-      <p>Are you sure you want to delete the message?</p>
-    
-      <div class="clearfix">
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="deletebtn">Delete</button>
-      </div>
-    </div>
-  </form>
-</div>
     </body>
 </html>
