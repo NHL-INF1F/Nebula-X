@@ -8,19 +8,29 @@
 <body>
 <div id="suite-overview">
     <div class="suite-dates">
+        <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
         <label>
             DateFrom
-            <input type="date" id="date-from" name="date-from" required value="2021-01-01">
+            <input type="date" id="date-from" name="date-from" required value="<?php echo  $_POST['date-from'] ?? "2021-01-01"?>">
         </label>
         <label>
             DateTo
-            <input type="date" id="date-to" name="date-to" required value="2021-01-01">
+            <input type="date" id="date-to" name="date-to" required value="<?php echo $_POST['date-to'] ?? "2021-01-01" ?>">
         </label>
+        <input type="submit" value="Zoeken">
+        </form>
     </div>
     <?php
     include_once "controllers/database/dbconnect.php";
     include_once "controllers/database/reservation-db-functions.php";
-    $suites = getFreeSuites('2021-05-01', '2021-06-01');
+    $startDate = filter_input(INPUT_POST, 'date-from', FILTER_SANITIZE_STRING, array('options' => array('default' => "2021-01-01")));
+    $endDate = filter_input(INPUT_POST, 'date-to', FILTER_SANITIZE_STRING, array('options' => array('default' => "2021-01-01")));
+
+    if(!strtotime($startDate) || !strtotime($endDate)){
+        die("Invalid date.");
+    }
+
+    $suites = getFreeSuites($startDate, $endDate);
     foreach ($suites as $suite) { ?>
         <div class="suite">
             <?php
