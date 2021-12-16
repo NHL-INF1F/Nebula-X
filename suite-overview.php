@@ -20,7 +20,7 @@
     <?php
     include_once "controllers/database/dbconnect.php";
     include_once "controllers/database/reservation-db-functions.php";
-    $suites = getFreeSuites('2021-05-01', '2021, 06-01');
+    $suites = getFreeSuites('2021-05-01', '2021-06-01');
     foreach ($suites as $suite) { ?>
         <div class="suite">
             <?php

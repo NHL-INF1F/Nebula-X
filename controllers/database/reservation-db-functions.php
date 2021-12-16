@@ -43,9 +43,11 @@ function bookSuite($userID, $suiteID, $dateFrom, $dateTo){
 function getFreeSuites($startDate, $endDate): ?array {
     global $conn;
     $suites = [];
-    if (!$result = $conn->query("SELECT suite.* FROM reservation 
+    $sql = "SELECT DISTINCT suite.* FROM reservation 
     INNER JOIN suite ON suite.ID = reservation.SUITE_ID WHERE
-    '$startDate' < reservation.date_from OR '$endDate' > reservation.date_to;")) {
+    (reservation.date_from NOT BETWEEN '" . $startDate . "' AND '" . $endDate . "') AND 
+    (reservation.date_to NOT BETWEEN '" . $startDate . "' AND '" . $endDate . "')";
+    if (!$result = $conn->query($sql)) {
         echo "Error getting suites from database.";
         return null;
     }
