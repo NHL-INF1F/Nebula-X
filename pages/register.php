@@ -18,10 +18,10 @@ $error = array();
  * Function to check if fields are correct and not empty.
  * Display Error message if needed.
  * @param string    $email  Filled in email
- * @param string    $email  Filled in firstname
- * @param string    $email  Filled in lastname
- * @param string    $email  Filled in password
- * @param string    $email  Filled in password2
+ * @param string    $firstname  Filled in firstname
+ * @param string    $lastname  Filled in lastname
+ * @param string    $password  Filled in password
+ * @param string    $password2  Filled in password2
  * @param array     $error  Array with errors
  * @return string/boolean  $error  False or error message
  */
@@ -47,6 +47,18 @@ function checkRegisterFields($email, $firstname, $lastname, $password, $password
     }
     if ($password != $password2) {
         $error[] = 'Passwords do not match';
+    }
+    if (strlen($email) > 255) {
+        $error[] = 'Email is too long';
+    }
+    if (strlen($firstname) > 255) {
+        $error[] = 'Firstname is too long';
+    }
+    if (strlen($lastname) > 255) {
+        $error[] = 'Lastname is too long';
+    }
+    if (strlen($password) > 255) {
+        $error[] = 'Password is too long';
     }
 
     if (empty($error)) {
@@ -134,6 +146,7 @@ if (isset($_POST['submit'])) {
             mysqli_stmt_close($stmt);
             mysqli_close($conn);
 
+            //Set user message
             $_SESSION['registered'] = 'Account registered, you may now log in.';
 
             //Send user to index.php

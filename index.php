@@ -17,7 +17,9 @@ require_once('controllers/database/dbconnect.php');
     <?php
         require('components/translation/en.php');
 
-        echo '<a href="pages/register.php">'. $message['register']. '</a>';
+        echo '<a href="pages/register.php">'. $message['registerbutton']. '</a>';
+        echo '<br>';
+        echo '<a href="pages/contact.php">'. $message['contact']. '</a>';
     ?>
 </body>
 </html>
