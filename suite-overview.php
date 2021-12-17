@@ -7,6 +7,7 @@
 </head>
 <body>
 <div id="suite-overview">
+    <h1>Available Suites</h1>
     <div class="suite-dates">
         <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
         <label>
@@ -31,6 +32,9 @@
     }
 
     $suites = getFreeSuites($startDate, $endDate);
+    if(empty($suites)){
+        echo "No available suites";
+    } else {
     foreach ($suites as $suite) { ?>
         <div class="suite">
             <?php
@@ -64,6 +68,7 @@
         </div>
 
     <?php }
+    }
 
     function isImage($path): bool {
         if (@is_array(getimagesize($path))) {
