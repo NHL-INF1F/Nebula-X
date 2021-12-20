@@ -9,34 +9,9 @@
         <?php
             include('../controllers/database/dbconnect.php');
         ?>
-        <script>
-        // Get the modal
-        var modal = document.getElementById('id01');
-
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-        </script>
-
     </head>
     <body>
         <!-- the modal -->
-        <div id="id01" class="modal">
-            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
-            <form class="modal-content" action="/action_page.php">
-                <div class="container">
-                    <h1>Delete Confirmation</h1>
-                    <p>Are you sure you want to delete the reservation?</p>
-                    <div class="clearfix">
-                        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
-                        <button type="button" onclick="document.getElementById('id01').style.display='none'" class="deletebtn">Delete</button>
-                    </div>
-                </div>
-            </form>
-        </div>
         <div>
             <h2>Reservations</h2>
         </div>
@@ -63,8 +38,7 @@
                                 <td>" . $reservationrow["SUITE_ID"] ."</td>
                                 <td>" . $reservationrow["date_from"] ."</td>
                                 <td>" . $reservationrow["date_to"] . "</td>
-                                <td>Details</td>
-                                <td><button onclick=document.getElementById('id01').style.display='block'>Delete</button></td>
+                                <td><a href=../components/adminpanel/view_reservation.php?id=".$reservationrow["id"].">Details</a></td>
                             </tr>";
                         }
                     }
@@ -108,9 +82,6 @@
                    }
                 ?>
             </table>
-            <div>
-                <p id=test></p>
-            </div>
         </div>
     </body>
 </html>
