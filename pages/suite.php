@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Nebula-X</title>
-    <link href="assets/styles/suits.css" rel="stylesheet">
+    <link href="../assets/styles/suits.css" rel="stylesheet">
 </head>
 <body>
 <?php
-include_once "controllers/database/dbconnect.php";
-include_once "controllers/database/reservation-db-functions.php";
+include_once "../controllers/database/dbconnect.php";
+include_once "../controllers/database/reservation-db-functions.php";
 
 if (!isset($_GET['id'])) {
     die("No suite ID was given.");
@@ -52,7 +52,7 @@ $suiteData = getSuite($suiteID);?>
     }
 
 
-    $dirPath = "assets/img/suites/" . $suiteID . "/";
+    $dirPath = "../assets/img/suites/" . $suiteID . "/";
     if (!file_exists($dirPath)) {
         mkdir($dirPath);
     }
@@ -68,7 +68,7 @@ $suiteData = getSuite($suiteID);?>
     }
 
     if(!$hasPhotos){
-        echo "<img src='assets/img/suites/placeholder.png' alt='" .
+        echo "<img src='../assets/img/suites/placeholder.png' alt='" .
             $suiteData['name'] . "'>";
     }
     ?>
@@ -80,7 +80,6 @@ $suiteData = getSuite($suiteID);?>
         <p><?php echo $suiteData['description']?></p>
         <div class="left-align">
             <div class="suite-price">Price: &dollar;<?php echo $suiteData['price']?></div>
-
                 <input type="submit" id="booksuite" name="booksuite" value="Book now!">
         </div>
     </div>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Nebula-X</title>
-    <link href="assets/styles/suits.css" rel="stylesheet">
+    <link href="../assets/styles/suits.css" rel="stylesheet">
 </head>
 <body>
 <div id="suite-overview">
@@ -22,8 +22,8 @@
         </form>
     </div>
     <?php
-    include_once "controllers/database/dbconnect.php";
-    include_once "controllers/database/reservation-db-functions.php";
+    include_once "../controllers/database/dbconnect.php";
+    include_once "../controllers/database/reservation-db-functions.php";
     $startDate = filter_input(INPUT_POST, 'date-from', FILTER_SANITIZE_STRING, array('options' => array('default' => "2021-01-01")));
     $endDate = filter_input(INPUT_POST, 'date-to', FILTER_SANITIZE_STRING, array('options' => array('default' => "2021-01-01")));
 
@@ -38,13 +38,13 @@
     foreach ($suites as $suite) { ?>
         <div class="suite">
             <?php
-            $dirPath = "assets/img/suites/" . $suite['ID'] . "/";
+            $dirPath = "../assets/img/suites/" . $suite['ID'] . "/";
             if (!file_exists($dirPath)) {
                 mkdir($dirPath);
             }
 
             $photos = scandir($dirPath);
-            $photoPath = "assets/img/suites/placeholder.png";
+            $photoPath = "../assets/img/suites/placeholder.png";
             foreach ($photos as $photo) {
                 $path = $dirPath . $photo;
                 if (!isImage($path)) {
