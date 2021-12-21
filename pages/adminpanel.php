@@ -27,24 +27,28 @@
                 <?php
                     // run query from database
                     $reservationsql = "SELECT * from reservation";
-                    $reservationresult = $conn-> query($reservationsql);
+                    $reservationstmt = mysqli_prepare($conn, $reservationsql) or die(mysqli_error($conn));
+                    mysqli_stmt_execute($reservationstmt) or die("Error");
+                    mysqli_stmt_bind_result($reservationstmt, $id, $user_id, $suite_id, $date_from, $date_to);
 
                     // while loop to echo the query results in a table
-                    if ($reservationresult-> num_rows > 0) {
-                        while ($reservationrow = $reservationresult-> fetch_assoc()) {
-                            echo "<tr>
-                                <td>" . $reservationrow["ID"] ."</td>
-                                <td>" . $reservationrow["USER_ID"] ."</td>
-                                <td>" . $reservationrow["SUITE_ID"] ."</td>
-                                <td>" . $reservationrow["date_from"] ."</td>
-                                <td>" . $reservationrow["date_to"] . "</td>
-                                <td><a href=../components/adminpanel/view_reservation.php?id=".$reservationrow["id"].">Details</a></td>
-                            </tr>";
-                        }
+                    
+                    while (mysqli_stmt_fetch($reservationstmt)) {
+                        echo "<tr>
+                            <td>" . $id ."</td>
+                            <td>" . $user_id ."</td>
+                            <td>" . $suite_id ."</td>
+                            <td>" . $date_from ."</td>
+                            <td>" . $date_to . "</td>
+                            <td><a href=../components/adminpanel/view_reservation.php?id=" . $id . ">Details</a></td>
+                        </tr>";
                     }
+                    
                 ?>
             </table>
-
+            <?php
+                mysqli_stmt_close($reservationstmt);
+            ?>
         </div>
         
         <div>
@@ -64,24 +68,29 @@
                 <?php
                     // run query from database
                     $contactsql = "SELECT * from contact_message";
-                    $contactresult = $conn-> query($contactsql);
+                    $contactstmt = mysqli_prepare($conn, $contactsql) or die(mysqli_error($conn));
+                    mysqli_stmt_execute($contactstmt) or die("Error");
+                    mysqli_stmt_bind_result($contactstmt, $id, $name, $email, $subject, $message);
                     
                     // while loop to echo the query results in a table
-                    if ($contactresult-> num_rows > 0) {
-                        while ($contactrow = $contactresult-> fetch_assoc()) {
-                            echo "<tr>
-                                <td>" . $contactrow["ID"] ."</td>
-                                <td>" . $contactrow["name"] ."</td>
-                                <td>" . $contactrow["email"] ."</td>
-                                <td>" . $contactrow["subject"] . "</td>
-                                <td>" . $contactrow["message"] ."</td>
-                                <td> <a href=mailto:$contactrow[email]?subject=Response%20$contactrow[subject]>Send Mail</a></td>
-                                <td> <a href=../components/adminpanel/delete_message.php?id=".$contactrow["ID"].">Delete</a></td>
-                            </tr>";
-                        }
-                   }
+                    while(mysqli_stmt_fetch($contactstmt)) {
+                        echo "<tr>
+                            <td>" . $id ."</td>
+                            <td>" . $name ."</td>
+                            <td>" . $email ."</td>
+                            <td>" . $subject . "</td>
+                            <td>" . $message ."</td>
+                            <td> <a href=mailto:$email?subject=Response%20$subject>Send Mail</a></td>
+                            <td> <a href=../components/adminpanel/delete_message.php?id=". $id .">Delete</a></td>
+                        </tr>";
+                    }
                 ?>
             </table>
+            <?php
+                // close the statement
+                mysqli_stmt_close($contactstmt);
+                mysqli_close($conn)
+            ?>
         </div>
     </body>
 </html>

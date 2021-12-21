@@ -7,6 +7,8 @@
     <title>Adminpanel</title>
 </head>
 <body>
-    
+    <?php
+
+    ?>
 </body>
 </html>

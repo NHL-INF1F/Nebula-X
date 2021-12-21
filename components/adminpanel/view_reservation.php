@@ -20,7 +20,7 @@
     <body>
         <?php
                 // Reservation show Reservated suite, Start/End dates, Account details of person reservating the suite, edit button.
-                $reserv = "SELECT FROM reservations WHERE id='$_GET[id]'";
+                $reservationsql = "SELECT FROM reservations WHERE id='$_GET[id]'";
         ?>
         <div>
             <h1>Reservation Details</h1>
@@ -32,27 +32,27 @@
             <?php
                 //display the reservated suite
                 echo "<h2>Reservated Suite</h2>";
-                echo "<p>Size:</p>";
-                echo "<p>Name:</p>";
-                echo "<p>Discription:</p>";
-                echo "<p>Price:</p>";
-                echo "<p>Reservated from:</p>";
-                echo "<p>Reservated until:</p>";
+                echo "<p>Size:</p>" .  . ".";
+                echo "<p>Name:</p>" .  . ".";
+                echo "<p>Discription:</p>" .  . ".";
+                echo "<p>Price:</p>" .  . ".";
+                echo "<p>Reservated from:</p>" .  . ".";
+                echo "<p>Reservated until:</p>" .  . ".";
             ?>            
         </div>
         <div>
             <?php
                 //display the account reservating the suite
                 echo "<h2>Reservating User</h2>";
-                echo "<p>First name:</p>";
-                echo "<p>Last name:</p>";
-                echo "<p>email:</p>";
+                echo "<p>First name:</p>" .  . ".";
+                echo "<p>Last name:</p>" .  . ".";
+                echo "<p>email:</p>" .  . ".";
             ?>
         </div>
         <div>
             <?php
                 //Edit and Delete buttons
-                echo "<a href='view_reservation.php'>Edit</a>";
+                echo "<a href='edit_reservation.php?id=$_GET[id]'>Edit</a>";
                 echo "<button onclick=document.getElementById('delbtnpress').style.display='block'>Delete</button>";
             ?>
         </div>
