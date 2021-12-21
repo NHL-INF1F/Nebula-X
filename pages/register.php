@@ -102,7 +102,7 @@ function checkUserInDataBase($conn, $email)
 
     //Check if a result has been found with number of rows
     if (mysqli_stmt_num_rows($stmt) > 0) {
-        $error[] = 'Dit email is al in gebruik';
+        $error[] = 'This email is already in use, try another email.';
         return $error;
     } else {
         return false;
@@ -163,39 +163,85 @@ if (isset($_POST['submit'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register</title>
+
+    <!-- Font Awesome icons -->
+    <script src="https://kit.fontawesome.com/f9ece565b9.js" crossorigin="anonymous"></script>
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap%27" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Bebas+Neue&display=swap%27" rel="stylesheet">
+    <link href="../assets/styles/register.css" rel="stylesheet">
 </head>
 
 <body>
-    <?php
-    foreach($error as $message) {
-        echo $message . '<br>';
-    }
-    ?>
-    <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
-        <div>
-            <label for="email">Email</label>
-            <input type="text" placeholder="youremail@domain.com" name="email" id="email" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['email']);} ?>">
+    <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
+        <div class="row w-75 h-100" style="height: 500px; margin: 0 auto;">
+            <?php
+            if (isset($_POST['submit']) && !empty($error)) {
+            ?>
+            <div class="col-md-12 p-0">
+                <div class="alert alert-danger text-black fw-bold p-4 rounded-0" role="alert">
+                    <ul>
+                        <?php
+                        foreach($error as $message) {
+                            echo '<li>' . $message . '</li>';
+                        }
+                        ?>
+                    </ul>
+                </div>
+            </div>
+            <?php
+            }
+            ?>
+            <div class="col-md-8 p-4 bg-white order-md-1 order-2">
+                <h1>REGISTER</h1>
+                <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
+                    <div class="mb-1">
+                        <label for="email" class="form-label">Email address</label>
+                        <input required type="email" class="form-control" placeholder="youremail@domain.com" name="email" id="email" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['email']);} ?>" aria-describedby="emailHelp">                    </div>
+                    <div class="mb-1">
+                        <label for="firstname" class="form-label">Firstname</label>
+                        <input required type="text" class="form-control" placeholder="John" name="firstname" id="firstname" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['firstname']);} ?>">
+                    </div>
+                    <div class="mb-1">
+                        <label for="lastname" class="form-label">Lastname</label>
+                        <input required type="text" class="form-control" placeholder="Doo" name="lastname" id="lastname" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['lastname']);} ?>">
+                    </div>
+                    <div class="mb-1">
+                        <label for="password" class="form-label">Password</label>
+                        <input required type="password" class="form-control" placeholder="Password" name="password" id="password" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password']);} ?>">
+                    </div>
+                    <div class="mb-4">
+                        <label for="password2" class="form-label">Password repeat</label>
+                        <input required type="password" class="form-control" placeholder="Password" name="password2" id="password2" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password2']);} ?>">
+                    </div>
+                    <div class="buttonBox">
+                        <input class="button" type="submit" name="submit" value="register">
+                    </div>  
+                </form>
+            </div>
+
+            <div class="col-md-4 p-4 seeThroughBox order-md-2 order-1">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h1 class="text-white">ALREADY A MEMBER?</h1>
+                        <p class="text-white">If you are already a user you can use the button below to login to your account</p>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="buttonBox">
+                            <a href="login.php">
+                                <input class="button" type="submit" name="login" value="login">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div>
-            <label for="firstname">Firstname</label>
-            <input type="text" placeholder="John" name="firstname" id="firstname" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['firstname']);} ?>">
-        </div>
-        <div>
-            <label for="lastname">Lastname</label>
-            <input type="text" placeholder="Doo" name="lastname" id="lastname" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['lastname']);} ?>">
-        </div>
-        <div>
-            <label for="password">Password</label>
-            <input type="password" placeholder="Password" name="password" id="password" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password']);} ?>">
-        </div>
-        <div>
-            <label for="password2">Repeat password</label>
-            <input type="password" placeholder="Password" name="password2" id="password2" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password2']);} ?>">
-        </div>
-        <div>
-            <input type="submit" name="submit" value="submit">
-        </div>
-    </form>
+    </div>
 </body>
 
 </html>
