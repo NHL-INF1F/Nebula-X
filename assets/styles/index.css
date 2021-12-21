@@ -1,0 +1,121 @@
+/* font */
+@font-face {
+    font-family: BankGothic;
+    src: url(../img/fonts/BankGothicMedium.otf)
+}
+
+/* global */
+ul {
+    list-style-type: none;
+}
+
+h1,
+h2 {
+    font-family: Bebas Neue;
+}
+
+p,
+a {
+    font-family: Arimo;
+}
+
+img {
+    max-width: 180px !important;
+}
+
+.arrow {
+    font-size: 2em;
+    cursor: pointer;
+}
+
+.SpaceXLogo{
+    font-family:BankGothic;
+    color: white;
+    font-size: 10px;
+    margin-left: 7px;
+    margin-bottom: -10px;
+    position: absolute;
+}
+
+/* Backgrounds */
+.spaceBackground {
+    background-image: url('../img/space.jpg');
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+}
+
+.spaceStation {
+    background-image: url('../img/a140a5c1206d3cd334cf1781d0d41d0b.png');
+    background-repeat: no-repeat, repeat;
+    background-size: 500px;
+    background-position: center;
+}
+
+#slidebar {
+    background-color: rgba(0, 0, 0, 0.185);
+    right: 0;
+    width: 50%;
+    position: absolute;
+    transition: 0.4s;
+}
+
+#slidebar.active{
+    right: -45%;
+}
+
+/* header */
+.header {
+    position: fixed;
+    z-index: 999;
+}
+
+.headerList {
+    display: inline;
+    margin: 6px;
+
+}
+
+.headerList a {
+    font-family: Bebas Neue;
+    color: white;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.headerList a:hover {
+    border-bottom: 2px solid white;
+}
+
+/* content */
+.midText {
+    max-width: 400px;
+}
+
+/* footer */
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    color: white;
+}
+
+.footer li a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer li a:hover {
+    border-bottom: 1px solid white;
+}
+
+#slideFooter{
+    position: absolute;
+    bottom: -350px;
+    transition: 0.4s;
+    background-color: rgba(15, 38, 54, 0);
+}
+
+#slideFooter.active{
+    bottom: 0;
+    background-color: rgb(15, 38, 54);
+}
