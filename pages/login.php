@@ -104,7 +104,7 @@ if (isset($_POST['submit'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Login</title>
 
     <!-- Font Awesome icons -->
     <script src="https://kit.fontawesome.com/f9ece565b9.js" crossorigin="anonymous"></script>
@@ -120,6 +120,7 @@ if (isset($_POST['submit'])) {
 <body>
     <?php
     require_once('../components/header.php');
+    require('../components/translation/en.php');
     ?>
     <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
         <div class="row w-75 h-100" style="height: 500px; margin: 0 auto;">
@@ -155,22 +156,22 @@ if (isset($_POST['submit'])) {
             }
             ?>
             <div class="col-md-8 p-4 bg-white order-md-1 order-2">
-                <h1>Login</h1>
+                <h1><?php echo $message['login'] ?></h1>
                 <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
                     <div class="mb-1">
-                        <label for="email" class="form-label">Email address</label>
+                        <label for="email" class="form-label"><?php echo $message['email'] ?></label>
                         <input required type="email" class="form-control" placeholder="youremail@domain.com" name="email" id="email" value="<?php if (isset($_POST['submit'])) {
                                                                                                                                                 echo htmlentities($_POST['email']);
                                                                                                                                             } ?>" aria-describedby="emailHelp">
                     </div>
                     <div class="mb-4">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label"><?php echo $message['password'] ?></label>
                         <input required type="password" class="form-control" placeholder="Password" name="password" id="password" value="<?php if (isset($_POST['submit'])) {
                                                                                                                                                 echo htmlentities($_POST['password']);
                                                                                                                                             } ?>">
                     </div>
                     <div class="buttonBox">
-                        <input class="button" type="submit" name="submit" value="login">
+                        <input class="button" type="submit" name="submit" value=<?php echo $message['login'] ?>>
                     </div>
                 </form>
             </div>
@@ -178,8 +179,8 @@ if (isset($_POST['submit'])) {
             <div class="col-md-4 p-4 seeThroughBox order-md-2 order-1">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="text-white">ALREADY A MEMBER?</h1>
-                        <p class="text-white">If you are already a user you can use the button below to login to your account</p>
+                        <h1 class="text-white"><?php echo $message['notamember'] ?></h1>
+                        <p class="text-white"><?php echo $message['registerinfo'] ?></p>
                     </div>
                 </div>
 
