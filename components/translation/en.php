@@ -1,11 +1,17 @@
 <?php
 //en.php - english language file
 
-/*Login page translation*/
+/*Login/register page translation*/
 $message['login']='LOGIN';
+$message['register']='REGISTER';
 $message['email']='EMAIL ADDRESS';
+$message['firstname']='FIRSTNAME';
+$message['lastname']='LASTNAME';
 $message['password']='PASSWORD';
+$message['password2']='REPEAT PASSWORD';
 $message['notamember']='NOT A MEMBER?';
+$message['alreadymember']='ALREADY A MEMBER?';
+$message['logininfo']="If you are already a user you can use the button below to login to your account";
 $message['registerinfo']='Registered users are notified about upcoming events and discounts. By registering you also receive a 5% cost bonus for your next booking!';
 $message['registerbutton']='REGISTER';
 
@@ -76,7 +82,7 @@ $message['sendmessage']='SEND MESSAGE';
 $message['nebulaxmotto']='Space as never before!';
 //Explore
 $message['explore']='EXPLORE';
-$message['explorehome']='Home';
+$message['explorerooms']='Rooms';
 $message['exploregallery']='Gallery';
 $message['exploreaboutus']='About us';
 $message['explorebooking']='Booking';

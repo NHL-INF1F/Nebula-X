@@ -8,7 +8,7 @@ if (isset($_SESSION['email'])) {
     header('location: ../index.php');
 }
 //Include database connections
-require_once('../controllers/database/dbconnect.php');
+require_once('../controllers\database/dbconnect.php');
 
 //Define global variable(s)
 $error = array();
@@ -159,6 +159,7 @@ if (isset($_POST['submit'])) {
 <html lang="en">
 
 <head>
+    <?php require "../components/translation/en.php"; ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -195,29 +196,29 @@ if (isset($_POST['submit'])) {
             }
             ?>
             <div class="col-md-8 p-4 bg-white order-md-1 order-2">
-                <h1>REGISTER</h1>
+                <h1><?php echo $message['register'] ?></h1>
                 <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
                     <div class="mb-1">
-                        <label for="email" class="form-label">Email address</label>
+                        <label for="email" class="form-label"><?php echo $message['email'] ?></label>
                         <input required type="email" class="form-control" placeholder="youremail@domain.com" name="email" id="email" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['email']);} ?>" aria-describedby="emailHelp">                    </div>
                     <div class="mb-1">
-                        <label for="firstname" class="form-label">Firstname</label>
+                        <label for="firstname" class="form-label"><?php echo $message['firstname'] ?></label>
                         <input required type="text" class="form-control" placeholder="John" name="firstname" id="firstname" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['firstname']);} ?>">
                     </div>
                     <div class="mb-1">
-                        <label for="lastname" class="form-label">Lastname</label>
+                        <label for="lastname" class="form-label"><?php echo $message['lastname'] ?></label>
                         <input required type="text" class="form-control" placeholder="Doo" name="lastname" id="lastname" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['lastname']);} ?>">
                     </div>
                     <div class="mb-1">
-                        <label for="password" class="form-label">Password</label>
+                        <label for="password" class="form-label"><?php echo $message['password'] ?></label>
                         <input required type="password" class="form-control" placeholder="Password" name="password" id="password" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password']);} ?>">
                     </div>
                     <div class="mb-4">
-                        <label for="password2" class="form-label">Password repeat</label>
+                        <label for="password2" class="form-label"><?php echo $message['password2'] ?></label>
                         <input required type="password" class="form-control" placeholder="Password" name="password2" id="password2" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password2']);} ?>">
                     </div>
                     <div class="buttonBox">
-                        <input class="button" type="submit" name="submit" value="register">
+                        <input class="button" type="submit" name="submit" value=<?php echo $message['registerbutton'] ?>>
                     </div>  
                 </form>
             </div>
@@ -225,8 +226,8 @@ if (isset($_POST['submit'])) {
             <div class="col-md-4 p-4 seeThroughBox order-md-2 order-1">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="text-white">ALREADY A MEMBER?</h1>
-                        <p class="text-white">If you are already a user you can use the button below to login to your account</p>
+                        <h1 class="text-white"><?php echo $message['alreadymember'] ?></h1>
+                        <p class="text-white"><?php echo $message['logininfo'] ?></p>
                     </div>
                 </div>
 
@@ -234,7 +235,7 @@ if (isset($_POST['submit'])) {
                     <div class="col-md-12">
                         <div class="buttonBox">
                             <a href="login.php">
-                                <input class="button" type="submit" name="login" value="login">
+                                <input class="button" type="submit" name="login" value=<?php echo $message['login'] ?>>
                             </a>
                         </div>
                     </div>
