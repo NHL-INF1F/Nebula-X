@@ -172,10 +172,14 @@ if (isset($_POST['submit'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap%27" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Bebas+Neue&display=swap%27" rel="stylesheet">
-    <link href="../assets/styles/register.css" rel="stylesheet">
+    <link href="../assets/styles/registerLogin.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/styles/header.css">
 </head>
 
 <body>
+    <?php
+    require_once('../components/header.php');
+    ?>
     <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
         <div class="row w-75 h-100" style="height: 500px; margin: 0 auto;">
             <?php
