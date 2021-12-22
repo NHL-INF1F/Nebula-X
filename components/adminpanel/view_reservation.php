@@ -3,7 +3,7 @@
     <head>
         <title>Adminpanel</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="../assets/styles/adminpanel.css">
+        <link rel="stylesheet" href="../../assets/styles/adminpanel.css">
         <script>
             // Script for the modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp
             // Get the modal
@@ -16,44 +16,78 @@
                 }
             }
         </script>
+        <?php
+            include('../../controllers/database/dbconnect.php');
+
+        ?>
     </head>
     <body>
-        <?php
-                // Reservation show Reservated suite, Start/End dates, Account details of person reservating the suite, edit button.
-                $reservationsql = "SELECT FROM reservations WHERE id='$_GET[id]'";
-        ?>
         <div>
             <h1>Reservation Details</h1>
         </div>
+
+        <?php
+            $reservationid = filter_input(INPUT_GET, "id");
+
+            $reservationsql = "SELECT ID, user_id, suite_id, date_from, date_to FROM reservation WHERE ID=$reservationid";
+            $reservationstmt = mysqli_prepare($conn, $reservationsql) or die(mysqli_error($conn));
+            mysqli_stmt_execute($reservationstmt) or die("Error");
+            mysqli_stmt_bind_result($reservationstmt, $ID, $user_id, $suite_id, $date_from, $date_to);
+            
+            while (mysqli_stmt_fetch($reservationstmt)) {
+                
+                echo "from: " . $date_from . ".<br>";
+                echo "to: " . $date_to . ".";
+            }
+            $userID = $user_id;
+            $suiteID = $suite_id;
+            mysqli_stmt_close($reservationstmt);
+        ?>
         <div>
-            <a href="../../pages/adminpanel.php"><- Return to the Adminpanel</a>
-        </div>
         <div>
             <?php
+                $suitesql = "SELECT ID, suite_size, name, description, price FROM suite WHERE ID=$suiteID";
+                $suitestmt = mysqli_prepare($conn, $suitesql) or die(mysqli_error($conn));
+                mysqli_stmt_execute($suitestmt) or die('error');
+                mysqli_stmt_bind_result($suitestmt, $ID, $suite_size, $name, $description, $price);
+
                 //display the reservated suite
-                echo "<h2>Reservated Suite</h2>";
-                echo "<p>Size:</p>" .  . ".";
-                echo "<p>Name:</p>" .  . ".";
-                echo "<p>Discription:</p>" .  . ".";
-                echo "<p>Price:</p>" .  . ".";
-                echo "<p>Reservated from:</p>" .  . ".";
-                echo "<p>Reservated until:</p>" .  . ".";
+                while(mysqli_stmt_fetch($suitestmt)){
+                echo "<h2>Reservated Suite</h2><br>";
+                echo "<p>Size:</p>" . $suite_size . ".<br>";
+                echo "<p>Name:</p>" . $name . ".<br>";
+                echo "<p>Discription:</p>" . $description . ".<br>";
+                echo "<p>Price:</p>" . $price . ".<br>";
+                }
+
+                mysqli_stmt_close($suitestmt);
             ?>            
         </div>
         <div>
             <?php
+                $usersql = "SELECT ID, firstname, lastname, email FROM user WHERE ID=$userID";
+                $userstmt = mysqli_prepare($conn, $usersql) or die(mysqli_error($conn));
+                mysqli_stmt_execute($userstmt) or die('error');
+                mysqli_stmt_bind_result($userstmt, $ID, $firstname, $lastname, $email);
+
                 //display the account reservating the suite
+                while(mysqli_stmt_fetch($userstmt)){
                 echo "<h2>Reservating User</h2>";
-                echo "<p>First name:</p>" .  . ".";
-                echo "<p>Last name:</p>" .  . ".";
-                echo "<p>email:</p>" .  . ".";
+                echo "<p>First name:</p>" . $firstname . ".";
+                echo "<p>Last name:</p>" . $lastname . ".";
+                echo "<p>email:</p>" . $email . ".";
+                }
+                
+                $userEmail = $email;
+                mysqli_stmt_close($userstmt);
             ?>
         </div>
         <div>
             <?php
                 //Edit and Delete buttons
-                echo "<a href='edit_reservation.php?id=$_GET[id]'>Edit</a>";
-                echo "<button onclick=document.getElementById('delbtnpress').style.display='block'>Delete</button>";
+                echo "<a href='edit_reservation.php?id=$_GET[id]'>Edit</a><br>";
+                echo "<button onclick=document.getElementById('delbtnpress').style.display='block'>Delete</button><br>";
+                echo "<a href=../../pages/adminpanel.php>'<- Return to the Adminpanel'</a><br>"
             ?>
         </div>
         <!-- Pop-up confirmation for deletion, using the Modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp -->
@@ -63,9 +97,14 @@
                 <div class="container">
                     <h1>Delete Confirmation</h1>
                     <p>Are you sure you want to delete the reservation?</p>
+                    <p>WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE RESERVATION IT WILL BE GONE FOREVER!</p>
                     <div class="clearfix">
+                        <?php 
+                            echo "<a href=delete_reservation.php?id=" . $_GET['id'] . "class=deletebtn>Delete</a>";
+                            echo "<a href=mailto:$userEmail?subject=Cancellation%20of%20reservation>Send Email</a>"; 
+                        ?>
                         <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
-                        <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="deletebtn">Delete</button>
+                        <!--<button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="deletebtn">Delete</button>-->
                     </div>
                 </div>
             </form>

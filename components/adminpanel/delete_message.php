@@ -3,7 +3,7 @@
   <head>
     <title>Adminpanel</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="../assets/styles/adminpanel.css">
+    <link rel="stylesheet" href="../../assets/styles/adminpanel.css">
   </head>
   <body>
     <?php
