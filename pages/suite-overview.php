@@ -56,7 +56,7 @@
             echo "<div class='suite-image'><img src='" . $photoPath . "' alt='" . $suite['name']  . "'></div>";
             ?>
             <div class="suite-text">
-                <h2 style="display: inline-block"><a href="suite.php?id=<?php echo $suite['ID'] ?>">
+                <h2 style="display: inline-block"><a href="booking.php?id=<?php echo $suite['ID'] ?>">
                         <?php echo $suite['name']  ?></a></h2>
                 <div class="suite-details">
                     Size: <?php echo $suite['suite_size']?>
