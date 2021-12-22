@@ -15,6 +15,15 @@
                     modal.style.display = "none";
                 }
             }
+
+            var modal = document.getElementById('editbtnpress');
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
         </script>
         <?php
             include('../../controllers/database/dbconnect.php');
@@ -85,9 +94,10 @@
         <div>
             <?php
                 //Edit and Delete buttons
-                echo "<a href='edit_reservation.php?id=$_GET[id]'>Edit</a><br>";
+                //echo "<a href='edit_reservation.php?id=$_GET[id]'>Edit</a><br>";
+                echo "<button onclick=document.getElementById('editbtnpress').style.display='block'>Edit</button><br>";
                 echo "<button onclick=document.getElementById('delbtnpress').style.display='block'>Delete</button><br>";
-                echo "<a href=../../pages/adminpanel.php>'<- Return to the Adminpanel'</a><br>"
+                echo "<a href=../../pages/adminpanel.php><- Return to the Adminpanel</a><br>"
             ?>
         </div>
         <!-- Pop-up confirmation for deletion, using the Modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp -->
@@ -104,6 +114,26 @@
                             echo "<a href=mailto:$userEmail?subject=Cancellation%20of%20reservation>Send Email</a>"; 
                         ?>
                         <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
+                        <!--<button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="deletebtn">Delete</button>-->
+                    </div>
+                </div>
+            </form>
+        </div>
+        <!-- Pop-up confirmation for edit, using the Modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp -->
+        <div id="editbtnpress" class="modal">
+            <span onclick="document.getElementById('editbtnpress').style.display='none'" class="close" title="Close Modal">×</span>
+            <form class="modal-content" action="/action_page.php">
+                <div class="container">
+                    <h1>Edit options</h1>
+                    <p>What do you want to edit?</p>
+                    <p>WARNING: CHANGES CAN NOT BE UNDONE!</p>
+                    <div class="clearfix">
+                        <?php 
+                            echo "<a href=edit_reservation_date.php?id=$reservationid>Date of reservation </a>";
+                            echo "<a href=edit_reservation_user.php?id=$userID>Reservating User </a>";
+                            echo "<a href=edit_reservation_suite.php?id=$suiteID>Reservated Room </a>"; 
+                        ?>
+                        <button type="button" onclick="document.getElementById('editbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
                         <!--<button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="deletebtn">Delete</button>-->
                     </div>
                 </div>
