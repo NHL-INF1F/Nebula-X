@@ -87,6 +87,10 @@ if (isset($_POST['submit'])) {
                 $_SESSION['email'] = $email2;
                 $_SESSION['role'] = $role;
 
+                //Close the statement and connection
+                mysqli_stmt_close($stmt);
+                mysqli_close($conn);
+
                 header('location: ../index.php');
             } else {
                 $error[] = 'Login credentials are incorrect';
