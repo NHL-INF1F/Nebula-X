@@ -68,11 +68,25 @@ require_once('controllers/database/dbconnect.php');
                         </div>
                     </div>
                 </div>
+                <div id="slidebar2" class="row min-vh-100 d-flex justify-content-end align-items-center" >
+                    <div class="col-1 min-vh-100 d-flex justify-content-end align-items-center">
+                        <div onclick="hide()">
+                            <span class="arrow"><i class="fas fa-chevron-left"></i></span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="container-fluid footer">
+        <div class="row">
+            <div class="col-md-12 text-center">
+                <div onclick="show()">
+                    <span class="arrow"><i class="fas fa-chevron-up"></i></span>
+               </div>
+            </div>
+        </div>
         <div class="row">
             <div class="col-md-12">
                 <div>
