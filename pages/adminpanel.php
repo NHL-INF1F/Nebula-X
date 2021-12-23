@@ -3,7 +3,7 @@
 session_start();
 
 //Check if user is logged
-if (isset($_SESSION['email'])) {
+if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
     //Send user to index.php
     header('location: ../index.php');
 }

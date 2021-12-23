@@ -12,11 +12,14 @@
                 <li class="headerList"><a href="../index.php">Booking</a></li>
                 <li class="headerList"><a href="contact.php">Contact</a></li>
                 <?php
+                    if (isset($_SESSION['email']) && $_SESSION['role'] == 'admin') {
+                        echo '<li class="headerList"><a href="adminpanel.php" class="text-primary">ADMIN-PANEL</a></li>';
+                    }
                     if (isset($_SESSION['email'])) {
                         echo '<li class="headerList"><a href="logout.php" class="text-danger">LOGOUT</a></li>';
                     } else {
                         include_once('../components/translation/en.php');
-                        echo '<li class="headerList"><a href="register.php">'. $message['loginregister'] .'</a></li>';
+                        echo '<li class="headerList"><a href="login.php">'. $message['loginregister'] .'</a></li>';
                     }
                     ?>
             </ul>

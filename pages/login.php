@@ -92,6 +92,7 @@ if (isset($_POST['submit'])) {
                 mysqli_close($conn);
 
                 header('location: ../index.php');
+                exit();
             } else {
                 $error[] = 'Login credentials are incorrect';
             }
@@ -112,6 +113,13 @@ if (isset($_POST['submit'])) {
 
     <!-- Font Awesome icons -->
     <script src="https://kit.fontawesome.com/f9ece565b9.js" crossorigin="anonymous"></script>
+
+    <!-- Prevent resubmitting on page refresh -->
+    <script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+    </script>
 
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -135,8 +143,8 @@ if (isset($_POST['submit'])) {
                     <div class="alert alert-danger text-black fw-bold p-4 rounded-0" role="alert">
                         <ul>
                             <?php
-                            foreach ($error as $message) {
-                                echo '<li>' . $message . '</li>';
+                            foreach ($error as $errorMsg) {
+                                echo '<li>' . $errorMsg . '</li>';
                             }
                             ?>
                         </ul>
@@ -150,7 +158,7 @@ if (isset($_POST['submit'])) {
                     <div class="alert alert-success text-black fw-bold p-4 rounded-0" role="alert">
                         <ul>
                             <?php
-                            echo $_SESSION['registered'];
+                            echo '<li>' . $_SESSION['registered'] . '</li>';
                             $_SESSION['registered'] = '';
                             ?>
                         </ul>
@@ -164,15 +172,11 @@ if (isset($_POST['submit'])) {
                 <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
                     <div class="mb-1">
                         <label for="email" class="form-label"><?php echo $message['email'] ?></label>
-                        <input required type="email" class="form-control" placeholder="youremail@domain.com" name="email" id="email" value="<?php if (isset($_POST['submit'])) {
-                                                                                                                                                echo htmlentities($_POST['email']);
-                                                                                                                                            } ?>" aria-describedby="emailHelp">
+                        <input maxlength="255" required type="email" class="form-control" placeholder="youremail@domain.com" name="email" id="email" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['email']);} ?>">
                     </div>
                     <div class="mb-4">
                         <label for="password" class="form-label"><?php echo $message['password'] ?></label>
-                        <input required type="password" class="form-control" placeholder="Password" name="password" id="password" value="<?php if (isset($_POST['submit'])) {
-                                                                                                                                                echo htmlentities($_POST['password']);
-                                                                                                                                            } ?>">
+                        <input maxlength="255" required type="password" class="form-control" placeholder="Password" name="password" id="password" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password']);} ?>">
                     </div>
                     <div class="buttonBox">
                         <input class="button" type="submit" name="submit" value=<?php echo $message['login'] ?>>
