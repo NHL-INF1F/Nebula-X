@@ -34,11 +34,10 @@ require_once('controllers/database/dbconnect.php');
             </div>
             <div class="col-12 col-md-6 d-flex justify-content-md-end">
                 <ul class="p-0 mt-4">
-                    <li class="headerList"><a href="index.php">Home</a></li>
+                    <li class="headerList"><a href="index.php"><?php echo $message['home'] ?></a></li>
                     <li class="headerList"><a href="pages/gallery.php"><?php echo $message['gallery'] ?></a></li>
                     <li class="headerList"><a href="pages/aboutus.php"><?php echo $message['aboutus'] ?></a></li>
-                    <li class="headerList"><a href="pages/rooms.php"><?php echo $message['rooms'] ?></a></li>
-                    <li class="headerList"><a href="pages/booking.php"><?php echo $message['booking'] ?></a></li>
+                    <li class="headerList"><a href="pages/suite-overview.php"><?php echo $message['booking'] ?></a></li>
                     <li class="headerList"><a href="pages/contact.php"><?php echo $message['contact'] ?></a></li>
                     <?php
                     if (isset($_SESSION['email']) && $_SESSION['role'] == 'admin') {
