@@ -27,7 +27,6 @@ require_once('controllers/database/dbconnect.php');
 </head>
 
 <body>
-
     <div class="container-fluid header">
         <div class="row">
             <div class="col-12 col-md-6 d-flex justify-content-md-start">
@@ -36,16 +35,19 @@ require_once('controllers/database/dbconnect.php');
             <div class="col-12 col-md-6 d-flex justify-content-md-end">
                 <ul class="p-0 mt-4">
                     <li class="headerList"><a href="index.php">Home</a></li>
-                    <li class="headerList"><a href="index.php"><?php echo $message['gallery'] ?></a></li>
-                    <li class="headerList"><a href="index.php"><?php echo $message['aboutus'] ?></a></li>
-                    <li class="headerList"><a href="index.php"><?php echo $message['rooms'] ?></a></li>
-                    <li class="headerList"><a href="index.php"><?php echo $message['booking'] ?></a></li>
+                    <li class="headerList"><a href="pages/gallery.php"><?php echo $message['gallery'] ?></a></li>
+                    <li class="headerList"><a href="pages/aboutus.php"><?php echo $message['aboutus'] ?></a></li>
+                    <li class="headerList"><a href="pages/rooms.php"><?php echo $message['rooms'] ?></a></li>
+                    <li class="headerList"><a href="pages/booking.php"><?php echo $message['booking'] ?></a></li>
                     <li class="headerList"><a href="pages/contact.php"><?php echo $message['contact'] ?></a></li>
                     <?php
+                    if (isset($_SESSION['email']) && $_SESSION['role'] == 'admin') {
+                        echo '<li class="headerList"><a href="pages/adminpanel.php" class="text-primary">ADMIN-PANEL</a></li>';
+                    }
                     if (isset($_SESSION['email'])) {
                         echo '<li class="headerList"><a href="pages/logout.php" class="text-danger">LOGOUT</a></li>';
                     } else {
-                        echo '<li class="headerList"><a href="pages/register.php">'. $message['loginregister'] .'</a></li>';
+                        echo '<li class="headerList"><a href="pages/login.php">'. $message['loginregister'] .'</a></li>';
                     }
                     ?>
                 </ul>
@@ -124,7 +126,7 @@ require_once('controllers/database/dbconnect.php');
                     <li><a href=""><?php echo $message['explorerooms'] ?></a></li>
                     <li><a href=""><?php echo $message['explorebooking'] ?></a></li>
                     <li><a href="pages/contact.php"><?php echo $message['explorecontact'] ?></a></li>
-                    <li><a href="pages/register.php"><?php echo $message['loginregister'] ?></a></li>
+                    <li><a href="pages/login.php"><?php echo $message['loginregister'] ?></a></li>
                 </ul>
             </div>
             <div class="col-sm-3">

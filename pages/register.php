@@ -151,6 +151,7 @@ if (isset($_POST['submit'])) {
 
             //Send user to index.php
             header('location: login.php');
+            exit();
         }
     }
 }
@@ -167,6 +168,13 @@ if (isset($_POST['submit'])) {
 
     <!-- Font Awesome icons -->
     <script src="https://kit.fontawesome.com/f9ece565b9.js" crossorigin="anonymous"></script>
+
+    <!-- Prevent resubmitting on page refresh -->
+    <script>
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+    </script>
 
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -189,8 +197,8 @@ if (isset($_POST['submit'])) {
                 <div class="alert alert-danger text-black fw-bold p-4 rounded-0" role="alert">
                     <ul>
                         <?php
-                        foreach($error as $message) {
-                            echo '<li>' . $message . '</li>';
+                        foreach($error as $errorMsg) {
+                            echo '<li>' . $errorMsg . '</li>';
                         }
                         ?>
                     </ul>
@@ -204,22 +212,22 @@ if (isset($_POST['submit'])) {
                 <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
                     <div class="mb-1">
                         <label for="email" class="form-label"><?php echo $message['email'] ?></label>
-                        <input required type="email" class="form-control" placeholder="youremail@domain.com" name="email" id="email" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['email']);} ?>" aria-describedby="emailHelp">                    </div>
+                        <input maxlength="255" required type="email" class="form-control" placeholder="youremail@domain.com" name="email" id="email" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['email']);} ?>" aria-describedby="emailHelp">                    </div>
                     <div class="mb-1">
                         <label for="firstname" class="form-label"><?php echo $message['firstname'] ?></label>
-                        <input required type="text" class="form-control" placeholder="John" name="firstname" id="firstname" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['firstname']);} ?>">
+                        <input maxlength="255" required type="text" class="form-control" placeholder="John" name="firstname" id="firstname" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['firstname']);} ?>">
                     </div>
                     <div class="mb-1">
                         <label for="lastname" class="form-label"><?php echo $message['lastname'] ?></label>
-                        <input required type="text" class="form-control" placeholder="Doo" name="lastname" id="lastname" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['lastname']);} ?>">
+                        <input maxlength="255" required type="text" class="form-control" placeholder="Doo" name="lastname" id="lastname" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['lastname']);} ?>">
                     </div>
                     <div class="mb-1">
                         <label for="password" class="form-label"><?php echo $message['password'] ?></label>
-                        <input required type="password" class="form-control" placeholder="Password" name="password" id="password" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password']);} ?>">
+                        <input maxlength="255" required type="password" class="form-control" placeholder="Password" name="password" id="password" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password']);} ?>">
                     </div>
                     <div class="mb-4">
                         <label for="password2" class="form-label"><?php echo $message['password2'] ?></label>
-                        <input required type="password" class="form-control" placeholder="Password" name="password2" id="password2" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password2']);} ?>">
+                        <input maxlength="255" required type="password" class="form-control" placeholder="Password" name="password2" id="password2" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password2']);} ?>">
                     </div>
                     <div class="buttonBox">
                         <input class="button" type="submit" name="submit" value=<?php echo $message['registerbutton'] ?>>
