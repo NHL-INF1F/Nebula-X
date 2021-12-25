@@ -27,11 +27,11 @@
         <div class="suite-dates">
             <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
             <label>
-                DateFrom
+                Date From
                 <input type="date" id="date-from" name="date-from" required value="<?php echo  $_POST['date-from'] ?? "2021-01-01"?>">
             </label>
             <label>
-                DateTo
+                Date To
                 <input type="date" id="date-to" name="date-to" required value="<?php echo $_POST['date-to'] ?? "2021-01-01" ?>">
             </label>
             <input type="submit" value="Zoeken">
@@ -41,8 +41,8 @@
     <div class="col-md-12 p-3 bg-white">
         <!-- coordinates found with https://www.image-map.net/ -->
         <svg width="400" height="400">
-            <polygon points="198,128 199,5 171,7 141,14 121,22 97,33 78,48 61,61 49,75 38,89 30,101 26,109 132,170 139,158 149,147 161,139 173,133 185,130"
-                style="fill:lime;stroke:black;stroke-width:1;fill-rule:evenodd;" />
+                <polygon onclick="showSuite()" points="198,128 199,5 171,7 141,14 121,22 97,33 78,48 61,61 49,75 38,89 30,101 26,109 132,170 139,158 149,147 161,139 173,133 185,130"
+                    style="fill:lime;stroke:black;stroke-width:1;fill-rule:evenodd;" />
             <polygon points="199,6 198,128 210,130 223,133 235,139 245,146 251,151 257,158 261,163 265,168 375,118 364,96 353,80 335,60 315,43 293,29 269,18 248,11 223,7"
                 style="fill:lime;stroke:black;stroke-width:1;fill-rule:evenodd;" />
             <polygon points="375,117 384,140 391,174 393,200 391,226 388,244 381,266 373,284 364,300 354,314 347,324 335,335 251,250 262,236 269,221 272,204 271,184 265,168"
@@ -127,6 +127,11 @@
     }
 
     ?>
+    <script>
+        function showSuite($suiteId){
+            
+        }
+    </script>
 </div>
 </body>
 </html>

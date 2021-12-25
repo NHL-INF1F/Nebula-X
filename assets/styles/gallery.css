@@ -34,6 +34,10 @@ p {
     flex-wrap: wrap;
   }
 
+img :hover {
+    
+}
+
 .image {
   padding: 10px;
 }
