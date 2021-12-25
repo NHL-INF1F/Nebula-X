@@ -200,7 +200,7 @@ if (isset($_POST['submit'])) {
             }
             ?>
             <div class="col-md-8 p-4 bg-white order-md-1 order-2">
-                <h1><?php echo $message['register'] ?></h1>
+                <h1><?php echo $message['register']; ?></h1>
                 <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
                     <div class="mb-1">
                         <label for="email" class="form-label"><?php echo $message['email'] ?></label>

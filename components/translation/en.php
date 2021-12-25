@@ -17,6 +17,7 @@ $message['registerbutton']='REGISTER';
 
 /*Index page translation*/
 //Header buttons translation
+$message['home']='HOME';
 $message['gallery']='GALLERY';
 $message['aboutus']='ABOUT US';
 $message['rooms']='ROOMS';
