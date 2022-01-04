@@ -35,9 +35,17 @@ p {
   }
 
 .image {
-  padding: 10px;
-}
-  
+    padding: 10px;
+    opacity: 1;
+    display: block;
+    height: auto;
+    transition: .5s ease;
+    backface-visibility: hidden;
+  }
+
+.image:hover {
+    opacity: 0.3;
+  }
   
   /* input */
   label {
