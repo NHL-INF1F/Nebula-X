@@ -14,9 +14,10 @@ function getImage()
 
         if (fnmatch($fileType, $file)) {
 
+            $fileName = substr_replace($file,"",-4);
             echo "
             <div class='image'>
-                <img style='width:30vw;' src='" . $dir . "/" . $file . "'>
+                <img alt='". $fileName ." ' style='width:30vw;' src='" . $dir . "/" . $file . "'>
             </div>
             ";
         }
