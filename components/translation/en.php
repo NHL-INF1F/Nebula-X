@@ -57,6 +57,27 @@ $message['bookingtitle']='BOOKING';
 $message['spacehub']='SPACE HUB';
 $message['bookinginfo']='A single room with air conditioning, Shower. 1x single bed, Safe, Small fridge, Coffee and tea facilities, Phone, Television, Bath with bubble system, Blowdryer.';
 $message['availability']='AVAILABILITY';
+$message['booking_confirm_title']='Booking Confirmation';
+$message['booking_error_title']='Something went wrong';
+$message['booking_confirm']='CONFIRM';
+$message['booking_cancel']='CANCEL';
+$message['booking_error_contact']='LEAVE A MESSAGE';
+$message['booking_error_back']='GO BACK';
+
+$message['booking_firstname']='Firstname: ';
+$message['booking_lastname']='Lastname: ';
+$message['booking_email']='Email-address: ';
+
+$message['booking_suite']='Suite';
+$message['booking_suite_name']='Name: ';
+$message['booking_suite_size']='Size: ';
+$message['booking_suite_rooms']='Rooms: ';
+$message['booking_suite_price']='Price: ';
+
+/*Booking errors*/
+$message['incorrect_start_date']='The given start date for this reservation is invalid.';
+$message['incorrect_end_date']='The given end date for this reservation is invalid.';
+$message['no_information_passed']='There was a issue loading the reservation information.';
 
 /*Gallery page translations*/
 $message['gallerytitle']='GALLERY';

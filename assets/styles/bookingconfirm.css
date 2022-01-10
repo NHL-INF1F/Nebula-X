@@ -56,6 +56,10 @@ input::placeholder {
   content: "\f00d";
 }
 
+.cancelBox input {
+  background-color: #8b2727
+}
+
 .buttonBox::after {
   position: absolute;
   content: "\f101";
@@ -69,6 +73,11 @@ input::placeholder {
 }
 .buttonBox:hover {
   transform: scale(1.03);
+}
+
+.error-content{
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
 
 /* Container width responsive */

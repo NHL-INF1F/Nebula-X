@@ -18,13 +18,16 @@
 include_once "../controllers/database/dbconnect.php";
 include_once "../controllers/database/reservation-db-functions.php";
 
+//TODO: This is temp as the header is not on this branch.
+require_once('../components/translation/en.php');
+
 //TODO: Tijdelijk een GET override voor testen.
 //TODO: Pak het ID uit get en anders uit POST.
 if(isset($_GET['id'])){
     $suiteID = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
 } else {
     if (!isset($_POST['id'])) {
-        die("No suite ID was given.");
+        showError("no_information_passed");
     }
     $suiteID = filter_input(INPUT_POST, "id", FILTER_SANITIZE_NUMBER_INT);
 }
@@ -33,18 +36,18 @@ $suiteData = getSuite($suiteID);
 
 //TODO: Dit wordt straks uit SESSION gehaald.
 $userID = 1;
-/*
- * if(!isset($_SESSION['user'])){
- *    die("Not logged in.");
- * }
- * $userID = $_SESSION['user'];
- */
+
+/*if(!isset($_SESSION['user'])){
+    die("Not logged in.");
+}
+
+$userID = $_SESSION['user'];*/
 ?>
 
-<div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
-    <div class="row w-75 h-100" style="height: 500px; margin: 0 auto;">
+<div id="booking-confirm-page" class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
+    <div class="row w-75 h-100 mx-auto my-0">
         <div class="offset-3 col-6 p-4 bg-white text-center">
-            <h1>Booking Confirmation</h1>
+            <h1><?php echo $message['booking_confirm_title'] ?></h1>
 
             <?php
 
@@ -56,42 +59,45 @@ $userID = 1;
                 $dateFrom = filter_input(INPUT_POST, "date-from", FILTER_SANITIZE_STRING);
                 $dateTo = filter_input(INPUT_POST, "date-to", FILTER_SANITIZE_STRING);
 
-                if (!strtotime($dateFrom) || !strtotime($dateTo)) {
-                    //TODO: De die messages worden straks vertaald.
-                    die("Invalid date.");
+                if(!strtotime($dateFrom)){
+                    showError("invalid_start_date");
+                }
+
+                if(!strtotime($dateTo)){
+                    showError("invalid_end_date");
                 }
 
                 if ($dateFrom > $dateTo) {
-                    die("The start date cannot be after the end date");
+                    showError("invalid_start_date");
                 }
 
                 bookSuite($userID, $suiteID, $dateFrom, $dateTo);
                 die("Suite booked");
             }
 
+            //null should never appear outside development.
+            $firstName = $_SESSION['firstname'] ?? "null";
+            $lastname = $_SESSION['lastname'] ?? "null";
+            $email = $_SESSION['email'] ?? "null";
 
-            ?>
-
-            Firstname: TEMP<br>
-            Lastname: TEMP<br>
-            Email-address: TEMP<br>
-            <hr>
-            <span class="font-weight-bold">Suite</span>
-            <?php
-            echo "Name: " . $suiteData['name'] . "<br>";
-            echo "Size: " . $suiteData['suite_size'] . "<br>";
-            echo "Rooms: " . $suiteData['rooms'] . "<br>";
+            echo $message['booking_firstname'] . $firstName . "<br>";
+            echo $message['booking_lastname'] . $lastname . "<br>";
+            echo $message['booking_email'] . $email . "<br>";
             echo "<hr>";
-            echo "Price: $" . $suiteData['price'] . "<br><br>";
+            echo "<span class='font-weight-bold'>" . $message['booking_suite'] . "</span>";
+            echo $message['booking_suite_name'] . $suiteData['name'] . "<br>";
+            echo $message['booking_suite_size'] . $suiteData['suite_size'] . "<br>";
+            echo $message['booking_suite_rooms'] . $suiteData['rooms'] . "<br>";
+            echo "<hr>";
+            echo $message['booking_suite_price'] . "$" . $suiteData['price'] . "<br><br>";
               ?>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>"  method="post">
             <div class="row">
                     <div class="col-xxl-4 offset-xxl-1 col-12 col-xl-6 mb-4 mb-xl-0 buttonBox cancelBox">
-                        <input class="ps-3 button" type="submit" name="cancel" value="cancel"
-                               style="background-color: #8b2727">
+                        <input class="ps-3 button" type="submit" name="cancel" value="<?php echo $message['booking_cancel'];?>">
                     </div>
                     <div class="col-xxl-4 offset-xxl-2 col-12 col-xl-6 buttonBox">
-                        <input class="ps-3 button" type="submit" name="confirm" value="confirm">
+                        <input class="ps-3 button" type="submit" name="confirm" value="<?php echo $message['booking_confirm'];?>">
                     </div>
             </div>
             </form>
@@ -101,6 +107,11 @@ $userID = 1;
 </div>
 <?php
 
+function showError($errorKey){
+    $_SESSION['error'] = $errorKey;
+    header("./booking-error.php");
+}
+
 function isImage($path): bool {
     if (@is_array(getimagesize($path))) {
         $image = true;
@@ -109,8 +120,6 @@ function isImage($path): bool {
     }
     return $image;
 }
-
 ?>
-
 </body>
 </html>
