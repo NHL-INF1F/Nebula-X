@@ -1,12 +1,12 @@
 <?php
 //Start a session
-//session_start();
+session_start();
 
 //Check if user is logged
-//if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
+if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
     //Send user to index.php
-    //header('location: ../index.php');
-//}
+    header('location: ../index.php');
+}
 ?>
 <!DOCTYPE html>
 <html>
