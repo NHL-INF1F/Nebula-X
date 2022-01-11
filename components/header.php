@@ -9,8 +9,8 @@ require_once ('translation/en.php');
         <div class="col-12 col-md-6 d-flex justify-content-md-end">
             <ul class="p-0 mt-4">
                 <li class="headerList"><a href="../index.php"><?php echo $message['home']; ?></a></li>
-                <li class="headerList"><a href="../index.php"><?php echo $message['gallery']; ?></a></li>
-                <li class="headerList"><a href="../index.php"><?php echo $message['aboutus']; ?></a></li>
+                <li class="headerList"><a href="gallery.php"><?php echo $message['gallery']; ?></a></li>
+                <li class="headerList"><a href="aboutus.php"><?php echo $message['aboutus']; ?></a></li>
                 <li class="headerList"><a href="suite-overview.php"><?php echo $message['booking']; ?></a></li>
                 <li class="headerList"><a href="contact.php"><?php echo $message['contact']; ?></a></li>
                 <?php

@@ -1,0 +1,81 @@
+/* font */
+@font-face {
+    font-family: BankGothic;
+    src: url(../img/fonts/BankGothicMedium.otf)
+}
+
+/* global */
+html, body {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    height: 100%;
+    width: 100%;
+}
+
+ul {
+    list-style-type: none;
+}
+
+h4{
+    font-size: 60px;
+}
+
+h1,h4,
+h5 {
+    font-family: Bebas Neue;
+}
+
+p,
+a {
+    font-family: Arimo;
+}
+
+img {
+    max-width: 180px !important;
+}
+
+.arrow {
+    font-size: 2em;
+    cursor: pointer;
+}
+
+/* content */
+.midText {
+    max-width: 400px;
+}
+
+.p-tl{
+    padding-top: 130px;
+    padding-left: 60px;
+}
+
+.m-t{
+    margin-top: -45px;
+}
+
+/* images */
+.spaceBackground {
+    background-image: url('../img/stars.jpg');
+    background-repeat: no-repeat, repeat;
+    background-size: cover;
+}
+
+.imgBorder{
+    background-image: url('../img/background.svg');
+    background-repeat: no-repeat, repeat;
+    background-position: center;
+    }
+
+.imgSize{
+    max-width: 600px !important;
+    max-height: 330px;
+    overflow: hidden;
+}
+
+.imgCrop{
+    max-width: 100% !important;
+    height: auto;
+}
+.imgP{
+    padding: 80px;
+}

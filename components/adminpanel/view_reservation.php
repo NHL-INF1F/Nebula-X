@@ -1,9 +1,27 @@
+<?php
+//Start a session
+session_start();
+
+//Check if user is logged
+if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
+    //Send user to index.php
+    header('location: ../../index.php');
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
         <title>Adminpanel</title>
         <meta charset="UTF-8">
-        <link rel="stylesheet" href="../../assets/styles/adminpanel.css">
+
+        <!-- CSS -->
+        <link rel="stylesheet" href="../assets/styles/adminpanel.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap%27" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Bebas+Neue&display=swap%27" rel="stylesheet">
+        <link rel="stylesheet" href="../assets/styles/index.css">
+
+        <!-- modal script -->
         <script>
             // Script for the modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp
             // Get the modal
@@ -15,16 +33,9 @@
                     modal.style.display = "none";
                 }
             }
-
-            var modal = document.getElementById('editbtnpress');
-
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
-            }
         </script>
+
+        <!-- Connect to database -->
         <?php
             include('../../controllers/database/dbconnect.php');
 
@@ -93,9 +104,7 @@
         </div>
         <div>
             <?php
-                //Edit and Delete buttons
-                //echo "<a href='edit_reservation.php?id=$_GET[id]'>Edit</a><br>";
-                echo "<button onclick=document.getElementById('editbtnpress').style.display='block'>Edit</button><br>";
+                //Delete button
                 echo "<button onclick=document.getElementById('delbtnpress').style.display='block'>Delete</button><br>";
                 echo "<a href=../../pages/adminpanel.php><- Return to the Adminpanel</a><br>"
             ?>
@@ -114,26 +123,6 @@
                             echo "<a href=mailto:$userEmail?subject=Cancellation%20of%20reservation>Send Email</a>"; 
                         ?>
                         <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
-                        <!--<button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="deletebtn">Delete</button>-->
-                    </div>
-                </div>
-            </form>
-        </div>
-        <!-- Pop-up confirmation for edit, using the Modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp -->
-        <div id="editbtnpress" class="modal">
-            <span onclick="document.getElementById('editbtnpress').style.display='none'" class="close" title="Close Modal">×</span>
-            <form class="modal-content" action="/action_page.php">
-                <div class="container">
-                    <h1>Edit options</h1>
-                    <p>What do you want to edit?</p>
-                    <p>WARNING: CHANGES CAN NOT BE UNDONE!</p>
-                    <div class="clearfix">
-                        <?php 
-                            echo "<a href=edit_reservation_date.php?id=$reservationid>Date of reservation </a>";
-                            echo "<a href=edit_reservation_user.php?id=$userID>Reservating User </a>";
-                            echo "<a href=edit_reservation_suite.php?id=$suiteID>Reservated Room </a>"; 
-                        ?>
-                        <button type="button" onclick="document.getElementById('editbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
                         <!--<button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="deletebtn">Delete</button>-->
                     </div>
                 </div>
