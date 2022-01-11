@@ -12,14 +12,13 @@
     <!-- Font Awesome icons -->
     <script src="https://kit.fontawesome.com/f9ece565b9.js" crossorigin="anonymous"></script>
     <link href="../assets/styles/bookingconfirm.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/styles/header.css">
 </head>
 <body>
 <?php
-include_once "../controllers/database/dbconnect.php";
-include_once "../controllers/database/reservation-db-functions.php";
-
-//TODO: This is temp as the header is not on this branch.
-require_once('../components/translation/en.php');
+require_once("../components/header.php");
+require_once "../controllers/database/dbconnect.php";
+require_once "../controllers/database/reservation-db-functions.php";
 
 $suiteID = $_SESSION['suite_id'];
 unset($_SESSION['suite_id']);
