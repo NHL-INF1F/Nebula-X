@@ -23,30 +23,37 @@
     <title>About us</title>
 </head>
 <body>
-    <?php 
-        require_once("../components/header.php"); ?>
-        <!-- left side of the screen -->
-        <div class="container-fluid min-vh-100 m-0 p-0 spaceBackground">
-            <div= class="row w-100 min-vh-100 m-0">
-                <div class="col-md-5 text-white min-vh-100 d-flex p-l align-items-center ">
-                    <div class="row">
+<?php 
+    require_once("../components/header.php"); ?>
+    <div class="container-fluid min-vh-100 m-0 p-0 spaceBackground">
+        <div class="row">
+        <!-- Leftside text -->
+            <div class="col-md-5 p-tl text-white">
+                <div class="row">
+                    <div class="col-md-12">
                         <h4 class="d-block"><?php echo $message['about'] ?></h4>
                         <h5 class="d-block midText"><?php echo $message['aim'] ?></h5>
                         <p class="d-block"><?php echo $message['aboutusinfo'] ?></p>
                     </div>
-                    <div class="row">
-
+                </div>
+        <!-- Leftside image -->
+                <div class="row m-t">
+                    <div class="col-md-12">
+                        <img class="imgCrop" src="../assets/img/gallery/pngwing.com.png" alt="universe">
                     </div>
                 </div>
-        <!-- right side of the screen -->
-                <div class="col-md-7 bg-succes imgBorder d-flex align-items-center justify-content-center">
-                    <div class="imgSize d-flex align-items-center">               
-                        <img class="imgCrop" src="../assets/img/gallery/SpaceX_Crew.jpg" alt="SpaceX Crew">
+            </div>
+        <!-- Rightside image -->
+            <div class="col-md-7 bg-succes  min-vh-100 d-flex align-items-center justify-content-center">
+                <div class="row imgBorder">
+                    <div class="col-md-12">
+                        <img class="imgCrop imgP" src="../assets/img/gallery/SpaceX_Crew.jpg" alt="SpaceX Crew">
                     </div>
                 </div>
             </div>
 
         </div>
+    </div>
     <?php 
         require_once("../components/footer.php"); ?>
 </body>

@@ -44,8 +44,13 @@ img {
     max-width: 400px;
 }
 
-.p-l{
+.p-tl{
+    padding-top: 130px;
     padding-left: 60px;
+}
+
+.m-t{
+    margin-top: -45px;
 }
 
 /* images */
@@ -56,17 +61,21 @@ img {
 }
 
 .imgBorder{
-    background-image: url('../img/background.svg');
+    background-image: url('../img/background5.svg');
     background-repeat: no-repeat, repeat;
     background-position: center;
     }
 
 .imgSize{
-    max-width: 580px !important;
+    max-width: 600px !important;
     max-height: 330px;
     overflow: hidden;
 }
 
 .imgCrop{
     max-width: 100% !important;
+    height: auto;
+}
+.imgP{
+    padding: 80px;
 }
