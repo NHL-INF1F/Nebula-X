@@ -1,12 +1,12 @@
 <?php
 //Start a session
-session_start();
+//session_start();
 
 //Check if user is logged
-if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
+//if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
     //Send user to index.php
-    header('location: ../index.php');
-}
+    //header('location: ../index.php');
+//}
 ?>
 <!DOCTYPE html>
 <html>
@@ -57,7 +57,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                                 <td>" . $suite_id ."</td>
                                 <td>" . $date_from ."</td>
                                 <td>" . $date_to . "</td>
-                                <td><a href=../components/adminpanel/view_reservation.php?id=" . $id . ">Details</a></td>
+                                <td><a href=adminpanel-view.php?id=" . $id . ">Details</a></td>
                             </tr>";
                         }
                         

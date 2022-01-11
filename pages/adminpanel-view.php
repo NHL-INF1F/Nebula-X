@@ -1,12 +1,12 @@
 <?php
 //Start a session
-session_start();
+//session_start();
 
 //Check if user is logged
-if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
+//if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
     //Send user to index.php
-    header('location: ../../index.php');
-}
+    //header('location: ../index.php');
+//}
 ?>
 <!DOCTYPE html>
 <html>
@@ -37,11 +37,16 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
 
         <!-- Connect to database -->
         <?php
-            include('../../controllers/database/dbconnect.php');
-
+            include('../controllers/database/dbconnect.php');
+            require_once('../components/header.php');
+            require('../components/translation/en.php');
         ?>
     </head>
     <body>
+    <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
+    <div class="row w-75 h-100" style="height: 500px; margin: 0 auto;">
+    <div class="col-md-6 p-6 bg-white">    
+    <div>
         <div>
             <h1>Reservation Details</h1>
         </div>
@@ -55,7 +60,10 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
             mysqli_stmt_bind_result($reservationstmt, $ID, $user_id, $suite_id, $date_from, $date_to);
             
             while (mysqli_stmt_fetch($reservationstmt)) {
-                
+                echo "<div> 
+                    Reservation ID: " . $ID . ".
+                </div>";
+                echo "<h2>Reservated dates</h2>";
                 echo "from: " . $date_from . ".<br>";
                 echo "to: " . $date_to . ".";
             }
@@ -73,11 +81,23 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
 
                 //display the reservated suite
                 while(mysqli_stmt_fetch($suitestmt)){
-                echo "<h2>Reservated Suite</h2><br>";
-                echo "<p>Size:</p>" . $suite_size . ".<br>";
-                echo "<p>Name:</p>" . $name . ".<br>";
-                echo "<p>Discription:</p>" . $description . ".<br>";
-                echo "<p>Price:</p>" . $price . ".<br>";
+                    echo "<h2>Reservated Suite</h2><br>";
+                    echo "<table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>size</th>
+                            <th>Discription</th>
+                            <th>Price</th>
+                        </tr>
+                        <tr>
+                            <td>$ID</td>
+                            <td>$name</td>
+                            <td>$suite_size</td>
+                            <td>$description</td>
+                            <td>$price</td>
+                        </tr>
+                    </table>";
                 }
 
                 mysqli_stmt_close($suitestmt);
@@ -92,10 +112,19 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
 
                 //display the account reservating the suite
                 while(mysqli_stmt_fetch($userstmt)){
-                echo "<h2>Reservating User</h2>";
-                echo "<p>First name:</p>" . $firstname . ".";
-                echo "<p>Last name:</p>" . $lastname . ".";
-                echo "<p>email:</p>" . $email . ".";
+                    echo "<h2>Reservating User</h2>";
+                    echo "<table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                        </tr>
+                        <tr>
+                            <td>$ID</td>
+                            <td>$firstname $lastname</td>
+                            <td>$email</td>
+                        </tr>
+                    </table>";
                 }
                 
                 $userEmail = $email;
@@ -105,10 +134,13 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
         <div>
             <?php
                 //Delete button
-                echo "<button onclick=document.getElementById('delbtnpress').style.display='block'>Delete</button><br>";
-                echo "<a href=../../pages/adminpanel.php><- Return to the Adminpanel</a><br>"
+                echo "<button onclick=document.getElementById('delbtnpress').style.display='block'>Delete Reservation</button>";
+                echo "<a href=adminpanel.php><- Return to the Adminpanel</a>         "
             ?>
         </div>
+            </div>
+            </div>
+            </div>
         <!-- Pop-up confirmation for deletion, using the Modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp -->
         <div id="delbtnpress" class="modal">
             <span onclick="document.getElementById('delbtnpress').style.display='none'" class="close" title="Close Modal">×</span>
@@ -119,7 +151,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                     <p>WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE RESERVATION IT WILL BE GONE FOREVER!</p>
                     <div class="clearfix">
                         <?php 
-                            echo "<a href=delete_reservation.php?id=" . $_GET['id'] . "class=deletebtn>Delete</a>";
+                            echo "<a href=../components/adminpanel/delete_reservation.php?id=" . $_GET['id'] . "class=deletebtn>Delete</a>";
                             echo "<a href=mailto:$userEmail?subject=Cancellation%20of%20reservation>Send Email</a>"; 
                         ?>
                         <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
