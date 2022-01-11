@@ -61,7 +61,7 @@ img {
 }
 
 .imgBorder{
-    background-image: url('../img/background5.svg');
+    background-image: url('../img/background.svg');
     background-repeat: no-repeat, repeat;
     background-position: center;
     }
