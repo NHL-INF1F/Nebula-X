@@ -26,10 +26,6 @@ a {
     font-family: Arimo;
 }
 
-img {
-    max-width: 180px !important;
-}
-
 .arrow {
     font-size: 2em;
     cursor: pointer;
@@ -135,4 +131,8 @@ img {
     display: block;
     bottom: 0;
     background-color: rgb(15, 38, 54);
+}
+
+.spaceXLogo {
+    max-width: 180px;
 }
