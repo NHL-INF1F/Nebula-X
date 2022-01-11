@@ -25,11 +25,11 @@ $error = array();
  * @param array     $error  Array with errors
  * @return string/boolean  $error  False or error message
  */
-function checkRegisterFields($email, $password)
-{
+function checkRegisterFields($email, $password) {
     //Call global variable(s)
     global $error;
 
+    //If statements so the error messages will be displayed all at once instead of each individual.
     if (!$email && empty($email)) {
         $error[] = 'Email is not correct';
     }
@@ -58,24 +58,23 @@ if (isset($_POST['submit'])) {
 
     //Check form data fields
     if (!checkRegisterFields($email, $password)) {
-        //
+        //SQL query to select all from user where the email is ...
         $query = "SELECT * FROM user WHERE email = ?";
 
         //Prpeparing SQL Query with database connection
         $stmt = mysqli_prepare($conn, $query) or die(mysqli_error($conn));
 
         //Binding params into ? fields
-        mysqli_stmt_bind_param($stmt, "s", $email) or die('niet goed');
+        mysqli_stmt_bind_param($stmt, "s", $email) or die('Binding params went wrong');
 
         //Executing statement
-        mysqli_stmt_execute($stmt) or die('<br>message');
+        mysqli_stmt_execute($stmt) or die('Executing statement went wrong');
 
         //Bind the STMT results(sql statement) to variables
         mysqli_stmt_bind_result($stmt, $ID, $firstname, $lastname, $email2, $password2, $role);
 
-        //Fetch STMT data
-        while (mysqli_stmt_fetch($stmt)) {
-        }
+        //Store STMT data
+        mysqli_stmt_store_result($stmt);
 
         //Check if no result has been found
         if (mysqli_stmt_num_rows($stmt) > 0) {
@@ -86,6 +85,7 @@ if (isset($_POST['submit'])) {
                 $_SESSION['lastname'] = $lastname;
                 $_SESSION['email'] = $email2;
                 $_SESSION['role'] = $role;
+                $_SESSION['id'] = $ID;
 
                 //Close the statement and connection
                 mysqli_stmt_close($stmt);
@@ -125,7 +125,7 @@ if (isset($_POST['submit'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap%27" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Bebas+Neue&display=swap%27" rel="stylesheet">
-    <link href="../assets/styles/registerLogin.css" rel="stylesheet">
+    <link href="../assets/styles/registerLoginContact.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/styles/header.css">
 </head>
 
@@ -135,7 +135,7 @@ if (isset($_POST['submit'])) {
     require('../components/translation/en.php');
     ?>
     <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
-        <div class="row w-75 h-100" style="height: 500px; margin: 0 auto;">
+        <div class="row w-75 h-100 hBox">
             <?php
             if (isset($_POST['submit']) && !empty($error)) {
             ?>

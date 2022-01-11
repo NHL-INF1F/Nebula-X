@@ -29,7 +29,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
             require('../components/translation/en.php');
         ?>
         <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
-        <div class="row w-75 h-100" style="height: 500px; margin: 0 auto;">
+        <div class="row w-75 h-100 hBox">
             <div class="col-md-6 p-4 bg-white order-md-1 order-2">
                 <div>
                 <h2>Reservations</h2>        

@@ -44,8 +44,8 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
     </head>
     <body>
     <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
-    <div class="row w-75 h-100" style="height: 500px; margin: 0 auto;">
-    <div class="col-md-6 p-6 bg-white">    
+    <div class="row w-75 h-100 hBox">
+    <div class="col-md-6 p-6 bg-white">
     <div>
         <div>
             <h1>Reservation Details</h1>

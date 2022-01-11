@@ -12,21 +12,18 @@
     <!-- Font Awesome icons -->
     <script src="https://kit.fontawesome.com/f9ece565b9.js" crossorigin="anonymous"></script>
     <link href="../assets/styles/bookingconfirm.css" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/styles/header.css">
 </head>
 <body>
 
 <?php
-
-//TODO: This is temp as the header is not on this branch.
-require_once('../components/translation/en.php');
+require_once("../components/header.php");
 if(!isset($_SESSION['error'])){
     header('location: ../index.php');
 }
 $errorMessage = $message[$_SESSION['error']];
 
 unset($_SESSION['error']);
-
-echo $errorMessage . "<br>" . $message['booking_error_contact_message'];
 ?>
 
 <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
@@ -35,7 +32,7 @@ echo $errorMessage . "<br>" . $message['booking_error_contact_message'];
             <h1><?php echo $message['booking_error_title'] ?></h1>
 
             <div class='error-content'>
-                <?php echo $errorMessage; ?>
+                <?php echo $errorMessage. "<br>" . $message['booking_error_contact_message'];?>
             </div>
             <div class="row">
                 <div class="col-xxl-5 offset-xxl-- col-12 col-xl-6 mb-4 mb-xl-0 buttonBox">
