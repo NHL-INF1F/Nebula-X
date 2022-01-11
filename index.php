@@ -70,7 +70,7 @@ require_once('controllers/database/dbconnect.php');
                         <div>
                             <h2 class="d-block">nebula-x</h2>
                             <h1 class="d-block midText"><?php echo $message['experience'] ?></h1>
-                            <a class="text-decoration-none text-white learnMore" href="index.php">
+                            <a class="text-decoration-none text-white learnMore" href="pages/aboutus.php">
                                 <h2 class="d-block"><?php echo $message['learnmore'] ?></h2>
                             </a>
                         </div>
@@ -99,7 +99,7 @@ require_once('controllers/database/dbconnect.php');
             <div class="col-md-12">
                 <div>
                     <span class="SpaceXLogo">EMPOWERED BY</span>
-                    <img src="assets/img/logo/spacerx-logo.svg" class="img-fluid" alt="Logo">
+                    <img class="spaceXLogo" src="assets/img/logo/spacerx-logo.svg" class="img-fluid" alt="Logo">
                 </div>
             </div>
         </div>
@@ -160,7 +160,7 @@ require_once('controllers/database/dbconnect.php');
         <div class="row text-start">
             <div class="col-md-12">
                 <span class="SpaceXLogo">EMPOWERED BY</span>
-                <img src="assets/img/logo/spacerx-logo.svg" class="img-fluid" alt="Logo">
+                <img class="spaceXLogo" src="assets/img/logo/spacerx-logo.svg" class="img-fluid" alt="Logo">
             </div>
         </div>
     </div>

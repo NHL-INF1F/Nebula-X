@@ -10,7 +10,7 @@
             <div class="col-md-12">
                 <div>
                     <span class="SpaceXLogo">EMPOWERED BY</span>
-                    <img src="../assets/img/logo/spacerx-logo.svg" class="img-fluid" alt="Logo">
+                    <img class="spaceXLogo" src="../assets/img/logo/spacerx-logo.svg" class="img-fluid" alt="Logo">
                 </div>
             </div>
         </div>
@@ -71,7 +71,7 @@
         <div class="row text-start">
             <div class="col-md-12">
                 <span class="SpaceXLogo">EMPOWERED BY</span>
-                <img src="../assets/img/logo/spacerx-logo.svg" class="img-fluid" alt="Logo">
+                <img class="spaceXLogo" src="../assets/img/logo/spacerx-logo.svg" class="img-fluid" alt="Logo">
             </div>
         </div>
     </div>

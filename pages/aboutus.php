@@ -39,7 +39,7 @@
         <!-- Leftside image -->
                 <div class="row m-t">
                     <div class="col-md-12">
-                        <img class="imgCrop" src="../assets/img/gallery/pngwing.com.png" alt="universe">
+                        <img class="imgCrop" src="../assets/img/pngwing.com.png" alt="universe">
                     </div>
                 </div>
             </div>
@@ -47,7 +47,7 @@
             <div class="col-md-7 bg-succes  min-vh-100 d-flex align-items-center justify-content-center">
                 <div class="row imgBorder">
                     <div class="col-md-12">
-                        <img class="imgCrop imgP" src="../assets/img/gallery/SpaceX_Crew.jpg" alt="SpaceX Crew">
+                        <img class="imgCrop imgP" src="../assets/img/SpaceX_Crew.jpg" alt="SpaceX Crew">
                     </div>
                 </div>
             </div>
