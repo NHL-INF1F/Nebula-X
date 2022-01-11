@@ -88,6 +88,7 @@ $message['exploregallery']='Gallery';
 $message['exploreaboutus']='About us';
 $message['explorebooking']='Booking';
 $message['explorecontact']='Contact';
+$message['loginregister2']='Login/Register';
 //Visit and HQ
 $message['visit']='VISIT';
 $message['hq']='HQ';
