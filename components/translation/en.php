@@ -64,6 +64,35 @@ $message['bookingtitle']='BOOKING';
 $message['spacehub']='SPACE HUB';
 $message['bookinginfo']='A single room with air conditioning, Shower. 1x single bed, Safe, Small fridge, Coffee and tea facilities, Phone, Television, Bath with bubble system, Blowdryer.';
 $message['availability']='AVAILABILITY';
+$message['booking_confirm_title']='Booking Confirmation';
+$message['booking_error_title']='Something went wrong';
+$message['booking_confirm']='CONFIRM';
+$message['booking_cancel']='CANCEL';
+$message['booking_error_contact']='LEAVE A MESSAGE';
+$message['booking_back']='GO BACK';
+$message['booking_confirmed_title']="Reservering geplaatst";
+$message['booking_confirmed_message']="Uw reservering is succesfol geplaatst";
+
+$message['booking_user']='User';
+$message['booking_firstname']='Firstname: ';
+$message['booking_lastname']='Lastname: ';
+$message['booking_email']='Email-address: ';
+
+$message['booking_suite']='Suite';
+$message['booking_suite_name']='Name: ';
+$message['booking_suite_size']='Size: ';
+$message['booking_suite_rooms']='Rooms: ';
+$message['booking_suite_price']='Price: ';
+$message['booking_period']='Booking Period: ';
+
+/*Booking errors*/
+$message['incorrect_start_date']='The given start date for this reservation is invalid.';
+$message['incorrect_end_date']='The given end date for this reservation is invalid.';
+$message['no_information_passed']='There was an issue loading the reservation information.';
+$message['reservation_save_error']='There was an issue saving the reservation information.';
+$message['user_load_error']='There was an issue loading the user information.';
+$message['invalid_suite_id']='There was an issue loading the suite information.';
+$message['booking_error_contact_message']='Please inform us using the contact form if the issue persists.';
 
 /*Gallery page translations*/
 $message['gallerytitle']='GALLERY';
