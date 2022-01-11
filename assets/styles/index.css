@@ -44,6 +44,11 @@ img {
     position: absolute;
 }
 
+.hBox {
+    height: 500px;
+    margin: 0 auto;
+}
+
 /* Backgrounds */
 .spaceBackground {
     background-image: url('../img/space.jpg');

@@ -17,16 +17,16 @@ $error = array();
  * Display Error message if needed.
  * @param string    $email  Filled in email
  * @param string    $name  Filled in name
- * @param string    $message  Filled in message
+ * @param string    $contactMessage  Filled in contactMessage
  * @param string    $subject  Filled in subject
  * @param array     $error  Array with errors
  * @return string/boolean  $error  False or error message
  */
-function checkContactFields($email, $name, $contactMessage, $subject)
-{
+function checkContactFields(string $email, string $name, string $contactMessage, string $subject) {
     //Call global variable(s)
     global $error;
 
+    //If statements so the error messages will be displayed all at once instead of each individual.
     if (!$email && empty($email)) {
         $error[] = 'Email is not correct';
     }
@@ -39,7 +39,6 @@ function checkContactFields($email, $name, $contactMessage, $subject)
     if (!$subject && empty($subject)) {
         $error[] = 'Subject may not be empty';
     }
-
     if (strlen($email) > 255) {
         $error[] = 'Email is too long';
     }
@@ -80,7 +79,7 @@ if (isset($_POST['submit'])) {
         mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $subject, $contactMessage) or die('Binding params went wrong');
 
         //Executing statement
-        mysqli_stmt_execute($stmt) or die('<br>message');
+        mysqli_stmt_execute($stmt) or die('Executing statement went wrong');
 
         //Close the statement
         mysqli_stmt_close($stmt);
@@ -88,7 +87,7 @@ if (isset($_POST['submit'])) {
         mysqli_close($conn);
 
         //Set succes message
-        $_SESSION['succesMessage'] = 'Message has been send to the admin';
+        $_SESSION['succesMessage'] = 'Your message has been sent to the administrator';
 
         //Refresh page, prefent spam
         header("Refresh:0");
@@ -119,7 +118,7 @@ if (isset($_POST['submit'])) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap%27" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Bebas+Neue&display=swap%27" rel="stylesheet">
-    <link href="../assets/styles/registerLogin.css" rel="stylesheet">
+    <link href="../assets/styles/registerLoginContact.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/styles/header.css">
 </head>
 
@@ -128,7 +127,7 @@ if (isset($_POST['submit'])) {
     require_once('../components/header.php');
     ?>
     <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
-        <div class="row w-75 h-100" style="height: 500px; margin: 0 auto;">
+        <div class="row w-75 h-100 hBox">
             <?php
             if (isset($_POST['submit']) && !empty($error)) {
             ?>
@@ -165,19 +164,19 @@ if (isset($_POST['submit'])) {
                 <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
                     <div class="mb-1">
                         <label for="name" class="form-label">Name</label>
-                        <input  type="text" class="form-control" placeholder="John" name="name" id="name" value="<?php if(isset($_SESSION['firstname'])) {echo $_SESSION['firstname'];} else { if (isset($_POST['submit'])) {echo htmlentities($_POST['name']);} } ?>">
+                        <input required type="text" class="form-control" placeholder="John" name="name" id="name" value="<?php if(isset($_SESSION['firstname'])) {echo $_SESSION['firstname'];} else { if (isset($_POST['submit'])) {echo htmlentities($_POST['name']);} } ?>">
                     </div>
                     <div class="mb-1">
                         <label for="subject" class="form-label">Subject</label>
-                        <input  type="text" class="form-control" placeholder="Problem" name="subject" id="subject" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['subject']);} ?>">
+                        <input required type="text" class="form-control" placeholder="Problem" name="subject" id="subject" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['subject']);} ?>">
                     </div>
                     <div class="mb-1">
                         <label for="email" class="form-label"><?php echo $message['email'] ?></label>
-                        <input  type="email" class="form-control" placeholder="youremail@domain.com" name="email" id="email" value="<?php if(isset($_SESSION['email'])) {echo $_SESSION['email'];} else { if (isset($_POST['submit'])) {echo htmlentities($_POST['email']);} } ?>">
+                        <input required type="email" class="form-control" placeholder="youremail@domain.com" name="email" id="email" value="<?php if(isset($_SESSION['email'])) {echo $_SESSION['email'];} else { if (isset($_POST['submit'])) {echo htmlentities($_POST['email']);} } ?>">
                     </div>
                     <div class="mb-4">
                         <label for="message" class="form-label">Message</label>
-                        <textarea class="form-control" placeholder="I have a problem" name="message" id="message"><?php if (isset($_POST['submit'])) {echo htmlentities($_POST['message']);} ?></textarea>
+                        <textarea required class="form-control" placeholder="I have a problem" name="message" id="message"><?php if (isset($_POST['submit'])) {echo htmlentities($_POST['message']);} ?></textarea>
                     </div>
                     <div class="buttonBox">
                         <input class="button" type="submit" name="submit" value="Send">
