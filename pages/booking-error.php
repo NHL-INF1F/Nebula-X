@@ -19,12 +19,14 @@
 
 //TODO: This is temp as the header is not on this branch.
 require_once('../components/translation/en.php');
-$errorMessage = $message["no_information_passed"];
-//if(!isset($_SESSION['error'])){
-//    header('location: ../index.php');/
-//}
-//$errorMessage = $message[$_SESSION['error']];
-//unset($_SESSION['error]')
+if(!isset($_SESSION['error'])){
+    header('location: ../index.php');
+}
+$errorMessage = $message[$_SESSION['error']];
+
+unset($_SESSION['error']);
+
+echo $errorMessage . "<br>" . $message['booking_error_contact_message'];
 ?>
 
 <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
@@ -37,7 +39,7 @@ $errorMessage = $message["no_information_passed"];
             </div>
             <div class="row">
                 <div class="col-xxl-5 offset-xxl-- col-12 col-xl-6 mb-4 mb-xl-0 buttonBox">
-                    <a href="../index.php"><input class="ps-3 button" type="submit" name="return" value="<?php echo $message['booking_error_back'] ?>"></a>
+                    <a href="../index.php"><input class="ps-3 button" type="submit" name="return" value="<?php echo $message['booking_back'] ?>"></a>
                 </div>
                 <div class="col-xxl-5 offset-xxl-2 col-12 col-xl-6 buttonBox">
                     <a href="contact.php"><input class="ps-3 button" type="submit" name="contact" value="<?php echo $message['booking_error_contact'] ?>"></a>

@@ -34,6 +34,12 @@ if(isset($_GET['id'])){
 
 $suiteData = getSuite($suiteID);
 
+if(empty($suiteData)){
+    showError("invalid_suite_id");
+}
+
+$_SESSION['suite_id'] = $suiteData['ID'];
+
 //TODO: Dit wordt straks uit SESSION gehaald.
 $userID = 1;
 
@@ -50,12 +56,7 @@ $userID = $_SESSION['user'];*/
             <h1><?php echo $message['booking_confirm_title'] ?></h1>
 
             <?php
-
-            if(isset($_POST['cancel'])){
-                header('location: suite-overview.php');
-            }
-
-            if (isset($_POST['confirm'])) {
+            if(isset($_POST['date-from'])) {
                 $dateFrom = filter_input(INPUT_POST, "date-from", FILTER_SANITIZE_STRING);
                 $dateTo = filter_input(INPUT_POST, "date-to", FILTER_SANITIZE_STRING);
 
@@ -67,28 +68,59 @@ $userID = $_SESSION['user'];*/
                     showError("invalid_end_date");
                 }
 
+                $_SESSION['date-from'] = $dateFrom;
+                $_SESSION['date-to'] = $dateTo;
+            }
+
+            if(isset($_POST['cancel'])){
+                unset($_SESSION['date-from']);
+                unset($_SESSION['date-to']);
+                header('location: suite-overview.php');
+            }
+
+            if (isset($_POST['confirm'])) {
+                $dateFrom = $_SESSION['date-from'];
+                $dateTo = $_SESSION['date-to'];
+                //$suiteID = $_SESSION['suite_id'];
+                unset($_SESSION['date-from']);
+                unset($_SESSION['date-to']);
+                //unset($_SESSION['suite_id']);
+
                 if ($dateFrom > $dateTo) {
                     showError("invalid_start_date");
                 }
 
-                bookSuite($userID, $suiteID, $dateFrom, $dateTo);
-                die("Suite booked");
+                if(!bookSuite($userID, $suiteID, $dateFrom, $dateTo)){
+                    showError("reservation_save_error");
+                }
+
+                header("location: booking-confirm.php");
+            }
+
+            if(!isset($_SESSION['date-from']) || !isset($_SESSION['date-to'])){
+                showError("no_information_passed");
             }
 
             //null should never appear outside development.
-            $firstName = $_SESSION['firstname'] ?? "null";
-            $lastname = $_SESSION['lastname'] ?? "null";
-            $email = $_SESSION['email'] ?? "null";
+            $firstName = $_SESSION['firstname'] ?? null;
+            $lastname = $_SESSION['lastname'] ?? null;
+            $email = $_SESSION['email'] ?? null;
 
+            if(!isset($firstName) || !isset($lastname) || !isset($email)){
+                showError("user_load_error");
+            }
+
+            echo "<span class='fw-bold'>" . $message['booking_user'] . "</span><br>";
             echo $message['booking_firstname'] . $firstName . "<br>";
             echo $message['booking_lastname'] . $lastname . "<br>";
             echo $message['booking_email'] . $email . "<br>";
             echo "<hr>";
-            echo "<span class='font-weight-bold'>" . $message['booking_suite'] . "</span>";
+            echo "<span class='fw-bold'>" . $message['booking_suite'] . "</span><br>";
             echo $message['booking_suite_name'] . $suiteData['name'] . "<br>";
             echo $message['booking_suite_size'] . $suiteData['suite_size'] . "<br>";
             echo $message['booking_suite_rooms'] . $suiteData['rooms'] . "<br>";
             echo "<hr>";
+            echo $message['booking_period'] . $_SESSION['date-from'] . " - " . $_SESSION['date-to'] . "<br><br>";
             echo $message['booking_suite_price'] . "$" . $suiteData['price'] . "<br><br>";
               ?>
             <form action="<?php echo $_SERVER['PHP_SELF']; ?>"  method="post">
@@ -109,7 +141,7 @@ $userID = $_SESSION['user'];*/
 
 function showError($errorKey){
     $_SESSION['error'] = $errorKey;
-    header("./booking-error.php");
+    header("location: ./booking-error.php");
 }
 
 function isImage($path): bool {
