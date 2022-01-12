@@ -29,17 +29,17 @@ unset($_SESSION['error']);
 <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
     <div class="row w-75 h-100 mx-auto my-0">
         <div class="offset-3 col-6 p-4 bg-white text-center">
-            <h1><?php echo $message['booking_error_title'] ?></h1>
+            <h1><?php echo $message['error_title'] ?></h1>
 
             <div class='error-content'>
-                <?php echo $errorMessage. "<br>" . $message['booking_error_contact_message'];?>
+                <?php echo $errorMessage. "<br>" . $message['error_contact_message'];?>
             </div>
             <div class="row">
                 <div class="col-xxl-6 col-12 mb-4 mb-xxl-0 buttonBox">
-                    <a href="../index.php"><input class="ps-3 button" type="button" name="return" value="<?php echo $message['booking_back'] ?>"></a>
+                    <a href="../index.php"><input class="ps-3 button" type="button" name="return" value="<?php echo $message['error_back'] ?>"></a>
                 </div>
                 <div class="col-xxl-6  col-12 buttonBox">
-                    <a href="contact.php"><input class="ps-3 button" type="button" name="contact" value="<?php echo $message['booking_error_contact'] ?>"></a>
+                    <a href="contact.php"><input class="ps-3 button" type="button" name="contact" value="<?php echo $message['error_contact'] ?>"></a>
                 </div>
             </div>
         </div>

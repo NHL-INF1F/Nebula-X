@@ -65,11 +65,12 @@ $message['spacehub']='SPACE HUB';
 $message['bookinginfo']='A single room with air conditioning, Shower. 1x single bed, Safe, Small fridge, Coffee and tea facilities, Phone, Television, Bath with bubble system, Blowdryer.';
 $message['availability']='AVAILABILITY';
 $message['booking_confirm_title']='Booking Confirmation';
-$message['booking_error_title']='Something went wrong';
+$message['error_title']='Something went wrong';
 $message['booking_confirm']='CONFIRM';
 $message['booking_cancel']='CANCEL';
-$message['booking_error_contact']='LEAVE A MESSAGE';
+$message['error_contact']='LEAVE A MESSAGE';
 $message['booking_back']='GO BACK';
+$message['error_back']='GO BACK';
 $message['booking_confirmed_title']="Reservering geplaatst";
 $message['booking_confirmed_message']="Uw reservering is succesfol geplaatst";
 
@@ -92,7 +93,7 @@ $message['no_information_passed']='There was an issue loading the reservation in
 $message['reservation_save_error']='There was an issue saving the reservation information.';
 $message['user_load_error']='There was an issue loading the user information.';
 $message['invalid_suite_id']='There was an issue loading the suite information.';
-$message['booking_error_contact_message']='Please inform us using the contact form if the issue persists.';
+$message['error_contact_message']='Please inform us using the contact form if the issue persists.';
 
 /*Gallery page translations*/
 $message['gallerytitle']='GALLERY';
