@@ -4,6 +4,30 @@ require('../components/translation/en.php');
 require_once('../controllers/database/dbconnect.php');
 require_once("../controllers/database/reservation-db-functions.php");
 $today = date("Y-m-d");
+
+function getImage($selected) {
+    $dir = "../assets/img/suites/" . $selected . "/";
+    $fileType = "*.png";
+    $dirOpen = opendir($dir);
+
+    while (($file = readdir($dirOpen))) {
+        if (is_dir($file)) {
+            continue;
+        }
+
+        if (fnmatch($fileType, $file)) {
+
+            $fileName = substr_replace($file,"",-4);
+            echo "
+            <div class='image'>
+                <img alt='". $fileName ."' style='width:30vw;' src='" . $dir . "/" . $file . "'>
+            </div>
+            ";
+        }
+    }
+    closedir($dirOpen);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,8 +70,8 @@ $today = date("Y-m-d");
             </form>
         </div>
         <?php
-        $startDate = filter_input(INPUT_GET, 'dateStart');
-        $endDate = filter_input(INPUT_GET, 'dateEnd');
+        $startDate = filter_input(INPUT_GET, 'dateStart', FILTER_SANITIZE_SPECIAL_CHARS);
+        $endDate = filter_input(INPUT_GET, 'dateEnd', FILTER_SANITIZE_SPECIAL_CHARS);
         if ($startDate < $endDate){
             $getReserved = "SELECT suite_id, date_from, date_to FROM reservation";
             $stmt = mysqli_prepare($conn, $getReserved);
@@ -60,130 +84,134 @@ $today = date("Y-m-d");
                 );
             }
             mysqli_stmt_close($stmt);
-            // echo "<br>".$startDate."<br>".$endDate."<br><br>";
             foreach($allReservations as $checkReservations => $reservation){
-                // echo $reservation['id']."<br>";
-                // echo $reservation['startDate']."<br>";
-                // echo $reservation['endDate']."<br>";
-                if($startDate < $endDate){
-                    if($startDate <= $reservation['endDate']){
-                        if($endDate >= $reservation['startDate']){
-                            // echo "check 1<br>".$reservation['id'];
-                            array_push($reservedRooms, $reservation['id']);
-                        }
-                    }
-                    elseif($endDate >= $reservation['startDate']){
-                        if($endDate <= $reservation['endDate']){
-                            // echo "check 2<br>".$reservation['id'];
-                            array_push($reservedRooms, $reservation['id']);
-                        }
-                    }
+                if($startDate <= $reservation['endDate'] && $endDate >= $reservation['startDate']){
+                    array_push($reservedRooms, $reservation['id']);
                 }
+                elseif($endDate >= $reservation['startDate'] && $endDate <= $reservation['endDate']){
+                    array_push($reservedRooms, $reservation['id']);
+                }
+            }
+            if (!isset($_GET['floor'])){
+                $floor = "1";
+            } else {
+                $floor = filter_input(INPUT_GET, 'floor', FILTER_SANITIZE_SPECIAL_CHARS);
+            }
+            if (!isset($_GET['selected'])){
+                $selected = "1";
+            } else {
+                $selected = filter_input(INPUT_GET, 'selected', FILTER_SANITIZE_SPECIAL_CHARS);
             }
             echo "<div>";
             echo "<svg width='400' height='400'>";
             // coordinates generated with https://www.image-map.net/
-            echo "<polygon points='198,128 199,5 171,7 141,14 121,22 97,33 78,48 61,61 49,75 38,89 30,101 26,109 132,170 139,158 149,147 161,139 173,133 185,130'
-                style='fill:";
-                if(in_array(1, $reservedRooms, true)){
-                    echo "red";
-                }else{
-                    echo "lime";
-                }
-            echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' />
-                <polygon points='199,6 198,128 210,130 223,133 235,139 245,146 251,151 257,158 261,163 265,168 375,118 364,96 353,80 335,60 315,43 293,29 269,18 248,11 223,7'
-                style='fill:";
-                if(in_array(2, $reservedRooms, true)){
-                    echo "red";
-                }else{
-                    echo "lime";
-                }
-            echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' />
-                <polygon points='375,117 384,140 391,174 393,200 391,226 388,244 381,266 373,284 364,300 354,314 347,324 335,335 251,250 262,236 269,221 272,204 271,184 265,168'
-                style='fill:";
-                if(in_array(3, $reservedRooms, true)){
-                    echo "red";
-                }else{
-                    echo "lime";
-                }
-            echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' />
-                <polygon points='151,256 76,348 93,361 116,373 140,383 167,389 196,392 230,390 253,384 288,371 305,360 320,349 335,335 251,250 240,258 225,266 210,270 196,272 184,270 170,265 160,261'
-                style='fill:";
-                if(in_array(4, $reservedRooms, true)){
-                    echo "red";
-                }else{
-                    echo "lime";
-                }
-            echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' />
-                <polygon points='25,109 132,169 126,188 125,204 129,222 135,236 143,247 151,256 76,349 50,325 35,304 24,282 15,262 7,231 4,207 4,184 9,157 15,135'
-                style='fill:";
-                if(in_array(5, $reservedRooms, true)){
-                    echo "red";
-                }else{
-                    echo "lime";
-                }
-            echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' />
-                    <circle cx='200' cy='199' r='38'
-                    style='fill:lime;stroke:black;stroke-width:1;fill-rule:evenodd;' />';";
+            if ($floor === "1"){
+                echo "<a href='./suite-overview.php?floor=1&dateStart=".$startDate."&dateEnd=".$endDate."&selected=1'>'";
+                echo "<polygon points='198,128 199,5 171,7 141,14 121,22 97,33 78,48 61,61 49,75 38,89 30,101 26,109 132,170 139,158 149,147 161,139 173,133 185,130' style='fill:";
+                    if(in_array(1, $reservedRooms, true)){
+                        echo "red";
+                    }else{
+                        echo "lime";
+                    }
+                echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' /></a>";
+                echo "<a href='./suite-overview.php?floor=1&dateStart=".$startDate."&dateEnd=".$endDate."&selected=2'>'";
+                echo "<polygon points='199,6 198,128 210,130 223,133 235,139 245,146 251,151 257,158 261,163 265,168 375,118 364,96 353,80 335,60 315,43 293,29 269,18 248,11 223,7' style='fill:";
+                    if(in_array(2, $reservedRooms, true)){
+                        echo "red";
+                    }else{
+                        echo "lime";
+                    }
+                echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' /></a>";
+                echo "<a href='./suite-overview.php?floor=1&dateStart=".$startDate."&dateEnd=".$endDate."&selected=3'>'";
+                echo "<polygon points='375,117 384,140 391,174 393,200 391,226 388,244 381,266 373,284 364,300 354,314 347,324 335,335 251,250 262,236 269,221 272,204 271,184 265,168' style='fill:";
+                    if(in_array(3, $reservedRooms, true)){
+                        echo "red";
+                    }else{
+                        echo "lime";
+                    }
+                echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' /></a>";
+                echo "<a href='./suite-overview.php?floor=1&dateStart=".$startDate."&dateEnd=".$endDate."&selected=4'>'";
+                echo "<polygon points='151,256 76,348 93,361 116,373 140,383 167,389 196,392 230,390 253,384 288,371 305,360 320,349 335,335 251,250 240,258 225,266 210,270 196,272 184,270 170,265 160,261' style='fill:";
+                    if(in_array(4, $reservedRooms, true)){
+                        echo "red";
+                    }else{
+                        echo "lime";
+                    }
+                echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' /></a>";
+                echo "<a href='./suite-overview.php?floor=1&dateStart=".$startDate."&dateEnd=".$endDate."&selected=5'>'";
+                echo "<polygon points='25,109 132,169 126,188 125,204 129,222 135,236 143,247 151,256 76,349 50,325 35,304 24,282 15,262 7,231 4,207 4,184 9,157 15,135' style='fill:";
+                    if(in_array(5, $reservedRooms, true)){
+                        echo "red";
+                    }else{
+                        echo "lime";
+                    }
+                echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' /></a>";     
+                echo "<a href='./suite-overview.php?floor=2&dateStart=".$startDate."&dateEnd=".$endDate."&selected=".$selected."'>";
+                echo "<circle cx='200' cy='199' r='38' style='fill:lime;stroke:black;stroke-width:1;fill-rule:evenodd;' /></a>";
+            } elseif ($floor === "2"){
+                echo "<a href='./suite-overview.php?floor=2&dateStart=".$startDate."&dateEnd=".$endDate."&selected=6'>'";
+                echo "<polygon points='198,128 199,5 171,7 141,14 121,22 97,33 78,48 61,61 49,75 38,89 30,101 26,109 132,170 139,158 149,147 161,139 173,133 185,130' style='fill:";
+                    if(in_array(6, $reservedRooms, true)){
+                        echo "red";
+                    }else{
+                        echo "lime";
+                    }
+                echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' /></a>";
+                echo "<a href='./suite-overview.php?floor=2&dateStart=".$startDate."&dateEnd=".$endDate."&selected=7'>'";
+                echo "<polygon points='199,6 198,128 210,130 223,133 235,139 245,146 251,151 257,158 261,163 265,168 375,118 364,96 353,80 335,60 315,43 293,29 269,18 248,11 223,7' style='fill:";
+                    if(in_array(7, $reservedRooms, true)){
+                        echo "red";
+                    }else{
+                        echo "lime";
+                    }
+                echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' /></a>";
+                echo "<a href='./suite-overview.php?floor=2&dateStart=".$startDate."&dateEnd=".$endDate."&selected=8'>'";
+                echo "<polygon points='375,117 384,140 391,174 393,200 391,226 388,244 381,266 373,284 364,300 354,314 347,324 335,335 251,250 262,236 269,221 272,204 271,184 265,168' style='fill:";
+                    if(in_array(8, $reservedRooms, true)){
+                        echo "red";
+                    }else{
+                        echo "lime";
+                    }
+                echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' /></a>";
+                echo "<a href='./suite-overview.php?floor=2&dateStart=".$startDate."&dateEnd=".$endDate."&selected=9'>'";
+                echo "<polygon points='151,256 76,348 93,361 116,373 140,383 167,389 196,392 230,390 253,384 288,371 305,360 320,349 335,335 251,250 240,258 225,266 210,270 196,272 184,270 170,265 160,261' style='fill:";
+                    if(in_array(9, $reservedRooms, true)){
+                        echo "red";
+                    }else{
+                        echo "lime";
+                    }
+                echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' /></a>";
+                echo "<a href='./suite-overview.php?floor=2&dateStart=".$startDate."&dateEnd=".$endDate."&selected=10'>'";
+                echo "<polygon points='25,109 132,169 126,188 125,204 129,222 135,236 143,247 151,256 76,349 50,325 35,304 24,282 15,262 7,231 4,207 4,184 9,157 15,135' style='fill:";
+                    if(in_array(10, $reservedRooms, true)){
+                        echo "red";
+                    }else{
+                        echo "lime";
+                    }
+                echo ";stroke:black;stroke-width:1;fill-rule:evenodd;' /></a>";     
+                echo "<a href='./suite-overview.php?floor=1&dateStart=".$startDate."&dateEnd=".$endDate."&selected=".$selected."'>";
+                echo "<circle cx='200' cy='199' r='38' style='fill:lime;stroke:black;stroke-width:1;fill-rule:evenodd;' /></a>";
+            }
             echo "</svg>";
             echo "</div>";
         } else {
             echo "The start date can't be later or the same day as the end date.";
         }
-        // , array('options' => array('default' => $today))
-        // , array('options' => array('default' => $today))
-        
-            // foreach ($suites as $suite) { ?>
-             <!-- <div class="suite"> -->
-                 <?php
-            //     $dirPath = "../assets/img/suites/" . $suite['ID'] . "/";
-            //     if (!file_exists($dirPath)) {
-            //         mkdir($dirPath);
-            //     }
-
-            // $photos = scandir($dirPath);
-            // $photoPath = "../assets/img/suites/placeholder.png";
-            // foreach ($photos as $photo) {
-            //     $path = $dirPath . $photo;
-            //     if (!isImage($path)) {
-            //         continue;
-            //     }
-            //     $photoPath = $path;
-            //     break;
-            // }
-            // echo "<div class='suite-image'><img src='" . $photoPath . "' alt='" . $suite['name']  . "'></div>";
-            // ?>
-            <!-- <div class="suite-text">
-                <h2 style="display: inline-block"><a href="suite.php?id=<?php echo $suite['ID'] ?>">
-                        <?php echo $suite['name']  ?></a></h2>
-                <div class="suite-details">
-                    Size: <?php echo $suite['suite_size']?>
-                    Rooms: <?php echo $suite['rooms'] ?>
-                </div>
-                <p><?php echo $suite['description'] ?></p>
-                <div class="suite-price">Price: &dollar;<?php echo $suite['price']?></div>
-            </div>
-        </div> -->
-
-    <?php 
-    // }
-    
-
-    // function isImage($path): bool {
-    //     if (@is_array(getimagesize($path))) {
-    //         $image = true;
-    //     } else {
-    //         $image = false;
-    //     }
-    //     return $image;
-    // }
-
-    ?>
-    <!-- <script>
-        function showSuite($suiteId){
-            
+        echo "<div>";
+        if (!empty($selected)){
+            getImage($selected);
         }
-    </script> -->
-</div>
+        echo "<div>";
+        echo "<h2><";
+                    // <?php echo $suite['name']  ?></a></h2>
+            <div class="suite-details">
+                Size: <?php echo $suite['suite_size']?>
+                Rooms: <?php echo $suite['rooms'] ?>
+            </div>
+            <p><?php echo $suite['description'] ?></p>
+            <div class="suite-price">Price: &dollar;<?php echo $suite['price']?></div>
+        </div>
+    </div>
+    </main>
 </body>
 </html>
