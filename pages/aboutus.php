@@ -45,7 +45,7 @@
             </div>
         <!-- Rightside image -->
             <div class="col-md-7 bg-succes  min-vh-100 d-flex align-items-center justify-content-center">
-                <div class="row imgBorder">
+                <div class="row imgBorder mx-auto d-none d-md-block">
                     <div class="col-md-12">
                         <img class="imgCrop imgP" src="../assets/img/SpaceX_Crew.jpg" alt="SpaceX Crew">
                     </div>

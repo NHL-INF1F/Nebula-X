@@ -23,14 +23,11 @@ require_once "../controllers/database/reservation-db-functions.php";
 $suiteID = $_SESSION['suite_id'];
 unset($_SESSION['suite_id']);
 
-//TODO: Dit wordt straks uit SESSION gehaald.
-$userID = 1;
-
-/*if(!isset($_SESSION['user'])){
-    die("Not logged in.");
+if(!isset($_SESSION['id'])){
+    header("location: ./index.php");
 }
 
-$userID = $_SESSION['user'];*/
+$userID = $_SESSION['id'];
 ?>
 
 <div id="booking-confirm-page" class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
@@ -43,7 +40,7 @@ $userID = $_SESSION['user'];*/
             $dateTo = $_SESSION['date-to'];
 
             if(!isset($dateFrom) || $dateTo){
-                showError("no_information_passed");
+               showError("no_information_passed");
             }
 
             //$suiteID = $_SESSION['suite_id'];
@@ -62,22 +59,19 @@ $userID = $_SESSION['user'];*/
                 header("location: ../index.php");
             }
               ?>
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>"  method="post">
             <div class="row">
-                    <div class="col-xxl-6 offset-xxl-3 col-12 col-xl-6 buttonBox">
-                        <a href="../index.php"><input class="ps-3 button" type="submit" name="confirm" value="<?php echo $message['booking_back'];?>"</a>>
-                    </div>
+                <div class="col-xxl-6 offset-xxl-3 col-12 buttonBox">
+                    <a href="../index.php"><input class="ps-3 button" type="button" name="confirm" value="<?php echo $message['booking_back'];?>"</a>
+                </div>
             </div>
-            </form>
         </div>
-
     </div>
 </div>
 <?php
 
 function showError($errorKey){
     $_SESSION['error'] = $errorKey;
-    header("location: ./booking-error.php");
+    header("location: ./error.php");
 }
 
 function isImage($path): bool {

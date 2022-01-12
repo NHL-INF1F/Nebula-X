@@ -39,14 +39,11 @@ if(empty($suiteData)){
 
 $_SESSION['suite_id'] = $suiteData['ID'];
 
-//TODO: Dit wordt straks uit SESSION gehaald.
-$userID = 1;
-
-/*if(!isset($_SESSION['user'])){
-    die("Not logged in.");
+if(!isset($_SESSION['id'])){
+    header("location: ./index.php");
 }
 
-$userID = $_SESSION['user'];*/
+$userID = $_SESSION['id'];
 ?>
 
 <div id="booking-confirm-page" class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
@@ -122,7 +119,7 @@ $userID = $_SESSION['user'];*/
             echo $message['booking_period'] . $_SESSION['date-from'] . " - " . $_SESSION['date-to'] . "<br><br>";
             echo $message['booking_suite_price'] . "$" . $suiteData['price'] . "<br><br>";
               ?>
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>"  method="post">
+            <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>"  method="post">
             <div class="row">
                     <div class="col-xxl-4 offset-xxl-1 col-12 col-xl-6 mb-4 mb-xl-0 buttonBox cancelBox">
                         <input class="ps-3 button" type="submit" name="cancel" value="<?php echo $message['booking_cancel'];?>">
@@ -140,16 +137,7 @@ $userID = $_SESSION['user'];*/
 
 function showError($errorKey){
     $_SESSION['error'] = $errorKey;
-    header("location: ./booking-error.php");
-}
-
-function isImage($path): bool {
-    if (@is_array(getimagesize($path))) {
-        $image = true;
-    } else {
-        $image = false;
-    }
-    return $image;
+    header("location: ./error.php");
 }
 ?>
 </body>

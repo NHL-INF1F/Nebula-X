@@ -14,8 +14,6 @@ function getSuite(int $id): ?array {
         return null;
     }
     if ($row = mysqli_fetch_assoc($result)) {
-        //Tijdelijk
-        $row['description'] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pharetra neque tincidunt velit congue tempus. Mauris neque libero, aliquam non lorem ultricies, aliquet sagittis erat. Nunc finibus fermentum erat, nec vulputate nunc luctus vulputate. Donec ultrices sagittis felis ut malesuada. Mauris vitae viverra tellus. Nulla eleifend hendrerit venenatis. Praesent feugiat porttitor nisi, sed mollis tellus aliquet a. Duis convallis mauris ut dapibus condimentum. Aenean et egestas purus. Praesent bibendum dignissim ligula, non venenatis leo iaculis nec. Suspendisse diam tellus, tempor quis felis a, interdum tristique orci. Nulla egestas orci et varius lobortis. Fusce sed nisi lectus. Nullam sagittis, tellus eu euismod hendrerit, mauris neque posuere libero, quis facilisis elit diam id orci. Nunc at risus eu enim posuere euismod sed in tortor.";
         mysqli_stmt_close($stmt);
         mysqli_next_result($conn);
         return $row;
@@ -81,8 +79,6 @@ function getFreeSuites($startDate, $endDate): ?array {
     //Add all suites to the associative array.
     //The key is the ID, the value is the whole db row.
     while ($row = mysqli_fetch_assoc($result)) {
-        //Temporarily set description here because it will be removed from the database and will be loaded from the language files.
-        $row['description'] = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris pharetra neque tincidunt velit congue tempus. Mauris neque libero, aliquam non lorem ultricies, aliquet sagittis erat. Nunc finibus fermentum erat, nec vulputate nunc luctus vulputate. Donec ultrices sagittis felis ut malesuada. Mauris vitae viverra tellus. Nulla eleifend hendrerit venenatis. Praesent feugiat porttitor nisi, sed mollis tellus aliquet a. Duis convallis mauris ut dapibus condimentum. Aenean et egestas purus. Praesent bibendum dignissim ligula, non venenatis leo iaculis nec. Suspendisse diam tellus, tempor quis felis a, interdum tristique orci. Nulla egestas orci et varius lobortis. Fusce sed nisi lectus. Nullam sagittis, tellus eu euismod hendrerit, mauris neque posuere libero, quis facilisis elit diam id orci. Nunc at risus eu enim posuere euismod sed in tortor.";
         $suites[$row['ID']] = $row;
     }
 

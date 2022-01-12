@@ -30,6 +30,7 @@ a {
     font-family: Arimo;
 }
 
+
 .arrow {
     font-size: 2em;
     cursor: pointer;
@@ -73,5 +74,5 @@ a {
     height: auto;
 }
 .imgP{
-    padding: 80px;
+    padding: 70px;
 }

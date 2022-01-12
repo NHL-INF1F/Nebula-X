@@ -16,8 +16,11 @@ function getImage()
 
             $fileName = substr_replace($file,"",-4);
             echo "
-            <div class='image'>
-                <img alt='". $fileName ." ' style='width:30vw;' src='" . $dir . "/" . $file . "'>
+            <div class='col-sm-4'>
+                <div class='image'>
+                    <img class='img-fluid' alt='". $fileName ." ' src='" . $dir . "/" . $file . "'>
+                    <span class='text'>". $fileName ."</span>
+                </div>
             </div>
             ";
         }
@@ -34,7 +37,7 @@ function getImage()
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap%27" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Bebas+Neue&display=swap%27" rel="stylesheet">
-    <link href="../assets/styles/registerLogin.css" rel="stylesheet">
+    <link href="../assets/styles/registerLoginContact.css" rel="stylesheet">
     <link rel="stylesheet" href="../assets/styles/gallery.css">
     <link rel="stylesheet" href="../assets/styles/header.css">
     <meta charset="UTF-8">
@@ -45,14 +48,17 @@ function getImage()
 <body>
     <?php 
     require_once("../components/header.php"); ?>
-    <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
-        <div class="container-fluid">
-            <div>
-                <h1>Gallery</h1>
+    <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground pt-5">
+        <div class="container-fluid pt-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1><?php echo $message['gallery']; ?></h1>
+                </div>
             </div>
-            <div class="gallery">
+
+            <div class="row">
                 <?php
-                    getImage();
+                getImage();
                 ?>
             </div>
         </div>
