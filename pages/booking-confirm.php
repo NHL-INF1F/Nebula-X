@@ -71,7 +71,7 @@ $userID = $_SESSION['id'];
 
 function showError($errorKey){
     $_SESSION['error'] = $errorKey;
-    header("location: ./booking-error.php");
+    header("location: ./error.php");
 }
 
 function isImage($path): bool {
