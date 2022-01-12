@@ -1,12 +1,12 @@
 <?php
 //Start a session
-session_start();
+//session_start();
 
 //Check if user is logged
-if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
+//if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
     //Send user to index.php
-    header('location: ../index.php');
-}
+    //header('location: ../index.php');
+//}
 ?>
 <!DOCTYPE html>
 <html>
@@ -33,7 +33,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
             <div class="col-md-6 p-4 bg-white order-md-1 order-2">
                 <div>
                 <h2>Reservations</h2>        
-                <table id=tablereserv>
+                <table id="tablereserv">
                     <tr>
                         <th>ID</th>
                         <th>User ID</th>
@@ -73,7 +73,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
         
         
         
-        <div  class="col-md-6 p-4 bg-white order-md-1 order-2">
+        <div  class="col-md-6 p-4 bg-white order-md-1 order-2" >
         <h2>Contact Messages</h2>
             <table id=tablecontact>
                 <tr>
@@ -101,16 +101,35 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                             <td>" . $subject . "</td>
                             <td>" . $message ."</td>
                             <td> <a href=mailto:$email?subject=Response%20$subject>Send Mail</a></td>
-                            <td> <a href=../components/adminpanel/delete_message.php?id=". $id .">Delete</a></td>
+                            <td> <button onclick=document.getElementById('delbtnpress').style.display='block'>Delete</button></td>
                         </tr>";
                     }
                 ?>
             </table>
+            <!-- Pop-up confirmation for deletion, using the Modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp -->
+            <div id="delbtnpress" class="modal">
+                <span onclick="document.getElementById('delbtnpress').style.display='none'" class="close" title="Close Modal">×</span>
+                <form class="modal-content" action="/action_page.php">
+                    <div class="container">
+                        <h1>Delete Confirmation</h1>
+                        <p>Are you sure you want to delete the reservation?</p>
+                        <p>WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE RESERVATION IT WILL BE GONE FOREVER!</p>
+                        <div class="clearfix">
+                            <?php 
+                                echo "<a href=../components/adminpanel/delete_message.php?id=". $id .">Delete</a></div>"; 
+                            ?>
+                            <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
             <?php
                 // close the statement
                 mysqli_stmt_close($contactstmt);
                 mysqli_close($conn)
             ?>
         </div>
+        
+
     </body>
 </html>
