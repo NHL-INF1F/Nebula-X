@@ -30,7 +30,7 @@ require_once('controllers/database/dbconnect.php');
     <div class="container-fluid header">
         <div class="row">
             <div class="col-12 col-md-6 d-flex justify-content-md-start">
-                <img src="assets/img/logo/logoWit.svg" class="img-fluid" alt="Logo">
+                <img class="headerImg" src="assets/img/logo/logoWit.svg" class="img-fluid" alt="Logo">
             </div>
             <div class="col-12 col-md-6 d-flex justify-content-md-end">
                 <ul class="p-0 mt-4">
