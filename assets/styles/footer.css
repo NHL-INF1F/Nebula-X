@@ -42,3 +42,6 @@
 .spaceXLogo {
     max-width: 180px;
 }
+.logoImg {
+    max-width: 180px !important;
+}
