@@ -34,10 +34,6 @@ p {
     flex-wrap: wrap;
   }
 
-img :hover {
-    
-}
-
 .image {
     padding: 10px;
     opacity: 1;
@@ -47,8 +43,45 @@ img :hover {
     backface-visibility: hidden;
   }
 
-.image:hover {
+.image:hover img {
     opacity: 0.3;
+}
+
+.image .text {
+  font-size: 2em;
+  position: relative;
+  color: white;
+  bottom: 160px;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  visibility: hidden;
+  font-family: Bebas Neue;
+  }
+
+  @media (max-width: 1440px) {
+    .image .text {
+      bottom: 140px;
+    }
+  }
+  @media (max-width: 1024px) {
+    .image .text {
+      bottom: 100px;
+    }
+  }
+  @media (max-width: 768px) {
+    .image .text {
+      bottom: 75px;
+    }
+  }
+  @media (max-width: 425px) {
+    .image .text {
+      bottom: 100px;
+    }
+  }
+
+  .image:hover .text  {
+    visibility:visible;
   }
   
   /* input */

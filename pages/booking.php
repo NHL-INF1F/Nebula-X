@@ -53,8 +53,8 @@ $userID = $_SESSION['id'];
 
             <?php
             if(isset($_POST['date-from'])) {
-                $dateFrom = filter_input(INPUT_POST, "date-from", FILTER_SANITIZE_STRING);
-                $dateTo = filter_input(INPUT_POST, "date-to", FILTER_SANITIZE_STRING);
+                $dateFrom = filter_input(INPUT_POST, "date-from", FILTER_SANITIZE_SPECIAL_CHARS);
+                $dateTo = filter_input(INPUT_POST, "date-to", FILTER_SANITIZE_SPECIAL_CHARS);
 
                 if(!strtotime($dateFrom)){
                     showError("invalid_start_date");
