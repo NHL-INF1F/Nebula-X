@@ -48,7 +48,7 @@ function getImage()
     <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
         <div class="container-fluid">
             <div>
-                <h1>Gallery</h1>
+                <h1><?php echo $message['gallery']; ?></h1>
             </div>
             <div class="gallery">
                 <?php
