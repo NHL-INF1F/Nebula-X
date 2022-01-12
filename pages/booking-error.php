@@ -35,11 +35,11 @@ unset($_SESSION['error']);
                 <?php echo $errorMessage. "<br>" . $message['booking_error_contact_message'];?>
             </div>
             <div class="row">
-                <div class="col-xxl-5 offset-xxl-- col-12 col-xl-6 mb-4 mb-xl-0 buttonBox">
-                    <a href="../index.php"><input class="ps-3 button" type="submit" name="return" value="<?php echo $message['booking_back'] ?>"></a>
+                <div class="col-xxl-6 col-12 mb-4 mb-xxl-0 buttonBox">
+                    <a href="../index.php"><input class="ps-3 button" type="button" name="return" value="<?php echo $message['booking_back'] ?>"></a>
                 </div>
-                <div class="col-xxl-5 offset-xxl-2 col-12 col-xl-6 buttonBox">
-                    <a href="contact.php"><input class="ps-3 button" type="submit" name="contact" value="<?php echo $message['booking_error_contact'] ?>"></a>
+                <div class="col-xxl-6  col-12 buttonBox">
+                    <a href="contact.php"><input class="ps-3 button" type="button" name="contact" value="<?php echo $message['booking_error_contact'] ?>"></a>
                 </div>
             </div>
         </div>

@@ -73,8 +73,9 @@ if (isset($_POST['submit'])) {
         //Bind the STMT results(sql statement) to variables
         mysqli_stmt_bind_result($stmt, $ID, $firstname, $lastname, $email2, $password2, $role);
 
-        //Store STMT data
-        mysqli_stmt_store_result($stmt);
+        //Fetch STMT data
+        while (mysqli_stmt_fetch($stmt)) {
+        }
 
         //Check if no result has been found
         if (mysqli_stmt_num_rows($stmt) > 0) {
