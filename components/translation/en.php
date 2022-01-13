@@ -125,6 +125,6 @@ $message['visit']='VISIT';
 $message['hq']='HQ';
 //Legal
 $message['legal']='LEGAL';
-$message['terms']='Terms';
+$message['trademark']='Trademark';
 $message['privacy']='Privacy';
 ?>

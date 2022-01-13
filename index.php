@@ -31,7 +31,7 @@ require_once('controllers/database/dbconnect.php');
     <div class="container-fluid header">
         <div class="row">
             <div class="col-12 col-md-6 d-flex justify-content-md-start">
-                <img class="logoImg" src="assets/img/logo/logoWit.svg" class="img-fluid" alt="Logo">
+                <img src="assets/img/logo/logoWit.svg" class="img-fluid logoImg" alt="Logo">
             </div>
             <div class="col-12 col-md-6 d-flex justify-content-md-end">
                 <ul class="p-0 mt-4">
@@ -102,7 +102,7 @@ require_once('controllers/database/dbconnect.php');
             <div class="col-md-12">
                 <div>
                     <span class="SpaceXLogo">EMPOWERED BY</span>
-                    <img class="spaceXLogo" src="assets/img/logo/spacerx-logo.svg" class="img-fluid" alt="Logo">
+                    <img src="assets/img/logo/spacerx-logo.svg" class="img-fluid spaceXLogo" alt="Logo">
                 </div>
             </div>
         </div>
@@ -118,7 +118,7 @@ require_once('controllers/database/dbconnect.php');
         </div>
         <div class="row">
             <div class="col-sm-3">
-                <img class="logoImg" src="assets/img/logo/logoWit.svg" class="img-fluid" alt="Logo">
+                <img src="assets/img/logo/logoWit.svg" class="img-fluid logoImg" alt="Logo">
                 <p><?php echo $message['nebulaxmotto'] ?></p>
             </div>
             <div class="col-sm-3">
@@ -156,14 +156,16 @@ require_once('controllers/database/dbconnect.php');
             </div>
             <div class="col-sm-3">
                 <h1><?php echo $message['legal'] ?></h1> 
-                <p><?php echo $message['terms'] ?></p>
-                <p><?php echo $message['privacy'] ?></p>
+                <ul class="p-0 m-0">
+                    <li><a href="https://www.spacex.com/trademark/"><?php echo $message['trademark'] ?></li></a>
+                    <li><a href="https://www.spacex.com/media/privacy_policy_spacex.pdf"><?php echo $message['privacy'] ?></a></li>
+                </ul>
             </div>
         </div>
         <div class="row text-start">
             <div class="col-md-12">
                 <span class="SpaceXLogo">EMPOWERED BY</span>
-                <img class="spaceXLogo" src="assets/img/logo/spacerx-logo.svg" class="img-fluid" alt="Logo">
+                <img src="assets/img/logo/spacerx-logo.svg" class="img-fluid spaceXLogo" alt="Logo">
             </div>
         </div>
     </div>

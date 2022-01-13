@@ -42,7 +42,7 @@ session_start();
         <!-- Leftside image -->
                 <div class="row m-t">
                     <div class="col-md-12">
-                        <img class="imgCrop" src="../assets/img/pngwing.com.png" alt="universe">
+                        <img class="img-fluid" src="../assets/img/pngwing.com.png" alt="universe">
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@ session_start();
             <div class="col-md-7 bg-succes  min-vh-100 d-flex align-items-center justify-content-center">
                 <div class="row imgBorder mx-auto d-none d-md-block">
                     <div class="col-md-12">
-                        <img class="imgCrop imgP" src="../assets/img/SpaceX_Crew.jpg" alt="SpaceX Crew">
+                        <img class="img-fluid imgP" src="../assets/img/SpaceX_Crew.jpg" alt="SpaceX Crew">
                     </div>
                 </div>
             </div>
