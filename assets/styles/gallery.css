@@ -1,8 +1,8 @@
 /* Form/Global */
 ul {
-    margin: 0;
-    font-family: Arimo;
-  }
+  margin: 0;
+  font-family: Arimo;
+}
 
 h1 {
   font-family: Bebas Neue;
@@ -26,25 +26,24 @@ p {
     rgba(16, 35, 68, 1) 50%,
     rgba(3, 17, 43, 1) 78%
   );
-
 }
 
 .gallery {
-    display: flex;
-    flex-wrap: wrap;
-  }
+  display: flex;
+  flex-wrap: wrap;
+}
 
 .image {
-    padding: 10px;
-    opacity: 1;
-    display: block;
-    height: auto;
-    transition: .5s ease;
-    backface-visibility: hidden;
-  }
+  padding: 10px;
+  opacity: 1;
+  display: block;
+  height: auto;
+  transition: 0.5s ease;
+  backface-visibility: hidden;
+}
 
 .image:hover img {
-    opacity: 0.3;
+  opacity: 0.3;
 }
 
 .image .text {
@@ -57,83 +56,82 @@ p {
   text-align: center;
   visibility: hidden;
   font-family: Bebas Neue;
-  }
+}
 
-  @media (max-width: 1440px) {
-    .image .text {
-      bottom: 140px;
-    }
+@media (max-width: 1440px) {
+  .image .text {
+    bottom: 140px;
   }
-  @media (max-width: 1024px) {
-    .image .text {
-      bottom: 100px;
-    }
+}
+@media (max-width: 1024px) {
+  .image .text {
+    bottom: 100px;
   }
-  @media (max-width: 768px) {
-    .image .text {
-      bottom: 75px;
-    }
+}
+@media (max-width: 768px) {
+  .image .text {
+    bottom: 75px;
   }
-  @media (max-width: 425px) {
-    .image .text {
-      bottom: 100px;
-    }
+}
+@media (max-width: 425px) {
+  .image .text {
+    bottom: 100px;
   }
+}
 
-  .image:hover .text  {
-    visibility:visible;
+.image:hover .text {
+  visibility: visible;
+}
+
+/* input */
+label {
+  font-family: Bebas Neue;
+  font-size: 1.25em;
+  margin-bottom: 0 !important;
+}
+input {
+  font-family: Arimo;
+}
+input::placeholder {
+  color: black !important;
+}
+
+/* Button */
+.button {
+  background-color: #425db8;
+  max-width: 200px;
+  width: 100%;
+  height: 50px;
+  color: white;
+  font-family: Bebas Neue;
+  text-align: start;
+  font-size: 2em;
+  border: none;
+  line-height: 53px;
+}
+.buttonBox {
+  transition: all ease 0.1s;
+  position: relative;
+  max-width: 200px;
+  width: 100%;
+}
+.buttonBox::after {
+  position: absolute;
+  content: "\f101";
+  font-family: FontAwesome;
+  color: white;
+  right: 15px;
+  top: 2px;
+  font-size: 2em;
+  pointer-events: none;
+}
+.buttonBox:hover {
+  transform: scale(1.03);
+}
+
+/* Container width responsive */
+@media (max-width: 767px) {
+  .w-75 {
+    width: 100% !important;
   }
-  
-  /* input */
-  label {
-    font-family: Bebas Neue;
-    font-size: 1.25em;
-    margin-bottom: 0 !important;
-  }
-  input {
-    font-family: Arimo;
-  }
-  input::placeholder {
-    color: black !important;
-  }
-  
-  /* Button */
-  .button {
-    background-color: #425db8;
-    max-width: 200px;
-    width: 100%;
-    height: 50px;
-    color: white;
-    font-family: Bebas Neue;
-    text-align: start;
-    font-size: 2em;
-    border: none;
-    line-height: 53px;
-  }
-  .buttonBox {
-    transition: all ease 0.1s;
-    position: relative;
-    max-width: 200px;
-    width: 100%;
-  }
-  .buttonBox::after {
-    position: absolute;
-    content: "\f101";
-    font-family: FontAwesome;
-    color: white;
-    right: 15px;
-    top: 2px;
-    font-size: 2em;
-    pointer-events: none;
-  }
-  .buttonBox:hover {
-    transform: scale(1.03);
-  }
-  
-  /* Container width responsive */
-  @media (max-width: 767px) {
-    .w-75 {
-      width: 100% !important;
-    }
-  }
-  
+}

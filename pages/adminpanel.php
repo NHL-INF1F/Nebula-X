@@ -43,20 +43,22 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
             require_once('../components/header.php');
             require('../components/translation/en.php');
         ?>
-        <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
-        <div class="row w-75 h-100 hBox">
-            <div class="col-md-6 p-4 bg-white order-md-1 order-2">
-                <div>
-                <h2>Reservations</h2>        
-                <table id="tablereserv">
-                    <tr>
-                        <th>ID</th>
-                        <th>User ID</th>
-                        <th>Suite ID</th>
-                        <th>Start date</th>
-                        <th>End date</th>
-                    </tr>
-                    <?php
+
+        <div class="container-fluid blueBackground min-vh-100">
+            <div class="row p-5">
+                <div class="col-md-4 pt-5">
+                    <h2 class="text-white">Reservations</h2>
+                    <table class="bg-white">
+                        <thead>
+                            <th>ID</th>
+                            <th>User ID</th>
+                            <th>Suite ID</th>
+                            <th>Start date</th>
+                            <th>End date</th>
+                        </thead>
+                        
+                        <tbody>
+                        <?php
                         // run query from database
                         $reservationsql = "SELECT * from reservation";
                         $reservationstmt = mysqli_prepare($conn, $reservationsql) or die(mysqli_error($conn));
@@ -64,7 +66,6 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                         mysqli_stmt_bind_result($reservationstmt, $id, $user_id, $suite_id, $date_from, $date_to);
 
                         // while loop to echo the query results in a table
-                        
                         while (mysqli_stmt_fetch($reservationstmt)) {
                             echo "<tr>
                                 <td>" . $id ."</td>
@@ -73,53 +74,74 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                                 <td>" . $date_from ."</td>
                                 <td>" . $date_to . "</td>
                                 <td><a href=adminpanel-view.php?id=" . $id . ">Details</a></td>
-                            </tr>";
+                                </tr>";
                         }
-                        
-                    ?>
-                </table>
-                <?php
-                    mysqli_stmt_close($reservationstmt);
-                ?>
+                        mysqli_stmt_close($reservationstmt);
+                        ?>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-        
-        <div  class="col-md-6 p-4 bg-white order-md-1 order-2" >
-        <h2>Contact Messages</h2>
-            <table id=tablecontact>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Subject</th>
-                    <th>Message</th>
-                    <th></th>
-                </tr>
+
+                <div class="col-md-4 pt-5">
+                    <h2 class="text-white">Contact Messages</h2>
+
+                    <table class="bg-white">
+                        <thead>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Subject</th>
+                            <th>Message</th>
+                            <th></th>
+                        </thead>
+
+                        <tbody>
+                        <?php
+                        // run query from database
+                        $contactsql = "SELECT * from contact_message";
+                        $contactstmt = mysqli_prepare($conn, $contactsql) or die(mysqli_error($conn));
+                        mysqli_stmt_execute($contactstmt) or die("Error");
+                        mysqli_stmt_bind_result($contactstmt, $id, $name, $email, $subject, $message);
+                        
+                        // while loop to echo the query results in a table
+                        while(mysqli_stmt_fetch($contactstmt)) {
+                            echo "<tr>
+                                <td>" . $id ."</td>
+                                <td>" . $name ."</td>
+                                <td>" . $email ."</td>
+                                <td>" . $subject . "</td>
+                                <td>" . $message ."</td>
+                                <td> <a href=mailto:$email?subject=Response%20$subject>Send Mail</a></td>
+                                <td> <button onclick=document.getElementById('delbtnpress').style.display='block'>Delete</button></td>
+                                </tr>";
+                        }
+                        mysqli_stmt_close($contactstmt);
+                        ?>
+                        <!-- Pop-up confirmation for deletion, using the Modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp -->
+                        <div id="delbtnpress" class="modal">
+                            <span onclick="document.getElementById('delbtnpress').style.display='none'" class="close" title="Close Modal">×</span>
+                            <form class="modal-content" action="/action_page.php">
+                                <div class="container">
+                                    <h1>Delete Confirmation</h1>
+                                    <h2>Are you sure you want to delete the Message?</h2>
+                                    <p>WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE Message IT WILL BE GONE FOREVER!</p>
+                                    <div class="clearfix">
+                                        <?php 
+                                            echo "<a href=../components/adminpanel/delete_message.php?id=". $id .">Delete</a></div>"; 
+                                        ?>
+                                        <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        </tbody>
+                    </table>
+                </div>
                 
-                <?php
-                    // run query from database
-                    $contactsql = "SELECT * from contact_message";
-                    $contactstmt = mysqli_prepare($conn, $contactsql) or die(mysqli_error($conn));
-                    mysqli_stmt_execute($contactstmt) or die("Error");
-                    mysqli_stmt_bind_result($contactstmt, $id, $name, $email, $subject, $message);
-                    
-                    // while loop to echo the query results in a table
-                    while(mysqli_stmt_fetch($contactstmt)) {
-                        echo "<tr>
-                            <td>" . $id ."</td>
-                            <td>" . $name ."</td>
-                            <td>" . $email ."</td>
-                            <td>" . $subject . "</td>
-                            <td>" . $message ."</td>
-                            <td> <a href=mailto:$email?subject=Response%20$subject>Send Mail</a></td>
-                            <td> <button onclick=document.getElementById('delbtnpress').style.display='block'>Delete</button></td>
-                        </tr>";
-                    }
-                ?>
-            </table>
-            <div class="row w-75 h-100 hBox">
-                <div class="col-md-12 p-4 bg-white order-md-1 order-2">
-                <?php
+                <div class="col-md-4 pt-5">
+                    <h2 class="text-white">Gallery</h2>
+
+                    <?php
                     $error = '';
 
                     function checkImage($image)
@@ -226,47 +248,29 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                             $error = 'Niet gevonden';
                         }
                     }
-
-                    
-                    
-                    
-                    getImage();
                     ?>
-                    
+
                     <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
-                        <div>
-                            <label for="image">Upload picture</label>
-                            <input type="file" name="photo" id="image">
+                        <div class="mb-3">
+                            <label for="image" class="form-label text-white">Upload gallery picture</label>
+                            <input class="form-control" type="file" name="photo" id="image">
                         </div>
                         <div>
-                            <input type="submit" name="sendImage" value="Upload">
+                            <input class="btn btn-primary" type="submit" name="sendImage" value="Upload">
+                        </div>
+                    </form>
+
+                    <?php
+                    // getImage();
+                    ?>
                 </div>
             </div>
-
-            <!-- Pop-up confirmation for deletion, using the Modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp -->
-            <div id="delbtnpress" class="modal">
-                <span onclick="document.getElementById('delbtnpress').style.display='none'" class="close" title="Close Modal">×</span>
-                <form class="modal-content" action="/action_page.php">
-                    <div class="container">
-                        <h1>Delete Confirmation</h1>
-                        <h2>Are you sure you want to delete the Message?</h2>
-                        <p>WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE Message IT WILL BE GONE FOREVER!</p>
-                        <div class="clearfix">
-                            <?php 
-                                echo "<a href=../components/adminpanel/delete_message.php?id=". $id .">Delete</a></div>"; 
-                            ?>
-                            <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <?php
-                // close the statement
-                mysqli_stmt_close($contactstmt);
-                mysqli_close($conn)
-            ?>
         </div>
         
+    <?php
+    // close the connection
+    mysqli_close($conn);
+    ?>
 
     </body>
 </html>

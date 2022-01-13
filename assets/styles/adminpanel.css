@@ -1,12 +1,12 @@
-/*
-#tablereserv{
-    border: 1px solid black;
+.blueBackground {
+  background: linear-gradient(
+    180deg,
+    rgba(13, 24, 45, 1) 0%,
+    rgba(20, 39, 71, 1) 30%,
+    rgba(16, 35, 68, 1) 50%,
+    rgba(3, 17, 43, 1) 78%
+  );
 }
-
-#tablecontact{
-    border: 1px solid black; 
-}
-*/
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
