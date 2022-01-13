@@ -94,7 +94,7 @@ if (!isset($_GET['dateEnd'])){
             <div class='col-md-6'>
                 <h1>Available Suites</h1>
                 <div>
-                    <form action="<?php htmlentities($_SERVER['PHP_SELF']);?>" method="get">
+                    <form action="<?php echo htmlentities($_SERVER['PHP_SELF']);?>" method="get">
                         <div>
                             <label>
                                 From
@@ -291,7 +291,6 @@ function showSlides(n) {
       dots[i].className = dots[i].className.replace(" active", "");
   }
   slides[slideIndex-1].style.display = "block";
-  dots[slideIndex-1].className += " active";
 }
 </script>
 </body>
