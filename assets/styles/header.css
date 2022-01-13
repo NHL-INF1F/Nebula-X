@@ -1,8 +1,6 @@
 /* header */
 .header {
-    position: fixed;
-    z-index: 999;
-    background: transparent;
+    background-color: rgb(3 17 43 / 98%);
 }
 
 .headerList {

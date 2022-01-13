@@ -249,7 +249,17 @@ $error = array();
                         }
                     }
                     ?>
-
+                    <div class="col-md-12 p-0">
+                                    <div class="alert alert-danger text-black fw-bold p-4 rounded-0" role="alert">
+                                        <ul>
+                                            <?php
+                                            foreach($error as $errorMsg) {
+                                                echo '<li>' . $errorMsg . '</li>';
+                                            }
+                                            ?>
+                                        </ul>
+                                    </div>
+                                </div>
                     <form class="mb-3" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
                         <div class="mb-2">
                             <label for="image" class="form-label text-white">Upload gallery picture</label>
