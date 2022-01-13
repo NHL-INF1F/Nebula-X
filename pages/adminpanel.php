@@ -7,6 +7,9 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
     //Send user to index.php
     header('location: ../index.php');
 }
+
+$error = array();
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,7 +21,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap%27" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Bebas+Neue&display=swap%27" rel="stylesheet">
-        <link rel="stylesheet" href="../assets/styles/index.css">
+        <link rel="stylesheet" href="../assets/styles/header.css">
         <link rel="stylesheet" href="../assets/styles/adminpanel.css">
         
         <!-- modal script -->
@@ -34,8 +37,6 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                 }
             }
         </script>
-
-
     </head>
     <body>
         <?php
@@ -44,108 +45,112 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
             require('../components/translation/en.php');
         ?>
 
-        <div class="container-fluid blueBackground min-vh-100">
+        <div class="container-fluid blueBackground">
             <div class="row p-5">
                 <div class="col-md-4 pt-5">
                     <h2 class="text-white">Reservations</h2>
-                    <table class="bg-white">
-                        <thead>
-                            <th>ID</th>
-                            <th>User ID</th>
-                            <th>Suite ID</th>
-                            <th>Start date</th>
-                            <th>End date</th>
-                        </thead>
-                        
-                        <tbody>
-                        <?php
-                        // run query from database
-                        $reservationsql = "SELECT * from reservation";
-                        $reservationstmt = mysqli_prepare($conn, $reservationsql) or die(mysqli_error($conn));
-                        mysqli_stmt_execute($reservationstmt) or die("Error");
-                        mysqli_stmt_bind_result($reservationstmt, $id, $user_id, $suite_id, $date_from, $date_to);
 
-                        // while loop to echo the query results in a table
-                        while (mysqli_stmt_fetch($reservationstmt)) {
-                            echo "<tr>
-                                <td>" . $id ."</td>
-                                <td>" . $user_id ."</td>
-                                <td>" . $suite_id ."</td>
-                                <td>" . $date_from ."</td>
-                                <td>" . $date_to . "</td>
-                                <td><a href=adminpanel-view.php?id=" . $id . ">Details</a></td>
-                                </tr>";
-                        }
-                        mysqli_stmt_close($reservationstmt);
-                        ?>
-                        </tbody>
-                    </table>
+                    <div class="table-responsive">
+                        <table class="bg-white">
+                            <thead>
+                                <th>ID</th>
+                                <th>User ID</th>
+                                <th>Suite ID</th>
+                                <th>Start date</th>
+                                <th>End date</th>
+                            </thead>
+                            
+                            <tbody>
+                            <?php
+                            // run query from database
+                            $reservationsql = "SELECT * from reservation";
+                            $reservationstmt = mysqli_prepare($conn, $reservationsql) or die(mysqli_error($conn));
+                            mysqli_stmt_execute($reservationstmt) or die("Error");
+                            mysqli_stmt_bind_result($reservationstmt, $id, $user_id, $suite_id, $date_from, $date_to);
+
+                            // while loop to echo the query results in a table
+                            while (mysqli_stmt_fetch($reservationstmt)) {
+                                echo "<tr>
+                                    <td>" . $id ."</td>
+                                    <td>" . $user_id ."</td>
+                                    <td>" . $suite_id ."</td>
+                                    <td>" . $date_from ."</td>
+                                    <td>" . $date_to . "</td>
+                                    <td><a href=adminpanel-view.php?id=" . $id . ">Details</a></td>
+                                    </tr>";
+                            }
+                            mysqli_stmt_close($reservationstmt);
+                            ?>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
 
                 <div class="col-md-4 pt-5">
                     <h2 class="text-white">Contact Messages</h2>
 
-                    <table class="bg-white">
-                        <thead>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Subject</th>
-                            <th>Message</th>
-                            <th></th>
-                        </thead>
+                    <div class="table-responsive">
+                        <table class="bg-white">
+                            <thead>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Subject</th>
+                                <th>Message</th>
+                                <th></th>
+                            </thead>
 
-                        <tbody>
-                        <?php
-                        // run query from database
-                        $contactsql = "SELECT * from contact_message";
-                        $contactstmt = mysqli_prepare($conn, $contactsql) or die(mysqli_error($conn));
-                        mysqli_stmt_execute($contactstmt) or die("Error");
-                        mysqli_stmt_bind_result($contactstmt, $id, $name, $email, $subject, $message);
-                        
-                        // while loop to echo the query results in a table
-                        while(mysqli_stmt_fetch($contactstmt)) {
-                            echo "<tr>
-                                <td>" . $id ."</td>
-                                <td>" . $name ."</td>
-                                <td>" . $email ."</td>
-                                <td>" . $subject . "</td>
-                                <td>" . $message ."</td>
-                                <td> <a href=mailto:$email?subject=Response%20$subject>Send Mail</a></td>
-                                <td> <button onclick=document.getElementById('delbtnpress').style.display='block'>Delete</button></td>
-                                </tr>";
-                        }
-                        mysqli_stmt_close($contactstmt);
-                        ?>
-                        <!-- Pop-up confirmation for deletion, using the Modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp -->
-                        <div id="delbtnpress" class="modal">
-                            <span onclick="document.getElementById('delbtnpress').style.display='none'" class="close" title="Close Modal">×</span>
-                            <form class="modal-content" action="/action_page.php">
-                                <div class="container">
-                                    <h1>Delete Confirmation</h1>
-                                    <h2>Are you sure you want to delete the Message?</h2>
-                                    <p>WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE Message IT WILL BE GONE FOREVER!</p>
-                                    <div class="clearfix">
-                                        <?php 
-                                            echo "<a href=../components/adminpanel/delete_message.php?id=". $id .">Delete</a></div>"; 
-                                        ?>
-                                        <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
+                            <tbody>
+                            <?php
+                            // run query from database
+                            $contactsql = "SELECT * from contact_message";
+                            $contactstmt = mysqli_prepare($conn, $contactsql) or die(mysqli_error($conn));
+                            mysqli_stmt_execute($contactstmt) or die("Error");
+                            mysqli_stmt_bind_result($contactstmt, $id, $name, $email, $subject, $message);
+                            
+                            // while loop to echo the query results in a table
+                            while(mysqli_stmt_fetch($contactstmt)) {
+                                echo "<tr>
+                                    <td>" . $id ."</td>
+                                    <td>" . $name ."</td>
+                                    <td>" . $email ."</td>
+                                    <td>" . $subject . "</td>
+                                    <td>" . $message ."</td>
+                                    <td> <a href=mailto:$email?subject=Response%20$subject>Send Mail</a></td>
+                                    <td> <button class='btn btn-primary' onclick=document.getElementById('delbtnpress').style.display='block'>Delete</button></td>
+                                    </tr>";
+                            }
+                            mysqli_stmt_close($contactstmt);
+                            ?>
+                            <!-- Pop-up confirmation for deletion, using the Modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp -->
+                            <div id="delbtnpress" class="modal">
+                                <span onclick="document.getElementById('delbtnpress').style.display='none'" class="close" title="Close Modal">×</span>
+                                <form class="modal-content" action="/action_page.php">
+                                    <div class="container">
+                                        <h1>Delete Confirmation</h1>
+                                        <h2>Are you sure you want to delete the Message?</h2>
+                                        <p>WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE Message IT WILL BE GONE FOREVER!</p>
+                                        <div class="clearfix">
+                                            <?php 
+                                                echo "<a href=../components/adminpanel/delete_message.php?id=". $id .">Delete</a></div>"; 
+                                            ?>
+                                            <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
-                        </tbody>
-                    </table>
+                                </form>
+                            </div>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
                 
                 <div class="col-md-4 pt-5">
                     <h2 class="text-white">Gallery</h2>
 
                     <?php
-                    $error = '';
-
-                    function checkImage($image)
-                    {
+                    function checkImage($image) {
                         global $error;
 
                         if (is_uploaded_file($image['tmp_name'])){
@@ -162,45 +167,36 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                                                         return true;
                                                     }
                                                 } else {
-                                                    $error = 'Oeps! Een fout. Probeer het opnieuw.';
+                                                    $error[] = 'Oeps! Een fout. Probeer het opnieuw.';
                                                     return false;
                                                 }
                                             } else {
-                                                $error = 'Bestandsnaam: ' . $image['name'] . ' bestaat nu al. Upload een foto met een andere naam a.u.b.';
+                                                $error[] = 'Bestandsnaam: ' . $image['name'] . ' bestaat nu al. Upload een foto met een andere naam a.u.b.';
                                                 return false;
                                             }
                                         } else {
-                                            $error = 'Bestandnaam is te lang. De naam moet 50 karakters of minder zijn.';
+                                            $error[] = 'Bestandnaam is te lang. De naam moet 50 karakters of minder zijn.';
                                             return false;
                                         }
                                     } else {
-                                        $error = 'Oeps! Een fout. Probeer het met een andere foto.';
+                                        $error[] = 'Oeps! Een fout. Probeer het met een andere foto.';
                                         return false;
                                     }
                                 } else {
-                                    $error = 'Het bestandstype van de foto is niet correct. Upload een jpg/jpeg/png.';
+                                    $error[] = 'Het bestandstype van de foto is niet correct. Upload een jpg/jpeg/png.';
                                     return false;
                                 }
                             } else {
-                                $error = 'Het bestand dat je uploadt is te groot. Upload een foto van maximaal 3MB of minder.';
+                                $error[] = 'Het bestand dat je uploadt is te groot. Upload een foto van maximaal 3MB of minder.';
                                 return false;
                             }
                         } else {
-                            $error = 'Niks gedetecteerd. Weet je zeker dat je iets hebt geuploadt?';
+                            $error[] = 'Niks gedetecteerd. Weet je zeker dat je iets hebt geuploadt?';
                             return false;
                         }
                     }
 
-                    if (isset($_POST['sendImage'])) {
-                        if (checkImage($_FILES['photo'])) {
-                            echo "<h3> Bestand geupload!</h3>";
-                        } else {
-                            echo $error;
-                        }
-                    }
-
-                    function getImage()
-                    {
+                    function getImage() {
                         $dir = "../assets/img/gallery";
 
                         $dirOpen = opendir($dir);
@@ -210,22 +206,26 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                                 continue;
                             }
 
-                            //if (fnmatch('*.' . $type, $file)) {
-
-                                echo "
-                                <div>
-                                    <img style='width:200px;' src='" . $dir . "/" . $file . "'><br>
-                                    $file<br>
+                            echo "
+                            <div class='col-sm-12 col-md-6 mb-3'>
+                                <div class='border border-primary p-2'>
+                                    <img class='img-fluid mb-2' src='" . $dir . "/" . $file . "'>
 
                                     <form action='" . htmlentities($_SERVER['PHP_SELF']) . "' method='post'>
                                         <input type='hidden' name='imageName' value='" . $file  . "'>
-                                        <input type='submit' name='delete' value='Verwijderen'>
+                                        <input class='btn btn-primary' type='submit' name='delete' value='Verwijderen'>
                                     </form>
-                                </div><br>
-                                ";
-                            //}
+                                </div>
+                            </div>
+                            ";
                         }
                         closedir($dirOpen);
+                    }
+
+                    if (isset($_POST['sendImage'])) {
+                        if (checkImage($_FILES['photo'])) {
+                            echo "<h3> Bestand geupload!</h3>";
+                        }
                     }
 
                     if (isset($_GET['getImage'])) {
@@ -245,13 +245,13 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                         if (unlink('../assets/img/gallery/' . htmlentities($_POST['imageName']))) {
                             echo 'De foto is verwijderd.';
                         } else {
-                            $error = 'Niet gevonden';
+                            $error[] = 'Niet gevonden';
                         }
                     }
                     ?>
 
-                    <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
-                        <div class="mb-3">
+                    <form class="mb-3" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
+                        <div class="mb-2">
                             <label for="image" class="form-label text-white">Upload gallery picture</label>
                             <input class="form-control" type="file" name="photo" id="image">
                         </div>
@@ -260,9 +260,12 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                         </div>
                     </form>
 
+                    <div class="row">
                     <?php
-                    // getImage();
+                    getImage();
                     ?>
+                    </div>
+
                 </div>
             </div>
         </div>
