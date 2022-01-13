@@ -76,7 +76,7 @@ $error = array();
                                     <td>" . $suite_id ."</td>
                                     <td>" . $date_from ."</td>
                                     <td>" . $date_to . "</td>
-                                    <td><a href=adminpanel-view.php?id=" . $id . ">$message['details'];</a></td>
+                                    <td><a href=adminpanel-view.php?id=" . $id . ">". $message['details'] .";</a></td>
                                     </tr>";
                             }
                             mysqli_stmt_close($reservationstmt);
@@ -125,19 +125,6 @@ $error = array();
                             mysqli_stmt_close($contactstmt);
                             ?>
                             <div id="delbtnpress" class="modal">
-<<<<<<< HEAD
-                                <span onclick="document.getElementById('delbtnpress').style.display='none'" class="close" title="Close Modal">×</span>
-                                <form class="modal-content" action="/action_page.php">
-                                    <div class="container">
-                                        <h1>Delete Confirmation</h1>
-                                        <h2>Are you sure you want to delete the Message?</h2>
-                                        <p>WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE Message IT WILL BE GONE FOREVER!</p>
-                                        <div class="clearfix">
-                                            <?php 
-                                                echo "<a href=../components/adminpanel/delete_message.php?id=". $id .">Delete</a></div>"; 
-                                            ?>
-                                            <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
-=======
                                 <form action="/action_page.php">
                                     <div class="modal-content">
                                         <h1>Delete Confirmation</h1>
@@ -146,7 +133,6 @@ $error = array();
                                         <div>
                                             <a class='btn btn-danger' href='../components/adminpanel/delete_message.php?id=<?php echo $id ?>'>Delete</a>
                                             <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="btn btn-warning">Cancel</button>
->>>>>>> eebfbd8bf19c5c2818dd9da4cb00e56c02d618ca
                                         </div>
                                     </div>
                                 </form>
@@ -260,23 +246,6 @@ $error = array();
                         }
                     }
                     ?>
-<<<<<<< HEAD
-                    <div class="col-md-12 p-0">
-                                    <div class="alert alert-danger text-black fw-bold p-4 rounded-0" role="alert">
-                                        <ul>
-                                            <?php
-                                            foreach($error as $errorMsg) {
-                                                echo '<li>' . $errorMsg . '</li>';
-                                            }
-                                            ?>
-                                        </ul>
-                                    </div>
-                                </div>
-                    <form class="mb-3" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
-                        <div class="mb-2">
-                            <label for="image" class="form-label text-white">Upload gallery picture</label>
-                            <input class="form-control" type="file" name="photo" id="image">
-=======
                     <div class="row">
                         <?php
                         global $error;
@@ -292,7 +261,6 @@ $error = array();
                                     ?>
                                 </ul>
                             </div>
->>>>>>> eebfbd8bf19c5c2818dd9da4cb00e56c02d618ca
                         </div>
                         <?php
                         }
