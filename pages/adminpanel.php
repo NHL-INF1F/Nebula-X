@@ -128,9 +128,9 @@ $error = array();
                                 <span onclick="document.getElementById('delbtnpress').style.display='none'" class="close" title="Close Modal">×</span>
                                 <form class="modal-content" action="/action_page.php">
                                     <div class="container">
-                                        <h1>Delete Confirmation</h1>
-                                        <h2>Are you sure you want to delete the Message?</h2>
-                                        <p>WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE Message IT WILL BE GONE FOREVER!</p>
+                                        <h1><?php echo $message['deleteconfirmation']; ?></h1>
+                                        <h2><?php echo $message['deletequestion']; ?></h2>
+                                        <p><?php echo $message['warning']; ?></p>
                                         <div class="clearfix">
                                             <?php 
                                                 echo "<a href=../components/adminpanel/delete_message.php?id=". $id .">Delete</a></div>"; 
@@ -147,7 +147,7 @@ $error = array();
                 </div>
                 
                 <div class="col-md-4 pt-5">
-                    <h2 class="text-white">Gallery</h2>
+                    <h2 class="text-white"><?php echo $message['admingallery']; ?></h2>
 
                     <?php
                     function checkImage($image) {
@@ -243,7 +243,7 @@ $error = array();
 
                     if (isset($_POST['delete'])) {
                         if (unlink('../assets/img/gallery/' . htmlentities($_POST['imageName']))) {
-                            echo 'De foto is verwijderd.';
+                            echo 'Image deleted';
                         } else {
                             $error[] = 'Niet gevonden';
                         }
@@ -262,7 +262,7 @@ $error = array();
                                 </div>
                     <form class="mb-3" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
                         <div class="mb-2">
-                            <label for="image" class="form-label text-white">Upload gallery picture</label>
+                            <label for="image" class="form-label text-white"><?php echo $message['galleryupload']; ?></label>
                             <input class="form-control" type="file" name="photo" id="image">
                         </div>
                         <div>

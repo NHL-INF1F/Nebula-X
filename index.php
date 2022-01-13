@@ -42,10 +42,10 @@ require_once('controllers/database/dbconnect.php');
                     <li class="headerList"><a href="pages/contact.php"><?php echo $message['contact'] ?></a></li>
                     <?php
                     if (isset($_SESSION['email']) && $_SESSION['role'] == 'admin') {
-                        echo '<li class="headerList"><a href="pages/adminpanel.php" class="text-primary">ADMIN-PANEL</a></li>';
+                        echo '<li class="headerList"><a href="pages/adminpanel.php" class="text-primary">'. $message['admin-panel'] .'</a></li>';
                     }
                     if (isset($_SESSION['email'])) {
-                        echo '<li class="headerList"><a href="pages/logout.php" class="text-danger">LOGOUT</a></li>';
+                        echo '<li class="headerList"><a href="pages/logout.php" class="text-danger">'. $message['logout'] .'</a></li>';
                     } else {
                         echo '<li class="headerList"><a href="pages/login.php">'. $message['loginregister'] .'</a></li>';
                     }
@@ -130,10 +130,10 @@ require_once('controllers/database/dbconnect.php');
                     <li><a href="pages/contact.php"><?php echo $message['explorecontact'] ?></a></li>
                     <?php
                     if (isset($_SESSION['email']) && $_SESSION['role'] == 'admin') {
-                        echo '<li><a href="pages/adminpanel.php">ADMIN-PANEL</a></li>';
+                        echo '<li><a href="pages/adminpanel.php">'. $message['admin-panel2'] .'</a></li>';
                     }
                     if (isset($_SESSION['email'])) {
-                        echo '<li><a href="pages/logout.php">logout</a></li>';
+                        echo '<li><a href="pages/logout.php">'. $message['logout2'] .'</a></li>';
                     } else {
                         echo '<li><a href="pages/login.php">'. $message['loginregister2'] .'</a></li>';
                     }

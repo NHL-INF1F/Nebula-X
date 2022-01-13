@@ -15,10 +15,10 @@ require_once ('translation/en.php');
                 <li class="headerList"><a href="contact.php"><?php echo $message['contact']; ?></a></li>
                 <?php
                     if (isset($_SESSION['email']) && $_SESSION['role'] == 'admin') {
-                        echo '<li class="headerList"><a href="adminpanel.php" class="text-primary">ADMIN-PANEL</a></li>';
+                        echo '<li class="headerList"><a href="adminpanel.php" class="text-primary">'. $message['admin-panel'] .'</a></li>';
                     }
                     if (isset($_SESSION['email'])) {
-                        echo '<li class="headerList"><a href="logout.php" class="text-danger">LOGOUT</a></li>';
+                        echo '<li class="headerList"><a href="logout.php" class="text-danger">'. $message['logout'] .'</a></li>';
                     } else {
                         echo '<li class="headerList"><a href="login.php">'. $message['loginregister'] .'</a></li>';
                     }
