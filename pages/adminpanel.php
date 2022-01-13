@@ -233,7 +233,7 @@ $error = array();
                         closedir($dirOpen);
                     }
 
-                    if (isset($_POST['sendImage'])) {
+                    if (isset($_POST['sendImage'])) { 
                         if (checkImage($_FILES['photo'])) {
                             echo "<h3 class='text-white'> Bestand geupload!</h3>";
                         }
