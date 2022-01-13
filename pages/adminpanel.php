@@ -48,16 +48,16 @@ $error = array();
         <div class="container-fluid blueBackground">
             <div class="row p-5">
                 <div class="col-md-4 pt-5">
-                    <h2 class="text-white">Reservations</h2>
+                    <h2 class="text-white"><?php echo $message['reservations']; ?></h2>
 
                     <div class="table-responsive">
                         <table class="bg-white">
                             <thead>
-                                <th>ID</th>
-                                <th>User ID</th>
-                                <th>Suite ID</th>
-                                <th>Start date</th>
-                                <th>End date</th>
+                                <th><?php echo $message['id']; ?></th>
+                                <th><?php echo $message['userid']; ?></th>
+                                <th><?php echo $message['suiteid']; ?></th>
+                                <th><?php echo $message['startdate']; ?></th>
+                                <th><?php echo $message['enddate']; ?></th>
                             </thead>
                             
                             <tbody>
@@ -88,16 +88,16 @@ $error = array();
                 </div>
 
                 <div class="col-md-4 pt-5">
-                    <h2 class="text-white">Contact Messages</h2>
+                    <h2 class="text-white"><?php echo $message['contactmessages']; ?></h2>
 
                     <div class="table-responsive">
                         <table class="bg-white">
                             <thead>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Email</th>
-                                <th>Subject</th>
-                                <th>Message</th>
+                                <th><?php echo $message['id']; ?></th>
+                                <th><?php echo $message['name']; ?></th>
+                                <th><?php echo $message['email']; ?></th>
+                                <th><?php echo $message['subject']; ?></th>
+                                <th><?php echo $message['message']; ?></th>
                                 <th></th>
                                 <th></th>
                             </thead>

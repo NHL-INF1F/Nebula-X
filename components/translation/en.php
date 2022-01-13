@@ -25,6 +25,8 @@ $message['rooms']='ROOMS';
 $message['booking']='BOOKING';
 $message['contact']='CONTACT';
 $message['loginregister']='LOGIN/REGISTER';
+$message['admin-panel']='ADMIN-PANEL';
+$message['logout']='LOGOUT';
 //Main page translations
 $message['experience']='A NEW WAY TO EXPERIENCE SPACE AS NEVER BEFORE';
 $message['learnmore']='LEARN MORE';
@@ -121,6 +123,8 @@ $message['exploreaboutus']='About us';
 $message['explorebooking']='Booking';
 $message['explorecontact']='Contact';
 $message['loginregister2']='Login/Register';
+$message['admin-panel2']='Admin-panel';
+$message['logout2']='Logout';
 //Visit and HQ
 $message['visit']='VISIT';
 $message['hq']='HQ';
@@ -128,4 +132,18 @@ $message['hq']='HQ';
 $message['legal']='LEGAL';
 $message['trademark']='Trademark';
 $message['privacy']='Privacy';
+/*Adminpanel translations*/
+//Reservations
+$message['reservations']='Reservations';
+$message['id']='ID';
+$message['userid']='User ID';
+$message['suiteid']='Suite ID';
+$message['startdate']='Start date';
+$message['enddate']='End date';
+//Contact Messages
+$message['contactmessages']='Contact Messages';
+$message['name']='Name';
+$message['email']='Email';
+$message['subject']='Subject';
+$message['message']='Message';
 ?>
