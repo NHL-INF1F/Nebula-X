@@ -52,9 +52,13 @@ a {
 
 /* images */
 .spaceBackground {
-    background-image: url('../img/stars.jpg');
-    background-repeat: no-repeat, repeat;
-    background-size: cover;
+    background: linear-gradient(
+    180deg,
+    rgba(13, 24, 45, 1) 0%,
+    rgba(20, 39, 71, 1) 30%,
+    rgba(16, 35, 68, 1) 50%,
+    rgba(3, 17, 43, 1) 78%
+  );
 }
 
 .imgBorder{
