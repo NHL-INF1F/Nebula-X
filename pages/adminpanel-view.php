@@ -1,12 +1,12 @@
 <?php
 //Start a session
-//session_start();
+session_start();
 
 //Check if user is logged
-//if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
+if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
     //Send user to index.php
-    //header('location: ../index.php');
-//}
+    header('location: ../index.php');
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -44,9 +44,9 @@
     </head>
     <body>
     <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
-    <div class="row w-75 h-100 hBox">
-    <div class="col-md-6 p-6 bg-white">
-    <div>
+    <div class="d-flex align-items-center">
+    <div class="col-md-12 p-6 bg-white">
+    <div class="text-center">
         <div>
             <h1>Reservation Details</h1>
         </div>
@@ -82,7 +82,7 @@
                 //display the reservated suite
                 while(mysqli_stmt_fetch($suitestmt)){
                     echo "<h2>Reservated Suite</h2><br>";
-                    echo "<table>
+                    echo "<table style=>
                         <tr>
                             <th>ID</th>
                             <th>Name</th>
@@ -147,16 +147,15 @@
             <form class="modal-content" action="/action_page.php">
                 <div class="container">
                     <h1>Delete Confirmation</h1>
-                    <p>Are you sure you want to delete the reservation?</p>
+                    <h2>Are you sure you want to delete the reservation?</h2>
                     <p>WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE RESERVATION IT WILL BE GONE FOREVER!</p>
                     <div class="clearfix">
                         <?php 
-                            echo "<div><a href=mailto:$userEmail?subject=Cancellation%20of%20reservation>Send Email</a></div>";
-                            echo "<div><a href=../components/adminpanel/delete_reservation.php?id=" . $_GET['id'] . "class=deletebtn>Delete</a></div>";
+                           echo "<a id=linktobtnmail href=mailto:$userEmail?subject=Cancellation%20of%20reservation>Send Email</a>";
+                           echo "<a id=linktobtndel href=../components/adminpanel/delete_reservation.php?id=" . $_GET['id'] . "class=deletebtn>Delete</a>";
                              
                         ?>
-                        <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
-                        <!--<button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="deletebtn">Delete</button>-->
+                        <button class="delbtnstyle" type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
                     </div>
                 </div>
             </form>
