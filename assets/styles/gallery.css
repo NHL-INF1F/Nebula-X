@@ -34,12 +34,14 @@ p {
 }
 
 .image {
+  position: relative;
   padding: 10px;
   opacity: 1;
   display: block;
   height: auto;
   transition: 0.5s ease;
   backface-visibility: hidden;
+  margin-bottom: 20px;
 }
 
 .image:hover img {
@@ -48,9 +50,7 @@ p {
 
 .image .text {
   font-size: 2em;
-  position: relative;
   color: white;
-  bottom: 160px;
   margin: 0 auto;
   display: block;
   text-align: center;
@@ -58,24 +58,31 @@ p {
   font-family: Bebas Neue;
 }
 
+.text {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+}
+
 @media (max-width: 1440px) {
-  .image .text {
-    bottom: 140px;
+  .text {
+
   }
 }
 @media (max-width: 1024px) {
-  .image .text {
-    bottom: 100px;
+  .text {
+
   }
 }
 @media (max-width: 768px) {
-  .image .text {
-    bottom: 75px;
+  .text {
+
   }
 }
 @media (max-width: 425px) {
-  .image .text {
-    bottom: 100px;
+  .text {
+
   }
 }
 
