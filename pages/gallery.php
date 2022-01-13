@@ -17,7 +17,7 @@ function getImage()
             $fileName = substr_replace($file,"",-4);
             $fileName = str_replace('_', ' ', $fileName);
             echo "
-            <div class='col-sm-4'>
+            <div class='col-xl-4'>
                 <div class='image'>
                     <img class='img-fluid' alt='". $fileName ." ' src='" . $dir . "/" . $file . "'>
                     <span class='text'>". $fileName ."</span>
