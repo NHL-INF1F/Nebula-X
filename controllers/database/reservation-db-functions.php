@@ -25,6 +25,7 @@ function getReservation(int $suiteID, int $userID, string $dateFrom, string $dat
     global $conn;
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, "SELECT ID FROM reservation WHERE USER_ID = ? AND SUITE_ID = ? AND date_from = ? AND date_to = ?");
+
     mysqli_stmt_bind_param($stmt, "iiss", $userID, $suiteID, $dateFrom, $dateTo);
     mysqli_stmt_execute($stmt);
 

@@ -17,15 +17,17 @@
 <body>
 <?php
 require_once("../components/header.php");
+
+if (!isset($_SESSION['email'])) {
+    $_SESSION['redirected'] = $message['redirected'];
+    header('location: ./login.php');
+}
+
 require_once "../controllers/database/dbconnect.php";
 require_once "../controllers/database/reservation-db-functions.php";
 
-$suiteID = $_SESSION['suite_id'];
-unset($_SESSION['suite_id']);
-
-if(!isset($_SESSION['id'])){
-    header("location: ./index.php");
-}
+$suiteID = $_SESSION['suiteId'];
+unset($_SESSION['suiteId']);
 
 $userID = $_SESSION['id'];
 ?>
@@ -36,10 +38,10 @@ $userID = $_SESSION['id'];
             <h1><?php echo $message['booking_confirmed_title'] ?></h1>
 
             <?php
-            $dateFrom = $_SESSION['date-from'];
-            $dateTo = $_SESSION['date-to'];
+            $dateFrom = $_SESSION['dateFrom'];
+            $dateTo = $_SESSION['dateTo'];
 
-            if(!isset($dateFrom) || $dateTo){
+            if(!isset($dateFrom) || !isset($dateTo)){
                showError("no_information_passed");
             }
 
@@ -53,7 +55,7 @@ $userID = $_SESSION['id'];
                 showError("reservation_save_error");
             }
 
-            echo $message['booking_confirmed_message'];
+            echo "<div class='booking-confirm-message mb-4'>" . $message['booking_confirmed_message'] . "</div>";
 
             if (isset($_POST['return'])) {
                 header("location: ../index.php");

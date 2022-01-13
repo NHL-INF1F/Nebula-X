@@ -259,8 +259,9 @@ if (!isset($_GET['dateEnd'])){
                         if(in_array($selected, $reservedRooms, true)){
                             echo "The selected room is unavailable";
                         }else{
-                            echo "<a href='test.php' class='button' onclick='";
+                            echo "<a href='booking.php' class='button' onclick='";
                             echo $_SESSION['suiteId'] = $selected;
+                            echo $selected;
                             echo $_SESSION['dateFrom'] = $startDate;
                             echo $_SESSION['dateTo'] = $endDate;
                             echo "'>"."Book now!"."</a>";

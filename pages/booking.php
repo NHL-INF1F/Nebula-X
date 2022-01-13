@@ -17,30 +17,37 @@
 <body>
 <?php
 require_once("../components/header.php");
+
+if (!isset($_SESSION['email'])) {
+    $_SESSION['redirected'] = $message['redirected'];
+    header('location: ./login.php');
+}
+
 require_once "../controllers/database/dbconnect.php";
 require_once "../controllers/database/reservation-db-functions.php";
 
-//TODO: Tijdelijk een GET override voor testen.
-//TODO: Pak het ID uit get en anders uit POST.
-if(isset($_GET['id'])){
-    $suiteID = filter_input(INPUT_GET, "id", FILTER_SANITIZE_NUMBER_INT);
-} else {
-    if (!isset($_POST['id'])) {
-        showError("no_information_passed");
-    }
-    $suiteID = filter_input(INPUT_POST, "id", FILTER_SANITIZE_NUMBER_INT);
+if (!isset($_SESSION['suiteId']) || !isset($_SESSION['dateFrom']) || !isset($_SESSION['dateTo'])) {
+    showError("no_information_passed");
 }
+
+$dateFrom = $_SESSION['dateFrom'];
+$dateTo = $_SESSION['dateTo'];
+
+
+if(!strtotime($dateFrom)){
+    showError("invalid_start_date");
+}
+
+if(!strtotime($dateTo)){
+    showError("invalid_end_date");
+}
+
+$suiteID = $_SESSION['suiteId'];
 
 $suiteData = getSuite($suiteID);
 
 if(empty($suiteData)){
     showError("invalid_suite_id");
-}
-
-$_SESSION['suite_id'] = $suiteData['ID'];
-
-if(!isset($_SESSION['id'])){
-    header("location: ./index.php");
 }
 
 $userID = $_SESSION['id'];
@@ -52,49 +59,19 @@ $userID = $_SESSION['id'];
             <h1><?php echo $message['booking_confirm_title'] ?></h1>
 
             <?php
-            if(isset($_POST['date-from'])) {
-                $dateFrom = filter_input(INPUT_POST, "date-from", FILTER_SANITIZE_SPECIAL_CHARS);
-                $dateTo = filter_input(INPUT_POST, "date-to", FILTER_SANITIZE_SPECIAL_CHARS);
-
-                if(!strtotime($dateFrom)){
-                    showError("invalid_start_date");
-                }
-
-                if(!strtotime($dateTo)){
-                    showError("invalid_end_date");
-                }
-
-                $_SESSION['date-from'] = $dateFrom;
-                $_SESSION['date-to'] = $dateTo;
-            }
-
             if(isset($_POST['cancel'])){
-                unset($_SESSION['date-from']);
-                unset($_SESSION['date-to']);
+                unset($_SESSION['dateFrom']);
+                unset($_SESSION['dateTo']);
+                unset($_SESSION['suiteId']);
                 header('location: suite-overview.php');
             }
 
             if (isset($_POST['confirm'])) {
-                $dateFrom = $_SESSION['date-from'];
-                $dateTo = $_SESSION['date-to'];
-                //$suiteID = $_SESSION['suite_id'];
-                unset($_SESSION['date-from']);
-                unset($_SESSION['date-to']);
-                //unset($_SESSION['suite_id']);
-
-                if ($dateFrom > $dateTo) {
-                    showError("invalid_start_date");
-                }
-
                 if(!bookSuite($userID, $suiteID, $dateFrom, $dateTo)){
                     showError("reservation_save_error");
                 }
 
                 header("location: booking-confirm.php");
-            }
-
-            if(!isset($_SESSION['date-from']) || !isset($_SESSION['date-to'])){
-                showError("no_information_passed");
             }
 
             //null should never appear outside development.
@@ -116,7 +93,7 @@ $userID = $_SESSION['id'];
             echo $message['booking_suite_size'] . $suiteData['suite_size'] . "<br>";
             echo $message['booking_suite_rooms'] . $suiteData['rooms'] . "<br>";
             echo "<hr>";
-            echo $message['booking_period'] . $_SESSION['date-from'] . " - " . $_SESSION['date-to'] . "<br><br>";
+            echo $message['booking_period'] . $dateFrom . " - " . $dateTo . "<br>";
             echo $message['booking_suite_price'] . "$" . $suiteData['price'] . "<br><br>";
               ?>
             <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>"  method="post">
