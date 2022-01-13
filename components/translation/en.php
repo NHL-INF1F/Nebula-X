@@ -14,6 +14,7 @@ $message['alreadymember']='ALREADY A MEMBER?';
 $message['logininfo']="If you are already a user you can use the button below to login to your account";
 $message['registerinfo']='Registered users are notified about upcoming events and discounts. By registering you also receive a 5% cost bonus for your next booking!';
 $message['registerbutton']='REGISTER';
+$message['redirected']='You need to be logged in first!';
 
 /*Index page translation*/
 //Header buttons translation

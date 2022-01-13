@@ -1,4 +1,5 @@
 <?php
+session_start();
 $error = '';
 
 function getImage()
@@ -13,8 +14,8 @@ function getImage()
         }
 
         if (fnmatch($fileType, $file)) {
-
             $fileName = substr_replace($file,"",-4);
+            $fileName = str_replace('_', ' ', $fileName);
             echo "
             <div class='col-sm-4'>
                 <div class='image'>

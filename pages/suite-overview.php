@@ -3,6 +3,12 @@ session_start();
 require('../components/translation/en.php');
 require_once('../controllers/database/dbconnect.php');
 // require_once("../controllers/database/reservation-db-functions.php");
+
+if (!isset($_SESSION['email'])) {
+    $_SESSION['redirected'] = $message['redirected'];
+    header('location: ./login.php');
+}
+
 $today = date("Y-m-d");
 $tomorrow = date("Y-m-d", time()+60*60*24);
 
@@ -237,8 +243,17 @@ if (!isset($_GET['dateEnd'])){
                     ?>
                 </div>
                 <div>
-                    <a style='background-color: #4CAF50;border: none;color: white;padding: 15px 32px;text-align: center;text-decoration: none;display: inline-block;font-size: 16px;margin: 4px 2px;cursor: pointer;'
-                    href='booking.php?id=<?php $selected?>' class='button'>Book now!</a>
+                    <?php
+                        if(in_array($selected, $reservedRooms, true)){
+                            echo "The selected room is unavailable";
+                        }else{
+                            echo "<a href='test.php' class='button' onclick='";
+                            echo $_SESSION['suiteId'] = $selected;
+                            echo $_SESSION['dateFrom'] = $startDate;
+                            echo $_SESSION['dateTo'] = $endDate;
+                            echo "'>"."Book now!"."</a>";
+                        }
+                    ?>
                 </div>
             </div>
         </div>

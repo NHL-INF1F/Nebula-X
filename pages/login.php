@@ -138,7 +138,7 @@ if (isset($_POST['submit'])) {
     <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
         <div class="row w-75 h-100 hBox">
             <?php
-            if (isset($_POST['submit']) && !empty($error)) {
+            if (isset($_POST['submit']) && !empty($error) || isset($_SESSION['redirected']) && !empty($_SESSION['redirected'])) {
             ?>
                 <div class="col-md-12 p-0">
                     <div class="alert alert-danger text-black fw-bold p-4 rounded-0" role="alert">
@@ -146,6 +146,10 @@ if (isset($_POST['submit'])) {
                             <?php
                             foreach ($error as $errorMsg) {
                                 echo '<li>' . $errorMsg . '</li>';
+                            }
+                            if (isset($_SESSION['redirected']) && !empty($_SESSION['redirected'])) {
+                                echo '<li>' . $_SESSION['redirected'] . '</li>';
+                                $_SESSION['redirected'] = '';
                             }
                             ?>
                         </ul>

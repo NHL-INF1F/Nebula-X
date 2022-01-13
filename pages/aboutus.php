@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -23,7 +26,7 @@
     <title>About us</title>
 </head>
 <body>
-<?php 
+<?php
     require_once("../components/header.php"); ?>
     <div class="container-fluid min-vh-100 m-0 p-0 spaceBackground">
         <div class="row">
