@@ -11,7 +11,7 @@
         session_start();
         echo $_SESSION['suiteId']."<br>";
         echo $_SESSION['dateFrom']."<br>";
-        echo $_SESSION['dateTo']
+        echo $_SESSION['dateTo'];
     ?>
 </body>
 </html>

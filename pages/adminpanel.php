@@ -84,10 +84,6 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                 </div>
             </div>
         
-        
-        
-        
-        
         <div  class="col-md-6 p-4 bg-white order-md-1 order-2" >
         <h2>Contact Messages</h2>
             <table id=tablecontact>
@@ -121,6 +117,133 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                     }
                 ?>
             </table>
+            <div class="row w-75 h-100 hBox">
+                <div class="col-md-12 p-4 bg-white order-md-1 order-2">
+                <?php
+                    $error = '';
+
+                    function checkImage($image)
+                    {
+                        global $error;
+
+                        if (is_uploaded_file($image['tmp_name'])){
+                            if ($image['size'] <= 3000000){
+                                $acceptedFileTypes = ["image/jpg"];
+                                $fileinfo = finfo_open(FILEINFO_MIME_TYPE);
+                                $uploadedFileType = finfo_file($fileinfo, $image['tmp_name']);
+                                if (in_array($uploadedFileType, $acceptedFileTypes)) {
+                                    if ($image['error'] == 0) {
+                                        if (strlen($image['name']) <= 50) {
+                                            if (!ctype_lower($image['name'])) {
+                                                if (!file_exists('../assets/img/gallery/' . $image['name'])) {
+                                                    if (move_uploaded_file($image['tmp_name'], '../assets/img/gallery/' . $image['name'])) {
+                                                        return true;
+                                                    }
+                                                } else {
+                                                    $error = 'Oeps! Een fout. Probeer het opnieuw.';
+                                                    return false;
+                                                }
+                                            } else {
+                                                $error = 'Bestandsnaam: ' . $image['name'] . ' bestaat nu al. Upload een foto met een andere naam a.u.b.';
+                                                return false;
+                                            }
+                                        } else {
+                                            $error = 'Bestandnaam is te lang. De naam moet 50 karakters of minder zijn.';
+                                            return false;
+                                        }
+                                    } else {
+                                        $error = 'Oeps! Een fout. Probeer het met een andere foto.';
+                                        return false;
+                                    }
+                                } else {
+                                    $error = 'Het bestandstype van de foto is niet correct. Upload een jpg.';
+                                    return false;
+                                }
+                            } else {
+                                $error = 'Het bestand dat je uploadt is te groot. Upload een foto van maximaal 3MB of minder.';
+                                return false;
+                            }
+                        } else {
+                            $error = 'Niks gedetecteerd. Weet je zeker dat je iets hebt geuploadt?';
+                            return false;
+                        }
+                    }
+
+                    if (isset($_POST['sendImage'])) {
+                        if (checkImage($_FILES['photo'])) {
+                            echo "<h3> Bestand geupload!</h3>";
+                        } else {
+                            echo $error;
+                        }
+                    }
+
+                    function getImage($type)
+                    {
+                        $dir = "../assets/img/gallery";
+
+                        $dirOpen = opendir($dir);
+
+                        while (($file = readdir($dirOpen)) !== false) {
+                            if (is_dir($file)) {
+                                continue;
+                            }
+
+                            if (fnmatch('*.' . $type, $file)) {
+
+                                echo "
+                                <div>
+                                    <img style='width:200px;' src='" . $dir . "/" . $file . "'><br>
+                                    $file<br>
+
+                                    <form action='" . htmlentities($_SERVER['PHP_SELF']) . "' method='post'>
+                                        <input type='hidden' name='imageName' value='" . $file  . "'>
+                                        <input type='submit' name='delete' value='Verwijderen'>
+                                    </form>
+                                </div><br>
+                                ";
+                            }
+                        }
+                        closedir($dirOpen);
+                    }
+
+                    if (isset($_GET['getImage'])) {
+                        $supportedFileTypes = array("jpg");
+                        foreach ($supportedFileTypes as $subarray) {
+
+                            if (!in_array(htmlentities($_GET['fileType']), $supportedFileTypes)) {
+                                echo "Manipulatie met het bestandstype!!!";
+                                exit;
+                            }
+                        }
+
+                        getImage(htmlentities($_GET['fileType']));
+                    }
+
+                    if (isset($_POST['delete'])) {
+                        if (unlink('../assets/img/gallery/' . htmlentities($_POST['imageName']))) {
+                            echo 'De foto is verwijderd.';
+                        } else {
+                            $error = 'Niet gevonden';
+                        }
+                    }
+
+                    ?>
+                    <div class="row">
+                    <?php
+                    $png = "png";
+                    getImage($tiet);
+                    ?>
+                    </div>
+                    <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
+                        <div>
+                            <label for="image">Upload picture</label>
+                            <input type="file" name="photo" id="image">
+                        </div>
+                        <div>
+                            <input type="submit" name="sendImage" value="Upload">
+                </div>
+            </div>
+
             <!-- Pop-up confirmation for deletion, using the Modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp -->
             <div id="delbtnpress" class="modal">
                 <span onclick="document.getElementById('delbtnpress').style.display='none'" class="close" title="Close Modal">×</span>
