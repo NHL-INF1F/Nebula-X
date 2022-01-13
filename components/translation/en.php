@@ -61,6 +61,7 @@ $message['doubletwin']='Double Twin Stations';
 $message['tripleluxury']='Triple Luxury Stations';
 
 /*Booking page translations*/
+$message['booking_page_title']='Booking Confirmation';
 $message['bookingtitle']='BOOKING';
 $message['spacehub']='SPACE HUB';
 $message['bookinginfo']='A single room with air conditioning, Shower. 1x single bed, Safe, Small fridge, Coffee and tea facilities, Phone, Television, Bath with bubble system, Blowdryer.';

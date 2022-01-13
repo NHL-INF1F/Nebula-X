@@ -1,9 +1,11 @@
-<?php session_start(); ?>
+<?php session_start();
+require_once ('../components/translation/en.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Booking Confirmation</title>
+    <title><?php echo $message['booking_page_title']?></title>
     <!--<link href="../assets/styles/suits.css" rel="stylesheet">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
