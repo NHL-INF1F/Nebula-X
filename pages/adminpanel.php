@@ -128,7 +128,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
 
                         if (is_uploaded_file($image['tmp_name'])){
                             if ($image['size'] <= 3000000){
-                                $acceptedFileTypes = ["image/jpg"];
+                                $acceptedFileTypes = ["image/jpg", "image/jpeg", "image/png"];
                                 $fileinfo = finfo_open(FILEINFO_MIME_TYPE);
                                 $uploadedFileType = finfo_file($fileinfo, $image['tmp_name']);
                                 if (in_array($uploadedFileType, $acceptedFileTypes)) {
@@ -156,7 +156,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                                         return false;
                                     }
                                 } else {
-                                    $error = 'Het bestandstype van de foto is niet correct. Upload een jpg.';
+                                    $error = 'Het bestandstype van de foto is niet correct. Upload een jpg/jpeg/png.';
                                     return false;
                                 }
                             } else {
@@ -177,7 +177,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                         }
                     }
 
-                    function getImage($type)
+                    function getImage()
                     {
                         $dir = "../assets/img/gallery";
 
@@ -188,7 +188,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                                 continue;
                             }
 
-                            if (fnmatch('*.' . $type, $file)) {
+                            //if (fnmatch('*.' . $type, $file)) {
 
                                 echo "
                                 <div>
@@ -201,13 +201,13 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                                     </form>
                                 </div><br>
                                 ";
-                            }
+                            //}
                         }
                         closedir($dirOpen);
                     }
 
                     if (isset($_GET['getImage'])) {
-                        $supportedFileTypes = array("jpg");
+                        $supportedFileTypes = array("jpg, jpeg, png");
                         foreach ($supportedFileTypes as $subarray) {
 
                             if (!in_array(htmlentities($_GET['fileType']), $supportedFileTypes)) {
@@ -227,13 +227,12 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                         }
                     }
 
+                    
+                    
+                    
+                    getImage();
                     ?>
-                    <div class="row">
-                    <?php
-                    $png = "png";
-                    getImage($tiet);
-                    ?>
-                    </div>
+                    
                     <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
                         <div>
                             <label for="image">Upload picture</label>
