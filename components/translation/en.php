@@ -142,6 +142,7 @@ $message['userid']='User ID';
 $message['suiteid']='Suite ID';
 $message['startdate']='Start date';
 $message['enddate']='End date';
+$message['details']='Details';
 //Contact Messages
 $message['contactmessages']='Contact Messages';
 $message['name']='Name';
