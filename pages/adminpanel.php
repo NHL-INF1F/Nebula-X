@@ -76,7 +76,7 @@ $error = array();
                                     <td>" . $suite_id ."</td>
                                     <td>" . $date_from ."</td>
                                     <td>" . $date_to . "</td>
-                                    <td><a href=adminpanel-view.php?id=" . $id . ">$message['details'];</a></td>
+                                    <td><a href=adminpanel-view.php?id=" . $id . ">Details</a></td>
                                     </tr>";
                             }
                             mysqli_stmt_close($reservationstmt);
