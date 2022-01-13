@@ -1,12 +1,16 @@
 /* header */
 .header {
-    background-color: rgb(3 17 43 / 98%);
+    background-color: rgb(3 16 40 / 97%);
+}
+
+.headerLinks {
+    margin-top: 5px !important;
+    margin-bottom: 0px !important;
 }
 
 .headerList {
     display: inline;
     margin: 6px;
-
 }
 
 .headerList a {

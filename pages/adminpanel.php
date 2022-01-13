@@ -99,6 +99,7 @@ $error = array();
                                 <th><?php echo $message['subject']; ?></th>
                                 <th><?php echo $message['message']; ?></th>
                                 <th></th>
+                                <th></th>
                             </thead>
 
                             <tbody>
@@ -123,8 +124,8 @@ $error = array();
                             }
                             mysqli_stmt_close($contactstmt);
                             ?>
-                            <!-- Pop-up confirmation for deletion, using the Modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp -->
                             <div id="delbtnpress" class="modal">
+<<<<<<< HEAD
                                 <span onclick="document.getElementById('delbtnpress').style.display='none'" class="close" title="Close Modal">×</span>
                                 <form class="modal-content" action="/action_page.php">
                                     <div class="container">
@@ -136,6 +137,16 @@ $error = array();
                                                 echo "<a href=../components/adminpanel/delete_message.php?id=". $id .">Delete</a></div>"; 
                                             ?>
                                             <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="cancelbtn">Cancel</button>
+=======
+                                <form action="/action_page.php">
+                                    <div class="modal-content">
+                                        <h1>Delete Confirmation</h1>
+                                        <h2>Are you sure you want to delete the Message?</h2>
+                                        <p class="text-danger fw-bold">WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE Message IT WILL BE GONE FOREVER!</p>
+                                        <div>
+                                            <a class='btn btn-danger' href='../components/adminpanel/delete_message.php?id=<?php echo $id ?>'>Delete</a>
+                                            <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="btn btn-warning">Cancel</button>
+>>>>>>> eebfbd8bf19c5c2818dd9da4cb00e56c02d618ca
                                         </div>
                                     </div>
                                 </form>
@@ -222,9 +233,9 @@ $error = array();
                         closedir($dirOpen);
                     }
 
-                    if (isset($_POST['sendImage'])) {
+                    if (isset($_POST['sendImage'])) { 
                         if (checkImage($_FILES['photo'])) {
-                            echo "<h3> Bestand geupload!</h3>";
+                            echo "<h3 class='text-white'> Bestand geupload!</h3>";
                         }
                     }
 
@@ -249,6 +260,7 @@ $error = array();
                         }
                     }
                     ?>
+<<<<<<< HEAD
                     <div class="col-md-12 p-0">
                                     <div class="alert alert-danger text-black fw-bold p-4 rounded-0" role="alert">
                                         <ul>
@@ -264,13 +276,45 @@ $error = array();
                         <div class="mb-2">
                             <label for="image" class="form-label text-white">Upload gallery picture</label>
                             <input class="form-control" type="file" name="photo" id="image">
+=======
+                    <div class="row">
+                        <?php
+                        global $error;
+                        if (!empty($error)) {
+                        ?>
+                        <div class="col-md-12 p-0">
+                            <div class="alert alert-danger text-black fw-bold p-4 rounded-0" role="alert">
+                                <ul>
+                                    <?php
+                                    foreach($error as $errorMsg) {
+                                        echo '<li>' . $errorMsg . '</li>';
+                                    }
+                                    ?>
+                                </ul>
+                            </div>
+>>>>>>> eebfbd8bf19c5c2818dd9da4cb00e56c02d618ca
                         </div>
-                        <div>
-                            <input class="btn btn-primary" type="submit" name="sendImage" value="Upload">
-                        </div>
-                    </form>
+                        <?php
+                        }
+                        ?>
+                    </div>
 
                     <div class="row">
+                        <div class="col-md-12">
+                            <form class="mb-3" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
+                                <div class="mb-2">
+                                    <label for="image" class="form-label text-white">Upload gallery picture</label>
+                                    <input required class="form-control" type="file" name="photo" id="image">
+                                </div>
+                                <div>
+                                    <input class="btn btn-primary" type="submit" name="sendImage" value="Upload">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                    <h3 class="text-white">Uploaded images</h3>
                     <?php
                     getImage();
                     ?>
