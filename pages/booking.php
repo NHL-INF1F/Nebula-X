@@ -1,9 +1,11 @@
-<?php session_start(); ?>
+<?php session_start();
+require_once ('../components/translation/en.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Booking Confirmation</title>
+    <title><?php echo $message['booking_page_title']?></title>
     <!--<link href="../assets/styles/suits.css" rel="stylesheet">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -94,8 +96,13 @@ $userID = $_SESSION['id'];
             echo $message['booking_suite_rooms'] . $suiteData['rooms'] . "<br>";
             echo "<hr>";
             echo $message['booking_period'] . $dateFrom . " - " . $dateTo . "<br>";
-            echo $message['booking_suite_price'] . "$" . $suiteData['price'] . "<br><br>";
-              ?>
+
+            //Get the amount of days between the two dates.
+            $interval = date_diff(date_create($dateFrom), date_create($dateTo));
+
+            //Calculate and display the total price.
+            echo $message['booking_suite_price'] . "$" . (intval($interval->format('%a')) * $suiteData['price']) . "<br><br>";
+            ?>
             <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>"  method="post">
             <div class="row">
                     <div class="col-xxl-4 offset-xxl-1 col-12 col-xl-6 mb-4 mb-xl-0 buttonBox cancelBox">
@@ -107,7 +114,6 @@ $userID = $_SESSION['id'];
             </div>
             </form>
         </div>
-
     </div>
 </div>
 <?php
