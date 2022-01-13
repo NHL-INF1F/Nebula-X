@@ -40,29 +40,27 @@ $message['aboutusinfo']="We want to give mankind a way to experience space as ne
 
 /*Rooms page translations*/
 //Search translations
-
-// $message['search']='SEARCH';
-// $message['layer']='Layer';
-$message['start']='Check in date';
-$message['end']='Check out date';
+$message['search']='SEARCH';
+$message['layer']='Layer';
+$message['checkin']='Check in date';
+$message['checkout']='Check out date';
 $message['check']='CHECK';
 //Rooms translations
-
-// $message['spacehub']='SPACE HUB';
-// $message['spacecenter']='SPACE CENTER';
-// $message['commandcenter']='COMMAND CENTER';
-// $message['singleroom']='Single room';
-// $message['doubleroom']='Double room';
-// $message['luxuryroom']='Luxury room';
-// $message['1guest']='UP TO 1 GUEST';
-// $message['2guests']='UP TO 2 GUESTS';
-// $message['3guests']='UP TO 3 GUESTS';
-// $message['readmorerooms']='Read more ->';
+$message['spacehub']='SPACE HUB';
+$message['spacecenter']='SPACE CENTER';
+$message['commandcenter']='COMMAND CENTER';
+$message['singleroom']='Single room';
+$message['doubleroom']='Double room';
+$message['luxuryroom']='Luxury room';
+$message['1guest']='UP TO 1 GUEST';
+$message['2guests']='UP TO 2 GUESTS';
+$message['3guests']='UP TO 3 GUESTS';
+$message['readmorerooms']='Read more ->';
 $message['bookNow']='BOOK NOW!';
-// $message['roomtypes']='ROOM TYPES';
-// $message['singledeluxe']='Single Deluxe Stations';
-// $message['doubletwin']='Double Twin Stations';
-// $message['tripleluxury']='Triple Luxury Stations';
+$message['roomtypes']='ROOM TYPES';
+$message['singledeluxe']='Single Deluxe Stations';
+$message['doubletwin']='Double Twin Stations';
+$message['tripleluxury']='Triple Luxury Stations';
 
 /*Booking page translations*/
 $message['booking_page_title']='Booking Confirmation';
@@ -148,11 +146,4 @@ $message['name']='Name';
 $message['email']='Email';
 $message['subject']='Subject';
 $message['message']='Message';
-//Pop-up confirmation for deletion
-$message['deleteconfirmation']='Delete Confirmation';
-$message['deletequestion']='Are you sure you want to delete the Message?';
-$message['warning']='WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE MESSAGE, IT WILL BE GONE FOREVER!';
-//Gallery (add/delete pictures)
-$message['admingallery']='Gallery';
-$message['galleryupload']='Upload gallery picture';
 ?>
