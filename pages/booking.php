@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nebula-X</title>
+    <title>Booking Confirmation</title>
     <!--<link href="../assets/styles/suits.css" rel="stylesheet">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -111,8 +111,11 @@ $userID = $_SESSION['id'];
     </div>
 </div>
 <?php
-
-function showError($errorKey){
+/**
+ * Sets an error message key in the session and redirects to the error page.
+ * @param $errorKey string The array key of the message.
+ */
+function showError(string $errorKey){
     $_SESSION['error'] = $errorKey;
     header("location: ./error.php");
 }

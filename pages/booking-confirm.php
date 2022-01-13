@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nebula-X</title>
+    <title>Booking Confirmation</title>
     <!--<link href="../assets/styles/suits.css" rel="stylesheet">-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -42,7 +42,8 @@ $userID = $_SESSION['id'];
             $dateTo = $_SESSION['dateTo'];
 
             if(!isset($dateFrom) || !isset($dateTo)){
-               showError("no_information_passed");
+                $_SESSION['error'] = "no_information_passed";
+                header("location: ./error.php");
             }
 
             //$suiteID = $_SESSION['suite_id'];
@@ -52,7 +53,8 @@ $userID = $_SESSION['id'];
             //Check if the reservation is correctly saved in the database.
             if(!getReservation($suiteID, $userID, $dateFrom, $dateTo)){
                 //If this happens then something is really wrong.
-                showError("reservation_save_error");
+                $_SESSION['error'] = "reservation_save_error";
+                header("location: ./error.php");
             }
 
             echo "<div class='booking-confirm-message mb-4'>" . $message['booking_confirmed_message'] . "</div>";
@@ -69,21 +71,5 @@ $userID = $_SESSION['id'];
         </div>
     </div>
 </div>
-<?php
-
-function showError($errorKey){
-    $_SESSION['error'] = $errorKey;
-    header("location: ./error.php");
-}
-
-function isImage($path): bool {
-    if (@is_array(getimagesize($path))) {
-        $image = true;
-    } else {
-        $image = false;
-    }
-    return $image;
-}
-?>
 </body>
 </html>
