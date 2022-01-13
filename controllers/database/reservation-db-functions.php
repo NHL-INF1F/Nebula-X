@@ -1,5 +1,11 @@
 <?php
 
+/**
+ * Gets the data for the given suite.
+ *
+ * @param int $id The ID of the suite.
+ * @return array|null A array containing the suite data.
+ */
 function getSuite(int $id): ?array {
     global $conn;
     $stmt = mysqli_stmt_init($conn);
@@ -8,7 +14,6 @@ function getSuite(int $id): ?array {
     mysqli_stmt_execute($stmt);
 
     if (!$result = mysqli_stmt_get_result($stmt)) {
-        echo "Error getting suite from database.";
         mysqli_stmt_close($stmt);
         mysqli_next_result($conn);
         return null;
@@ -21,7 +26,17 @@ function getSuite(int $id): ?array {
     return null;
 }
 
-function getReservation(int $suiteID, int $userID, string $dateFrom, string $dateTo){
+/**
+ * Checks if the given reservation exists in the database.
+ *
+ * @param int $suiteID The suite ID of the reservation.
+ * @param int $userID The user ID of the reservation.
+ * @param string $dateFrom The start date of the reservation.
+ * @param string $dateTo The end date of the reservation.
+ *
+ * @return string|null Returns the ID of the reservation exists and null if it does not.
+ */
+function getReservation(int $suiteID, int $userID, string $dateFrom, string $dateTo): ?string {
     global $conn;
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, "SELECT ID FROM reservation WHERE USER_ID = ? AND SUITE_ID = ? AND date_from = ? AND date_to = ?");
@@ -41,7 +56,16 @@ function getReservation(int $suiteID, int $userID, string $dateFrom, string $dat
     return null;
 }
 
-function bookSuite($userID, $suiteID, $dateFrom, $dateTo): bool {
+/**
+ * Adds a reservation using the given arguments.
+ *
+ * @param int $userID The ID of the user.
+ * @param int $suiteID The ID of the suite.
+ * @param string $dateFrom The start date of the reservation/
+ * @param string $dateTo The end date of the reservation.
+ * @return bool Returns if the booking was successful.
+ */
+function bookSuite(int $userID, int $suiteID, string $dateFrom, string $dateTo): bool {
     global $conn;
     $stmt = mysqli_stmt_init($conn);
     mysqli_stmt_prepare($stmt, "INSERT INTO 
@@ -55,58 +79,4 @@ function bookSuite($userID, $suiteID, $dateFrom, $dateTo): bool {
     mysqli_stmt_close($stmt);
     mysqli_next_result($conn);
     return true;
-}
-
-
-function getFreeSuites($startDate, $endDate): ?array {
-    //Get the dbconnect mysqli object from outside the function.
-    global $conn;
-    //Create an empty array.
-    $suites = [];
-
-    //Get all suites from the database.
-    //This is needed because the second query does not return suites with no reservations.
-    $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "SELECT suite.* FROM suite");
-    mysqli_stmt_execute($stmt);
-
-    if (!$result = mysqli_stmt_get_result($stmt)) {
-        echo "Error getting suites from database.";
-        mysqli_stmt_close($stmt);
-        return null;
-    }
-
-    //Add all suites to the associative array.
-    //The key is the ID, the value is the whole db row.
-    while ($row = mysqli_fetch_assoc($result)) {
-        $suites[$row['ID']] = $row;
-    }
-
-    //Close the statement for the next one.
-    mysqli_stmt_close($stmt);
-    mysqli_next_result($conn);
-
-    //Get all suites that have reservations between the given dates.
-    $stmt = mysqli_stmt_init($conn);
-    mysqli_stmt_prepare($stmt, "SELECT DISTINCT suite.ID FROM reservation 
-    INNER JOIN suite ON suite.ID = reservation.SUITE_ID WHERE
-    (reservation.date_from BETWEEN ? AND ?) AND 
-    (reservation.date_to BETWEEN ? AND ?)");
-
-    mysqli_stmt_bind_param($stmt, "ssss", $startDate, $endDate, $startDate, $endDate);
-    mysqli_stmt_execute($stmt);
-
-    if (!$result = mysqli_stmt_get_result($stmt)) {
-        echo "Error getting suites from database.";
-        mysqli_stmt_close($stmt);
-        return null;
-    }
-
-    //Loop through all suites with reservations and remove them from the array, so we are only left with suites with no reservations between the dates..
-    while ($row = mysqli_fetch_assoc($result)) {
-        unset ($suites[$row['ID']]);
-    }
-    mysqli_stmt_close($stmt);
-    mysqli_next_result($conn);
-    return $suites;
 }
