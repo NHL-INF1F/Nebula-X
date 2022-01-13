@@ -7,7 +7,7 @@ require_once ('translation/en.php');
             <img src="../assets/img/logo/logoWit.svg" class="img-fluid logoImg" alt="Logo">
         </div>
         <div class="col-12 col-md-6 d-flex justify-content-md-end">
-            <ul class="p-0 mt-4">
+            <ul class="p-0 headerLinks">
                 <li class="headerList"><a href="../index.php"><?php echo $message['home']; ?></a></li>
                 <li class="headerList"><a href="gallery.php"><?php echo $message['gallery']; ?></a></li>
                 <li class="headerList"><a href="aboutus.php"><?php echo $message['aboutus']; ?></a></li>
