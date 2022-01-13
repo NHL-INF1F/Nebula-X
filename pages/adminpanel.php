@@ -1,12 +1,12 @@
 <?php
 //Start a session
-//session_start();
+session_start();
 
 //Check if user is logged
-//if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
+if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
     //Send user to index.php
-    //header('location: ../index.php');
-//}
+    header('location: ../index.php');
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -15,11 +15,26 @@
         <meta charset="UTF-8">
 
         <!-- CSS -->
-        <link rel="stylesheet" href="../assets/styles/adminpanel.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap%27" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Bebas+Neue&display=swap%27" rel="stylesheet">
         <link rel="stylesheet" href="../assets/styles/index.css">
+        <link rel="stylesheet" href="../assets/styles/adminpanel.css">
+        
+        <!-- modal script -->
+        <script>
+            // Script for the modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp
+            // Get the modal
+            var modal = document.getElementById('delbtnpress');
+
+            // When the user clicks anywhere outside of the modal, close it
+            window.onclick = function(event) {
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            }
+        </script>
+
 
     </head>
     <body>
@@ -112,8 +127,8 @@
                 <form class="modal-content" action="/action_page.php">
                     <div class="container">
                         <h1>Delete Confirmation</h1>
-                        <p>Are you sure you want to delete the reservation?</p>
-                        <p>WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE RESERVATION IT WILL BE GONE FOREVER!</p>
+                        <h2>Are you sure you want to delete the Message?</h2>
+                        <p>WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE Message IT WILL BE GONE FOREVER!</p>
                         <div class="clearfix">
                             <?php 
                                 echo "<a href=../components/adminpanel/delete_message.php?id=". $id .">Delete</a></div>"; 

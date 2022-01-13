@@ -26,7 +26,7 @@
         </div>
         <div class="row">
             <div class="col-sm-3">
-                <img src="../assets/img/logo/logoWit.svg" class="img-fluid" alt="Logo">
+                <img class="logoImg" src="../assets/img/logo/logoWit.svg" class="img-fluid" alt="Logo">
                 <p><?php echo $message['nebulaxmotto'] ?></p>
             </div>
             <div class="col-sm-3">
