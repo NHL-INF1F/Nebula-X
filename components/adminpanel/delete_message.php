@@ -9,7 +9,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Adminpanel</title>
     <meta charset="UTF-8">
@@ -25,8 +25,15 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
       require_once '../../controllers/database/dbconnect.php';
 
       $sql = "DELETE FROM contact_message WHERE ID='$_GET[id]'";
-      $stmt = mysqli_prepare($conn, $sql) or die(mysqli_error($conn));
-      mysqli_stmt_execute($stmt) or die("Something went wrong, please try again later or contact support.");
+      $stmt = mysqli_prepare($conn, $sql);
+      if(!$stmt){
+          $_SESSION['error'] = "database_error";
+          header("location: error.php");
+      }
+      if(!mysqli_stmt_execute($stmt)){
+        $_SESSION['error'] = "message_delete_error";
+        header("location: error.php");
+      }
       echo "<p>Deletion successful, please wait to be redirected.</p>";
       header("refresh:2 url=../../pages/adminpanel.php");
     ?>

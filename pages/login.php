@@ -17,12 +17,12 @@ $error = array();
  * Function checkRegisterFields.
  * Function to check if fields are correct and not empty.
  * Display Error message if needed.
- * @param string    $email  Filled in email
- * @param string    $firstname  Filled in firstname
- * @param string    $lastname  Filled in lastname
- * @param string    $password  Filled in password
- * @param string    $password2  Filled in password2
- * @param array     $error  Array with errors
+ * @param string $email Filled in email
+ * @param string $firstname Filled in firstname
+ * @param string $lastname Filled in lastname
+ * @param string $password Filled in password
+ * @param string $password2 Filled in password2
+ * @param array $error Array with errors
  * @return string/boolean  $error  False or error message
  */
 function checkRegisterFields($email, $password) {
@@ -53,8 +53,8 @@ function checkRegisterFields($email, $password) {
 //Check if submitted
 if (isset($_POST['submit'])) {
     //Submitted form data validation
-    $email      = filter_input(INPUT_POST, 'email',     FILTER_VALIDATE_EMAIL);
-    $password   = filter_input(INPUT_POST, 'password',  FILTER_SANITIZE_SPECIAL_CHARS);
+    $email = filter_input(INPUT_POST, 'email', FILTER_VALIDATE_EMAIL);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_SPECIAL_CHARS);
 
     //Check form data fields
     if (!checkRegisterFields($email, $password)) {
@@ -62,13 +62,23 @@ if (isset($_POST['submit'])) {
         $query = "SELECT * FROM user WHERE email = ?";
 
         //Prpeparing SQL Query with database connection
-        $stmt = mysqli_prepare($conn, $query) or die(mysqli_error($conn));
+        $stmt = mysqli_prepare($conn, $query);
+        if (!$stmt) {
+            $_SESSION['error'] = "database_error";
+            header("location: error.php");
+        }
 
         //Binding params into ? fields
-        mysqli_stmt_bind_param($stmt, "s", $email) or die('Binding params went wrong');
+        if(!mysqli_stmt_bind_param($stmt, "s", $email)){
+            $_SESSION['error'] = "database_error";
+            header("location: error.php");
+        }
 
         //Executing statement
-        mysqli_stmt_execute($stmt) or die('Executing statement went wrong');
+        if(!mysqli_stmt_execute($stmt)){
+            $_SESSION['error'] = "database_error";
+            header("location: error.php");
+        }
 
         //Bind the STMT results(sql statement) to variables
         mysqli_stmt_bind_result($stmt, $ID, $firstname, $lastname, $email2, $password2, $role);
@@ -117,16 +127,17 @@ if (isset($_POST['submit'])) {
 
     <!-- Prevent resubmitting on page refresh -->
     <script>
-    if ( window.history.replaceState ) {
-        window.history.replaceState( null, null, window.location.href );
-    }
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
     </script>
 
     <!-- script for closing divs -->
     <script type="text/javascript" src="../assets/scripts/slider.js"></script>
 
     <!-- CSS only -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap%27" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Bebas+Neue&display=swap%27" rel="stylesheet">
     <link href="../assets/styles/registerLoginContact.css" rel="stylesheet">
@@ -135,85 +146,91 @@ if (isset($_POST['submit'])) {
 </head>
 
 <body>
-    <?php
-    require_once('../components/header.php');
-    ?>
-    <div class="container-fluid d-flex align-items-center min-vh-100">
-        <div class="row w-75 h-100 hBox">
-            <?php
-            if (isset($_POST['submit']) && !empty($error) || isset($_SESSION['redirected']) && !empty($_SESSION['redirected'])) {
+<?php
+require_once('../components/header.php');
+?>
+<div class="container-fluid d-flex align-items-center min-vh-100">
+    <div class="row w-75 h-100 hBox">
+        <?php
+        if (isset($_POST['submit']) && !empty($error) || isset($_SESSION['redirected']) && !empty($_SESSION['redirected'])) {
             ?>
-                <div class="col-md-12 p-0">
-                    <div class="alert alert-danger text-black fw-bold p-4 rounded-0" role="alert">
-                        <ul>
-                            <?php
-                            foreach ($error as $errorMsg) {
-                                echo '<li>' . $errorMsg . '</li>';
-                            }
-                            if (isset($_SESSION['redirected']) && !empty($_SESSION['redirected'])) {
-                                echo '<li>' . $_SESSION['redirected'] . '</li>';
-                                $_SESSION['redirected'] = '';
-                            }
-                            ?>
-                        </ul>
-                    </div>
+            <div class="col-md-12 p-0">
+                <div class="alert alert-danger text-black fw-bold p-4 rounded-0" role="alert">
+                    <ul>
+                        <?php
+                        foreach ($error as $errorMsg) {
+                            echo '<li>' . $errorMsg . '</li>';
+                        }
+                        if (isset($_SESSION['redirected']) && !empty($_SESSION['redirected'])) {
+                            echo '<li>' . $_SESSION['redirected'] . '</li>';
+                            $_SESSION['redirected'] = '';
+                        }
+                        ?>
+                    </ul>
                 </div>
+            </div>
             <?php
-            }
-            if (isset($_SESSION['registered']) && !empty($_SESSION['registered'])) {
+        }
+        if (isset($_SESSION['registered']) && !empty($_SESSION['registered'])) {
             ?>
-                <div class="col-md-12 p-0">
-                    <div class="alert alert-success text-black fw-bold p-4 rounded-0" role="alert">
-                        <ul>
-                            <?php
-                            echo '<li>' . $_SESSION['registered'] . '</li>';
-                            $_SESSION['registered'] = '';
-                            ?>
-                        </ul>
-                    </div>
+            <div class="col-md-12 p-0">
+                <div class="alert alert-success text-black fw-bold p-4 rounded-0" role="alert">
+                    <ul>
+                        <?php
+                        echo '<li>' . $_SESSION['registered'] . '</li>';
+                        $_SESSION['registered'] = '';
+                        ?>
+                    </ul>
                 </div>
+            </div>
             <?php
-            }
-            ?>
-            <div class="col-md-8 p-4 bg-white order-md-1 order-2">
-                <h1><?php echo $message['login'] ?></h1>
-                <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
-                    <div class="mb-1">
-                        <label for="email" class="form-label"><?php echo $message['email'] ?></label>
-                        <input maxlength="255" required type="email" class="form-control" placeholder="youremail@domain.com" name="email" id="email" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['email']);} ?>">
-                    </div>
-                    <div class="mb-4">
-                        <label for="password" class="form-label"><?php echo $message['password'] ?></label>
-                        <input maxlength="255" required type="password" class="form-control" placeholder="Password" name="password" id="password" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password']);} ?>">
-                    </div>
-                    <div class="buttonBox">
-                        <input class="button" type="submit" name="submit" value=<?php echo $message['login'] ?>>
-                    </div>
-                </form>
+        }
+        ?>
+        <div class="col-md-8 p-4 bg-white order-md-1 order-2">
+            <h1><?php echo $message['login'] ?></h1>
+            <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
+                <div class="mb-1">
+                    <label for="email" class="form-label"><?php echo $message['email'] ?></label>
+                    <input maxlength="255" required type="email" class="form-control" placeholder="youremail@domain.com"
+                           name="email" id="email" value="<?php if (isset($_POST['submit'])) {
+                        echo htmlentities($_POST['email']);
+                    } ?>">
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="form-label"><?php echo $message['password'] ?></label>
+                    <input maxlength="255" required type="password" class="form-control" placeholder="Password"
+                           name="password" id="password" value="<?php if (isset($_POST['submit'])) {
+                        echo htmlentities($_POST['password']);
+                    } ?>">
+                </div>
+                <div class="buttonBox">
+                    <input class="button" type="submit" name="submit" value=<?php echo $message['login'] ?>>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-md-4 p-4 seeThroughBox order-md-2 order-1">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-white"><?php echo $message['notamember'] ?></h1>
+                    <p class="text-white"><?php echo $message['registerinfo'] ?></p>
+                </div>
             </div>
 
-            <div class="col-md-4 p-4 seeThroughBox order-md-2 order-1">
-                <div class="row">
-                    <div class="col-md-12">
-                        <h1 class="text-white"><?php echo $message['notamember'] ?></h1>
-                        <p class="text-white"><?php echo $message['registerinfo'] ?></p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="buttonBox">
-                            <a href="register.php">
-                                <input class="button" type="submit" name="register" value="register">
-                            </a>
-                        </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="buttonBox">
+                        <a href="register.php">
+                            <input class="button" type="submit" name="register" value="register">
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <?php 
-        require_once("../components/footer.php"); ?>
+</div>
+<?php
+require_once("../components/footer.php"); ?>
 </body>
 
 </html>

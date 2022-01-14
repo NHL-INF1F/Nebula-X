@@ -89,12 +89,11 @@ if (!isset($_GET['dateEnd'])){
     <link rel="stylesheet" href="../assets/styles/footer.css">
 </head>
 <body>
-<main>
-    <?php 
-    require_once("../components/header.php");
-    ?>
+<main class="min-vh-100">
+    <?php
+    require_once("../components/header.php"); ?>
 
-    <div class="container-fluid min-vh-100 spaceBackground pt-5">
+    <div class="container-fluid pt-5">
         <div class="row bg-white w-75 m-auto">
             <div class="col-sm-12 col-xl-6">
                 <div class="row">

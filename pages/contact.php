@@ -73,13 +73,25 @@ if (isset($_POST['submit'])) {
         $query = "INSERT INTO contact_message (name, email, subject, message) VALUES (?,?,?,?)";
 
         //Prpeparing SQL Query with database connection
-        $stmt = mysqli_prepare($conn, $query) or die(mysqli_error($conn));
+        $stmt = mysqli_prepare($conn, $query);
+        if(!$stmt){
+            $_SESSION['error'] = "database_error";
+            header("location: error.php");
+        }
 
         //Binding params into ? fields
-        mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $subject, $contactMessage) or die('Binding params went wrong');
+        if(!mysqli_stmt_bind_param($stmt, "ssss", $name, $email, $subject, $contactMessage)){
+            if(!$stmt){
+                $_SESSION['error'] = "database_error";
+                header("location: error.php");
+            }
+        };
 
         //Executing statement
-        mysqli_stmt_execute($stmt) or die('Executing statement went wrong');
+        if(!mysqli_stmt_execute($stmt)){
+            $_SESSION['error'] = "database_error";
+            header("location: error.php");
+        };
 
         //Close the statement
         mysqli_stmt_close($stmt);
