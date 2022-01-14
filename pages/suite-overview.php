@@ -111,7 +111,7 @@ if (!isset($_GET['dateEnd'])){
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <label for="exampleInputPassword1" class="form-label">To</label>
-                                    <input class="form-control" min="<?php echo $today ?>" type="date" id="dateEnd" name="dateEnd" required value="<?php echo $_GET['dateEnd'] ?? $tomorrow;?>">
+                                    <input class="form-control" min="<?php echo $tomorrow ?>" type="date" id="dateEnd" name="dateEnd" required value="<?php echo $_GET['dateEnd'] ?? $tomorrow;?>">
                                 </div>
                             </div>
 
