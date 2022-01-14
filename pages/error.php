@@ -12,7 +12,7 @@
     <!-- Font Awesome icons -->
     <script src="https://kit.fontawesome.com/f9ece565b9.js" crossorigin="anonymous"></script>
     <link href="../assets/styles/bookingconfirm.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/styles/header.css">
+    <link rel="stylesheet" href="../assets/styles/header-fixed.css">
 </head>
 <body>
 
@@ -27,7 +27,7 @@ unset($_SESSION['error']);
 ?>
 
 <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
-    <div class="row w-75 h-100 mx-auto my-0">
+    <main class="row w-75 h-100 mx-auto my-0">
         <div class="offset-3 col-6 p-4 bg-white text-center">
             <h1><?php echo $message['error_title'] ?></h1>
 
@@ -44,7 +44,7 @@ unset($_SESSION['error']);
             </div>
         </div>
 
-    </div>
+    </main>
 </div>
 </body>
 </html>

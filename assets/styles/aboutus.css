@@ -6,7 +6,7 @@ html, body {
     width: 100%;
 }
 
-h4{
+h1{
     font-size: 60px;
 }
 
@@ -32,7 +32,7 @@ a {
 }
 
 .p-tl{
-    padding-top: 130px;
+    padding-top: 20px;
     padding-left: 60px;
 }
 
@@ -40,19 +40,8 @@ a {
     margin-top: -45px;
 }
 
-/* images */
-.spaceBackground {
-    background: linear-gradient(
-    180deg,
-    rgba(13, 24, 45, 1) 0%,
-    rgba(20, 39, 71, 1) 30%,
-    rgba(16, 35, 68, 1) 50%,
-    rgba(3, 17, 43, 1) 78%
-  );
-}
-
 .imgBorder{
-    background-image: url('../img/background.svg');
+
     background-repeat: no-repeat, repeat;
     background-position: center;
     }
@@ -68,5 +57,7 @@ a {
     height: auto;
 }
 .imgP{
-    padding: 70px;
+    padding: 30px;
+    border: 10px solid transparent;
+    border-image: url('../img/background.svg') 30;
 }

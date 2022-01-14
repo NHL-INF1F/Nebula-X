@@ -46,7 +46,7 @@ $error = array();
         ?>
 
         <div class="container-fluid blueBackground">
-            <div class="row p-5">
+            <main class="row p-5">
                 <div class="col-md-4 pt-5">
                     <h2 class="text-white"><?php echo $message['reservations']; ?></h2>
 
@@ -289,7 +289,7 @@ $error = array();
                     </div>
 
                 </div>
-            </div>
+            </main>
         </div>
         
     <?php
