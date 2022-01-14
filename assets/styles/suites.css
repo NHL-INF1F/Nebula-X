@@ -21,6 +21,17 @@ map {
     rgba(3, 17, 43, 1) 78%
   );
 }
+svg {
+  width: 100%;
+  display: block;
+  height: 400px;
+}
+.svgBlock {
+  margin: auto;
+  display: block;
+  max-width: 417px;
+  width: 100%;
+}
 
 .suite {
   border: 1px solid;
@@ -106,6 +117,7 @@ map {
   border-radius: 0 3px 3px 0;
   user-select: none;
   text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* Position the "next button" to the right */
