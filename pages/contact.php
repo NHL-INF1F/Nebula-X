@@ -122,7 +122,7 @@ if (isset($_POST['submit'])) {
     <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap%27" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Bebas+Neue&display=swap%27" rel="stylesheet">
     <link href="../assets/styles/registerLoginContact.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/styles/header.css">
+    <link rel="stylesheet" href="../assets/styles/header-fixed.css">
     <link rel="stylesheet" href="../assets/styles/footer.css">
 </head>
 
@@ -131,7 +131,7 @@ if (isset($_POST['submit'])) {
     require_once('../components/header.php');
     ?>
     <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
-        <div class="row w-75 h-100 hBox">
+        <main class="row w-75 h-100 hBox">
             <?php
             if (isset($_POST['submit']) && !empty($error)) {
             ?>
@@ -196,7 +196,7 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
     <?php 
         require_once("../components/footer.php"); ?>

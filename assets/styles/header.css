@@ -1,6 +1,6 @@
 /* header */
 .header {
-    background-color: rgb(3 16 40 / 97%);
+    margin-bottom: 40px;
 }
 
 .headerLinks {
@@ -11,6 +11,17 @@
 .headerList {
     display: inline;
     margin: 6px;
+}
+
+
+body{
+    background: linear-gradient(
+            180deg,
+            rgba(13, 24, 45, 1) 0%,
+            rgba(20, 39, 71, 1) 30%,
+            rgba(16, 35, 68, 1) 50%,
+            rgba(3, 17, 43, 1) 78%
+    );
 }
 
 .headerList a {
@@ -25,5 +36,5 @@
 }
 
 .logoImg {
-    max-width: 180px !important;
+    width: 180px !important;
 }

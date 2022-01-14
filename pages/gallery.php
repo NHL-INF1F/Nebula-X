@@ -39,7 +39,6 @@ function getImage()
 
     <!-- script for closing divs -->
     <script type="text/javascript" src="../assets/scripts/slider.js"></script>
-    
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap%27" rel="stylesheet">
@@ -55,25 +54,22 @@ function getImage()
     <title>Gallery</title>
 </head>
 <body>
-    <?php 
-    require_once("../components/header.php"); ?>
-    <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground pt-5">
-        <div class="container-fluid pt-5">
-            <div class="row">
-                <div class="col-md-12">
-                    <h1><?php echo $message['gallery']; ?></h1>
-                </div>
-            </div>
 
-            <div class="row">
-                <?php
-                getImage();
-                ?>
+<main class="min-vh-100">
+    <?php
+    require_once("../components/header.php"); ?>
+
+<div class="container-fluid d-flex align-items-top">
+        <div class="row">
+            <div class="col-12 ">
+                <h1 class="gallery-title"><?php echo $message['gallery']; ?></h1>
             </div>
+            <?php
+            getImage();
+            ?>
         </div>
-    </div>
-    <?php 
-        require_once("../components/footer.php"); ?>
+    <?php
+    require_once("../components/footer.php"); ?>
 </body>
 
 </html>

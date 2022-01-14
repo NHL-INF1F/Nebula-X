@@ -24,15 +24,16 @@ session_start();
     <title>About us</title>
 </head>
 <body>
-<?php
+<main>
+    <?php
     require_once("../components/header.php"); ?>
-    <div class="container-fluid min-vh-100 m-0 p-0 spaceBackground">
-        <div class="row">
+    <div class="container-fluid">
+        <div class="row mb-4">
         <!-- Leftside text -->
-            <div class="col-md-5 p-tl text-white">
+            <div class="col-md-5 pt-md-2 text-white">
                 <div class="row">
-                    <div class="col-md-12">
-                        <h4 class="d-block"><?php echo $message['about'] ?></h4>
+                    <div class="col-10 col-md-12">
+                        <h1 class="d-block"><?php echo $message['about'] ?></h1>
                         <h5 class="d-block midText"><?php echo $message['aim'] ?></h5>
                         <p class="d-block"><?php echo $message['aboutusinfo'] ?></p>
                     </div>
@@ -45,7 +46,7 @@ session_start();
                 </div>
             </div>
         <!-- Rightside image -->
-            <div class="col-md-7 bg-succes  min-vh-100 d-flex align-items-center justify-content-center">
+            <div class="col-md-7 bg-succes min-vh-100 d-flex align-items-top justify-content-center">
                 <div class="row imgBorder mx-auto d-none d-md-block">
                     <div class="col-md-12">
                         <img class="img-fluid imgP" src="../assets/img/SpaceX_Crew.jpg" alt="SpaceX Crew">
