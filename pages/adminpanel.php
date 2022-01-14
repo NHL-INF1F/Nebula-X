@@ -48,6 +48,7 @@ $error = array();
 <body>
 <main>
     <?php
+    require_once ('../components/translation/en.php');
     include('../controllers/database/dbconnect.php');
     require_once('../components/header.php');
     ?>
@@ -212,7 +213,8 @@ $error = array();
                         }
 
                         if (!move_uploaded_file($image['tmp_name'], '../assets/img/gallery/' . $image['name'])) {
-                            $error[] = $message['admin_file_exist_error'];
+                            $error[] = 'file not supported';
+                            
                             return false;
                         }
                         return true;

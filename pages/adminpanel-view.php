@@ -7,6 +7,8 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
     //Send user to index.php
     header('location: ../index.php');
 }
+
+require_once ('../components/translation/en.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -82,7 +84,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                 <div>
                     <div>
                         <?php
-                        $suitesql = "SELECT ID, suite_size, name, description, price FROM suite WHERE ID=$suiteID";
+                        $suitesql = "SELECT ID, suite_size, name, price FROM suite WHERE ID=$suiteID";
                         $suitestmt = mysqli_prepare($conn, $suitesql);
                         if(!$suitestmt){
                             $_SESSION['error'] = "database_error";
@@ -92,7 +94,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                             $_SESSION['error'] = "database_error";
                             header("location: error.php");
                         }
-                        mysqli_stmt_bind_result($suitestmt, $ID, $suite_size, $name, $description, $price);
+                        mysqli_stmt_bind_result($suitestmt, $ID, $suite_size, $name, $price);
 
                         //display the reservated suite
                         while (mysqli_stmt_fetch($suitestmt)) {
@@ -102,14 +104,12 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
                             <th>ID</th>
                             <th>Name</th>
                             <th>size</th>
-                            <th>Discription</th>
                             <th>Price</th>
                         </tr>
                         <tr>
                             <td>$ID</td>
                             <td>$name</td>
                             <td>$suite_size</td>
-                            <td>$description</td>
                             <td>$price</td>
                         </tr>
                     </table>";
