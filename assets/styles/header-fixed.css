@@ -1,0 +1,40 @@
+/* header */
+.header {
+    position: fixed;
+}
+
+.headerLinks {
+    margin-top: 5px !important;
+    margin-bottom: 0px !important;
+}
+
+.headerList {
+    display: inline;
+    margin: 6px;
+}
+
+
+body{
+    background: linear-gradient(
+            180deg,
+            rgba(13, 24, 45, 1) 0%,
+            rgba(20, 39, 71, 1) 30%,
+            rgba(16, 35, 68, 1) 50%,
+            rgba(3, 17, 43, 1) 78%
+    );
+}
+
+.headerList a {
+    font-family: Bebas Neue;
+    color: white;
+    text-decoration: none;
+    font-size: 1.5em;
+}
+
+.headerList a:hover {
+    border-bottom: 2px solid white;
+}
+
+.logoImg {
+    width: 180px !important;
+}

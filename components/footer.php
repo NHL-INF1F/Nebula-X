@@ -65,7 +65,7 @@
             <div class="col-sm-3">
                 <h1><?php echo $message['legal'] ?></h1> 
                 <ul class="p-0 m-0">
-                    <li><a href="https://www.spacex.com/trademark/"><?php echo $message['trademark'] ?></li></a>
+                    <li><a href="https://www.spacex.com/trademark/"><?php echo $message['trademark'] ?></a></li>
                     <li><a href="https://www.spacex.com/media/privacy_policy_spacex.pdf"><?php echo $message['privacy'] ?></a></li>
                 </ul>
             </div>

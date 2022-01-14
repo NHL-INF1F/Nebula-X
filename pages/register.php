@@ -72,11 +72,11 @@ function checkRegisterFields(string $email, string $firstname, string $lastname,
  * Function checkUserInDatabase
  * Function to check if user already exists in database
  * Display Error message if needed.
- * @param   object          $conn   Database connection
+ * @param   mysqli          $conn   Database connection
  * @param   string          $email  Filled in email
  * @return  string/boolean  $error  False or error message
  */
-function checkUserInDataBase(object $conn, string $email) {
+function checkUserInDataBase(mysqli $conn, string $email) {
     //Call global variable(s)
     global $error;
 
@@ -84,13 +84,23 @@ function checkUserInDataBase(object $conn, string $email) {
     $query = "SELECT * FROM user WHERE email = ?";
 
     //Prpeparing SQL Query with database connection
-    $stmt = mysqli_prepare($conn, $query) or die(mysqli_error($conn));
+    $stmt = mysqli_prepare($conn, $query);
+    if(!$stmt){
+        $_SESSION['error'] = "database_error";
+        header("location: error.php");
+    }
 
     //Binding params into ? fields
-    mysqli_stmt_bind_param($stmt, "s", $email) or die('niet goed');
+    if(!mysqli_stmt_bind_param($stmt, "s", $email)){
+        $_SESSION['error'] = "database_error";
+        header("location: error.php");
+    }
 
     //Executing statement
-    mysqli_stmt_execute($stmt) or die('<br>message');
+    if(mysqli_stmt_execute($stmt)){
+        $_SESSION['error'] = "database_error";
+        header("location: error.php");
+    };
 
     //Bind the STMT results(sql statement) to variables
     mysqli_stmt_bind_result($stmt, $ID, $one, $two, $three, $four, $five);
@@ -131,13 +141,23 @@ if (isset($_POST['submit'])) {
             $query = "INSERT INTO user (firstname, lastname, email, password, role) VALUES (?,?,?,?,?)";
 
             //Prpeparing SQL Query with database connection
-            $stmt = mysqli_prepare($conn, $query) or die(mysqli_error($conn));
+            $stmt = mysqli_prepare($conn, $query);
+            if(!$stmt){
+                $_SESSION['error'] = "database_error";
+                header("location: error.php");
+            }
 
             //Binding params into ? fields
-            mysqli_stmt_bind_param($stmt, "sssss", $firstname, $lastname, $email, $password, $role) or die('Binding params went wrong');
+            if(!mysqli_stmt_bind_param($stmt, "sssss", $firstname, $lastname, $email, $password, $role)){
+                $_SESSION['error'] = "database_error";
+                header("location: error.php");
+            }
 
             //Executing statement
-            mysqli_stmt_execute($stmt) or die('Executing statement went wrong');
+            if(!mysqli_stmt_execute($stmt)){
+                $_SESSION['error'] = "database_error";
+                header("location: error.php");
+            }
 
             //Close the statement and connection
             mysqli_stmt_close($stmt);
@@ -181,7 +201,7 @@ if (isset($_POST['submit'])) {
     <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap%27" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Bebas+Neue&display=swap%27" rel="stylesheet">
     <link href="../assets/styles/registerLoginContact.css" rel="stylesheet">
-    <link rel="stylesheet" href="../assets/styles/header.css">
+    <link rel="stylesheet" href="../assets/styles/header-fixed.css">
     <link rel="stylesheet" href="../assets/styles/footer.css">
 </head>
 
@@ -190,7 +210,7 @@ if (isset($_POST['submit'])) {
     require_once('../components/header.php');
     ?>
     <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
-        <div class="row w-75 h-100 hBox">
+        <main class="row w-75 h-100 hBox">
             <?php
             if (isset($_POST['submit']) && !empty($error)) {
             ?>
@@ -254,7 +274,7 @@ if (isset($_POST['submit'])) {
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     </div>
     <?php 
         require_once("../components/footer.php"); ?>

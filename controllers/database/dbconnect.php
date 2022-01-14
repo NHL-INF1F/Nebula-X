@@ -7,5 +7,6 @@ $conn = mysqli_connect(HOSTNAME, USERNAME, PASSWORD, DATABASE);
 
 // Test the connection
 if (!$conn) {
-    die("Could not connect: " . mysqli_connect_error());
+    $_SESSION['error'] = "database_connect_error";
+    header("location: error.php");
 }

@@ -11,15 +11,16 @@ body {
 map {
   background-color: black;
 }
-
-.spaceBackground {
-  background: linear-gradient(
-    180deg,
-    rgba(13, 24, 45, 1) 0%,
-    rgba(20, 39, 71, 1) 30%,
-    rgba(16, 35, 68, 1) 50%,
-    rgba(3, 17, 43, 1) 78%
-  );
+svg {
+  width: 100%;
+  display: block;
+  height: 400px;
+}
+.svgBlock {
+  margin: auto;
+  display: block;
+  max-width: 417px;
+  width: 100%;
 }
 
 .suite {
@@ -106,6 +107,7 @@ map {
   border-radius: 0 3px 3px 0;
   user-select: none;
   text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 /* Position the "next button" to the right */

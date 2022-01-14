@@ -41,6 +41,12 @@ $message['about']='ABOUT';
 $message['aim']='WHAT WE AIM TO DO';
 $message['aboutusinfo']="We want to give mankind a way to experience space as never done before! Feel what it's like to be in a zero gravity surrounding or what it's like to wake up in space with your beloved ones or as a solo adventurer!";
 
+$message['database_error']="There was an issue with loading data from the server.";
+$message['message_delete_error']="There was an issue with deleting the message.";
+$message['reservation_delete_error']="There was an issue with deleting the reservation.";
+//This message is more transparent about what is going on, but it should only happen when the database is not reachable at all.
+//Which should never happen.
+$message['database_connect_error']="There was an issue with connecting to the database.";
 /*Rooms page translations*/
 //Search translations
 $message['search']='SEARCH';
@@ -49,27 +55,11 @@ $message['checkin']='Check in date';
 $message['checkout']='Check out date';
 $message['check']='CHECK';
 //Rooms translations
-$message['spacehub']='SPACE HUB';
-$message['spacecenter']='SPACE CENTER';
-$message['commandcenter']='COMMAND CENTER';
-$message['singleroom']='Single room';
-$message['doubleroom']='Double room';
-$message['luxuryroom']='Luxury room';
-$message['1guest']='UP TO 1 GUEST';
-$message['2guests']='UP TO 2 GUESTS';
-$message['3guests']='UP TO 3 GUESTS';
-$message['readmorerooms']='Read more ->';
 $message['bookNow']='BOOK NOW!';
-$message['roomtypes']='ROOM TYPES';
-$message['singledeluxe']='Single Deluxe Stations';
-$message['doubletwin']='Double Twin Stations';
-$message['tripleluxury']='Triple Luxury Stations';
 
 /*Booking page translations*/
 $message['booking_page_title']='Booking Confirmation';
 $message['bookingtitle']='BOOKING';
-$message['spacehub']='SPACE HUB';
-$message['bookinginfo']='A single room with air conditioning, Shower. 1x single bed, Safe, Small fridge, Coffee and tea facilities, Phone, Television, Bath with bubble system, Blowdryer.';
 $message['availability']='AVAILABILITY';
 $message['booking_confirm_title']='Booking Confirmation';
 $message['error_title']='Something went wrong';
@@ -78,8 +68,8 @@ $message['booking_cancel']='CANCEL';
 $message['error_contact']='LEAVE A MESSAGE';
 $message['booking_back']='GO BACK';
 $message['error_back']='GO BACK';
-$message['booking_confirmed_title']="Reservering geplaatst";
-$message['booking_confirmed_message']="Uw reservering is succesfol geplaatst";
+$message['booking_confirmed_title']="Reservation placed";
+$message['booking_confirmed_message']="Your reservation has been made successfully";
 
 $message['booking_user']='User';
 $message['booking_firstname']='Firstname: ';

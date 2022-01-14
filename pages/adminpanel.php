@@ -12,7 +12,7 @@ $error = array();
 
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Adminpanel</title>
         <meta charset="UTF-8">
@@ -39,33 +39,39 @@ $error = array();
         </script>
     </head>
     <body>
-        <?php
+        <main>
+            <?php
             include('../controllers/database/dbconnect.php');
             require_once('../components/header.php');
-            require('../components/translation/en.php');
-        ?>
-
-        <div class="container-fluid blueBackground">
+            ?>
+        <div class="container-fluid">
             <div class="row p-5">
                 <div class="col-md-4 pt-5">
                     <h2 class="text-white"><?php echo $message['reservations']; ?></h2>
 
                     <div class="table-responsive">
                         <table class="bg-white">
-                            <thead>
+                            <tr>
                                 <th><?php echo $message['id']; ?></th>
                                 <th><?php echo $message['userid']; ?></th>
                                 <th><?php echo $message['suiteid']; ?></th>
                                 <th><?php echo $message['startdate']; ?></th>
                                 <th><?php echo $message['enddate']; ?></th>
-                            </thead>
+                            </tr>
                             
                             <tbody>
                             <?php
                             // run query from database
                             $reservationsql = "SELECT * from reservation";
-                            $reservationstmt = mysqli_prepare($conn, $reservationsql) or die(mysqli_error($conn));
-                            mysqli_stmt_execute($reservationstmt) or die("Error");
+                            $reservationstmt = mysqli_prepare($conn, $reservationsql);
+                            if(!$reservationstmt){
+                                $_SESSION['error'] = "database_error";
+                                header("location: error.php");
+                            }
+                            if(!mysqli_stmt_execute($reservationstmt)){
+                                $_SESSION['error'] = "database_error";
+                                header("location: error.php");
+                            };
                             mysqli_stmt_bind_result($reservationstmt, $id, $user_id, $suite_id, $date_from, $date_to);
 
                             // while loop to echo the query results in a table
@@ -92,7 +98,7 @@ $error = array();
 
                     <div class="table-responsive">
                         <table class="bg-white">
-                            <thead>
+                            <tr>
                                 <th><?php echo $message['id']; ?></th>
                                 <th><?php echo $message['name']; ?></th>
                                 <th><?php echo $message['email']; ?></th>
@@ -100,14 +106,21 @@ $error = array();
                                 <th><?php echo $message['message']; ?></th>
                                 <th></th>
                                 <th></th>
-                            </thead>
+                            </tr>
 
                             <tbody>
                             <?php
                             // run query from database
                             $contactsql = "SELECT * from contact_message";
-                            $contactstmt = mysqli_prepare($conn, $contactsql) or die(mysqli_error($conn));
-                            mysqli_stmt_execute($contactstmt) or die("Error");
+                            $contactstmt = mysqli_prepare($conn, $contactsql);
+                            if(!$contactstmt){
+                                $_SESSION['error'] = "database_error";
+                                header("location: error.php");
+                            }
+                            if(!mysqli_stmt_execute($contactstmt)){
+                                $_SESSION['error'] = "database_error";
+                                header("location: error.php");
+                            }
                             mysqli_stmt_bind_result($contactstmt, $id, $name, $email, $subject, $message);
                             
                             // while loop to echo the query results in a table
@@ -206,7 +219,7 @@ $error = array();
                             echo "
                             <div class='col-sm-12 col-md-6 mb-3'>
                                 <div class='border border-primary p-2'>
-                                    <img class='img-fluid mb-2' src='" . $dir . "/" . $file . "'>
+                                    <img alt='$file' class='img-fluid mb-2' src='" . $dir . "/" . $file . "'>
 
                                     <form action='" . htmlentities($_SERVER['PHP_SELF']) . "' method='post'>
                                         <input type='hidden' name='imageName' value='" . $file  . "'>
@@ -291,6 +304,7 @@ $error = array();
                 </div>
             </div>
         </div>
+        </main>
         
     <?php
     // close the connection
