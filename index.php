@@ -58,7 +58,7 @@ require_once('controllers/database/dbconnect.php');
     <!-- Content -->
     <div class="container-fluid min-vh-100 m-0 p-0 spaceBackground">
         <div class="row w-100 min-vh-100 m-0">
-            <div class="col-md-6 bg-succes spaceStation">
+            <div id="hoverstation" class="col-md-6 bg-succes spaceStation">
 
             </div>
             <div class="col-md-6 text-white min-vh-100">
@@ -128,16 +128,6 @@ require_once('controllers/database/dbconnect.php');
                     <li><a href="pages/aboutus.php"><?php echo $message['exploreaboutus'] ?></a></li>
                     <li><a href="pages/suite-overview.php"><?php echo $message['explorebooking'] ?></a></li>
                     <li><a href="pages/contact.php"><?php echo $message['explorecontact'] ?></a></li>
-                    <?php
-                    if (isset($_SESSION['email']) && $_SESSION['role'] == 'admin') {
-                        echo '<li><a href="pages/adminpanel.php">'. $message['admin-panel2'] .'</a></li>';
-                    }
-                    if (isset($_SESSION['email'])) {
-                        echo '<li><a href="pages/logout.php">'. $message['logout2'] .'</a></li>';
-                    } else {
-                        echo '<li><a href="pages/login.php">'. $message['loginregister2'] .'</a></li>';
-                    }
-                    ?>
                 </ul>
             </div>
             <div class="col-sm-3">
@@ -169,6 +159,7 @@ require_once('controllers/database/dbconnect.php');
             </div>
         </div>
     </div>
+    <script src="./assets/scripts/konami.js"></script>
 
 </body>
 

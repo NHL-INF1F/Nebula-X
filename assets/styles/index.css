@@ -59,6 +59,38 @@ a {
     background-position: center;
 }
 
+.hoverstation{
+    animation: hover 15s ease-in-out 0s infinite reverse none;
+}
+
+@keyframes hover {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+  
+    10%,
+    30%,
+    50%,
+    70% {
+      transform: translateY(-16px);
+    }
+  
+    20%,
+    40%,
+    60% {
+      transform: translateY(16px);
+    }
+  
+    80% {
+      transform: translateY(6.4px);
+    }
+  
+    90% {
+      transform: translateY(-6.4px);
+    }
+}
+
 #slidebar {
     display: flex !important;
     background-color: rgba(0, 0, 0, 0.281);
