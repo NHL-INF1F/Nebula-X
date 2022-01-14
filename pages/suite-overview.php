@@ -107,11 +107,11 @@ if (!isset($_GET['dateEnd'])){
                             <div class="row mb-3">
                                 <div class="col-sm-12 col-md-6">
                                     <label for="dateStart" class="form-label">From</label>
-                                    <input class="form-control" type="date" id="dateStart" name="dateStart" required value="<?php echo  $_GET['dateStart'] ?? $today;?>">
+                                    <input class="form-control" min="<?php echo $today ?>" type="date" id="dateStart" name="dateStart" required value="<?php echo  $_GET['dateStart'] ?? $today;?>">
                                 </div>
                                 <div class="col-sm-12 col-md-6">
                                     <label for="exampleInputPassword1" class="form-label">To</label>
-                                    <input class="form-control" type="date" id="dateEnd" name="dateEnd" required value="<?php echo $_GET['dateEnd'] ?? $tomorrow;?>">
+                                    <input class="form-control" min="<?php echo $today ?>" type="date" id="dateEnd" name="dateEnd" required value="<?php echo $_GET['dateEnd'] ?? $tomorrow;?>">
                                 </div>
                             </div>
 
