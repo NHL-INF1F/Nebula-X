@@ -24,8 +24,11 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
     <?php
       require_once '../../controllers/database/dbconnect.php';
 
-      $sql = "DELETE FROM contact_message WHERE ID='$_GET[id]'";
+      $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+
+      $sql = "DELETE FROM contact_message WHERE ID=?";;
       $stmt = mysqli_prepare($conn, $sql);
+      mysqli_stmt_bind_param($stmt, "i", $id);
       if(!$stmt){
           $_SESSION['error'] = "database_error";
           header("location: error.php");
@@ -34,8 +37,8 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
         $_SESSION['error'] = "message_delete_error";
         header("location: error.php");
       }
-      echo "<p>Deletion successful, please wait to be redirected.</p>";
-      header("refresh:2 url=../../pages/adminpanel.php");
+
+      header("location: ../../pages/adminpanel.php");
     ?>
   </body>
 </html>

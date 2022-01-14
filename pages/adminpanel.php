@@ -13,198 +13,211 @@ $error = array();
 ?>
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <title>Adminpanel</title>
-        <meta charset="UTF-8">
+<head>
+    <title>Adminpanel</title>
+    <meta charset="UTF-8">
 
-        <!-- CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap%27" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Bebas+Neue&display=swap%27" rel="stylesheet">
-        <link rel="stylesheet" href="../assets/styles/header.css">
-        <link rel="stylesheet" href="../assets/styles/adminpanel.css">
-        
-        <!-- modal script -->
-        <script>
-            // Script for the modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp
-            // Get the modal
-            var modal = document.getElementById('delbtnpress');
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo&display=swap%27" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Arimo&family=Bebas+Neue&display=swap%27" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/styles/header.css">
+    <link rel="stylesheet" href="../assets/styles/adminpanel.css">
 
-            // When the user clicks anywhere outside of the modal, close it
-            window.onclick = function(event) {
-                if (event.target == modal) {
-                    modal.style.display = "none";
-                }
+    <!-- modal script -->
+    <script>
+        // Script for the modal from: https://www.w3schools.com/howto/howto_css_delete_modal.asp
+        // Get the modal
+        var modal = document.getElementById('delbtnpress');
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
             }
-        </script>
-    </head>
-    <body>
-        <main>
-            <?php
-            include('../controllers/database/dbconnect.php');
-            require_once('../components/header.php');
-            ?>
-        <div class="container-fluid">
-            <div class="row p-5">
-                <div class="col-md-4 pt-5">
-                    <h2 class="text-white"><?php echo $message['reservations']; ?></h2>
+        }
 
-                    <div class="table-responsive">
-                        <table class="bg-white">
-                            <tr>
-                                <th><?php echo $message['id']; ?></th>
-                                <th><?php echo $message['userid']; ?></th>
-                                <th><?php echo $message['suiteid']; ?></th>
-                                <th><?php echo $message['startdate']; ?></th>
-                                <th><?php echo $message['enddate']; ?></th>
-                            </tr>
-                            
-                            <tbody>
-                            <?php
-                            // run query from database
-                            $reservationsql = "SELECT * from reservation";
-                            $reservationstmt = mysqli_prepare($conn, $reservationsql);
-                            if(!$reservationstmt){
-                                $_SESSION['error'] = "database_error";
-                                header("location: error.php");
-                            }
-                            if(!mysqli_stmt_execute($reservationstmt)){
-                                $_SESSION['error'] = "database_error";
-                                header("location: error.php");
-                            };
-                            mysqli_stmt_bind_result($reservationstmt, $id, $user_id, $suite_id, $date_from, $date_to);
+        function openModal(id) {
+            var a = document.getElementById('delete-button');
+            a.href = "../components/adminpanel/delete_message.php?id=" + id;
+            document.getElementById('delbtnpress').style.display='block'
+        }
+    </script>
+</head>
+<body>
+<main>
+    <?php
+    include('../controllers/database/dbconnect.php');
+    require_once('../components/header.php');
+    ?>
+    <div class="container-fluid">
+        <div class="row p-5">
+            <div class="col-md-4 pt-5">
+                <h2 class="text-white"><?php echo $message['reservations']; ?></h2>
 
-                            // while loop to echo the query results in a table
-                            while (mysqli_stmt_fetch($reservationstmt)) {
-                                echo "<tr>
-                                    <td>" . $id ."</td>
-                                    <td>" . $user_id ."</td>
-                                    <td>" . $suite_id ."</td>
-                                    <td>" . $date_from ."</td>
+                <div class="table-responsive">
+                    <table class="bg-white">
+                        <tr>
+                            <th><?php echo $message['id']; ?></th>
+                            <th><?php echo $message['userid']; ?></th>
+                            <th><?php echo $message['suiteid']; ?></th>
+                            <th><?php echo $message['startdate']; ?></th>
+                            <th><?php echo $message['enddate']; ?></th>
+                        </tr>
+
+                        <tbody>
+                        <?php
+                        // run query from database
+                        $reservationsql = "SELECT * from reservation";
+                        $reservationstmt = mysqli_prepare($conn, $reservationsql);
+                        if (!$reservationstmt) {
+                            $_SESSION['error'] = "database_error";
+                            header("location: error.php");
+                        }
+                        if (!mysqli_stmt_execute($reservationstmt)) {
+                            $_SESSION['error'] = "database_error";
+                            header("location: error.php");
+                        };
+                        mysqli_stmt_bind_result($reservationstmt, $id, $user_id, $suite_id, $date_from, $date_to);
+
+                        // while loop to echo the query results in a table
+                        while (mysqli_stmt_fetch($reservationstmt)) {
+                            echo "<tr>
+                                    <td>" . $id . "</td>
+                                    <td>" . $user_id . "</td>
+                                    <td>" . $suite_id . "</td>
+                                    <td>" . $date_from . "</td>
                                     <td>" . $date_to . "</td>
-                                    <td><a href=adminpanel-view.php?id=" . $id . ">". $message['details'] .";</a></td>
+                                    <td><a href=adminpanel-view.php?id=" . $id . ">" . $message['details'] . ";</a></td>
                                     </tr>";
-                            }
-                            mysqli_stmt_close($reservationstmt);
-                            ?>
-                            </tbody>
-                        </table>
-                    </div>
-
+                        }
+                        mysqli_stmt_close($reservationstmt);
+                        ?>
+                        </tbody>
+                    </table>
                 </div>
 
-                <div class="col-md-4 pt-5">
-                    <h2 class="text-white"><?php echo $message['contactmessages']; ?></h2>
+            </div>
 
-                    <div class="table-responsive">
-                        <table class="bg-white">
-                            <tr>
-                                <th><?php echo $message['id']; ?></th>
-                                <th><?php echo $message['name']; ?></th>
-                                <th><?php echo $message['email']; ?></th>
-                                <th><?php echo $message['subject']; ?></th>
-                                <th><?php echo $message['message']; ?></th>
-                                <th></th>
-                                <th></th>
-                            </tr>
+            <div class="col-md-4 pt-5">
+                <h2 class="text-white"><?php echo $message['contactmessages']; ?></h2>
 
-                            <tbody>
-                            <?php
-                            // run query from database
-                            $contactsql = "SELECT * from contact_message";
-                            $contactstmt = mysqli_prepare($conn, $contactsql);
-                            if(!$contactstmt){
-                                $_SESSION['error'] = "database_error";
-                                header("location: error.php");
-                            }
-                            if(!mysqli_stmt_execute($contactstmt)){
-                                $_SESSION['error'] = "database_error";
-                                header("location: error.php");
-                            }
-                            mysqli_stmt_bind_result($contactstmt, $id, $name, $email, $subject, $message);
-                            
-                            // while loop to echo the query results in a table
-                            while(mysqli_stmt_fetch($contactstmt)) {
-                                echo "<tr>
-                                    <td>" . $id ."</td>
-                                    <td>" . $name ."</td>
-                                    <td>" . $email ."</td>
-                                    <td>" . $subject . "</td>
-                                    <td>" . $message ."</td>
+                <div class="table-responsive">
+                    <table class="bg-white">
+                        <tr>
+                            <th><?php echo $message['id']; ?></th>
+                            <th><?php echo $message['name']; ?></th>
+                            <th><?php echo $message['email']; ?></th>
+                            <th><?php echo $message['subject']; ?></th>
+                            <th><?php echo $message['message']; ?></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+
+                        <tbody>
+                        <?php
+                        // run query from database
+                        $contactsql = "SELECT * from contact_message";
+                        $contactstmt = mysqli_prepare($conn, $contactsql);
+                        if (!$contactstmt) {
+                            $_SESSION['error'] = "database_error";
+                            header("location: error.php");
+                        }
+                        if (!mysqli_stmt_execute($contactstmt)) {
+                            $_SESSION['error'] = "database_error";
+                            header("location: error.php");
+                        }
+                        mysqli_stmt_bind_result($contactstmt, $id, $name, $email, $subject, $message);
+
+                        // while loop to echo the query results in a table
+                        while (mysqli_stmt_fetch($contactstmt)) {
+                            ?> <tr>
+                                    <td><?php echo $id ?></td>
+                                    <td><?php echo $name ?></td>
+                                    <td><?php echo $email ?></td>
+                                    <td><?php echo $subject ?></td>
+                                    <td><?php echo $message ?></td>
                                     <td> <a href=mailto:$email?subject=Response%20$subject>Send Mail</a></td>
-                                    <td> <button class='btn btn-primary' onclick=document.getElementById('delbtnpress').style.display='block'>Delete</button></td>
-                                    </tr>";
-                            }
-                            mysqli_stmt_close($contactstmt);
-                            ?>
-                            <div id="delbtnpress" class="modal">
-                                <form action="/action_page.php">
-                                    <div class="modal-content">
-                                        <h1>Delete Confirmation</h1>
-                                        <h2>Are you sure you want to delete the Message?</h2>
-                                        <p class="text-danger fw-bold">WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE Message IT WILL BE GONE FOREVER!</p>
-                                        <div>
-                                            <a class='btn btn-danger' href='../components/adminpanel/delete_message.php?id=<?php echo $id ?>'>Delete</a>
-                                            <button type="button" onclick="document.getElementById('delbtnpress').style.display='none'" class="btn btn-warning">Cancel</button>
-                                        </div>
+                                    <td> <button class='btn btn-primary' onclick='openModal(<?php echo $id ?>)'>Delete</button></td>
+                                    </tr> <?php
+                        }
+                        mysqli_stmt_close($contactstmt);
+                        ?>
+                        <div id="delbtnpress" class="modal">
+                            <form action="/action_page.php">
+                                <div class="modal-content">
+                                    <h1>Delete Confirmation</h1>
+                                    <h2>Are you sure you want to delete the Message?</h2>
+                                    <p class="text-danger fw-bold">WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER
+                                        BEFORE DELETING THE Message IT WILL BE GONE FOREVER!</p>
+                                    <div>
+                                        <a id="delete-button" class='btn btn-danger'>Delete</a>
+                                        <button type="button"
+                                                onclick="document.getElementById('delbtnpress').style.display='none'"
+                                                class="btn btn-warning">Cancel
+                                        </button>
                                     </div>
-                                </form>
-                            </div>
-                            </tbody>
-                        </table>
-                    </div>
-
+                                </div>
+                            </form>
+                        </div>
+                        </tbody>
+                    </table>
                 </div>
-                
-                <div class="col-md-4 pt-5">
-                    <h2 class="text-white">Gallery</h2>
 
-                    <?php
-                    function checkImage($image) {
+            </div>
+
+            <div class="col-md-4 pt-5">
+                <h2 class="text-white">Gallery</h2>
+
+                <?php
+                    /**
+                     * Uploads the given image.
+                     *
+                     * @param $image array An array containing the data of the image.
+                     * @return bool
+                     */
+                    function uploadImage(array $image): bool {
                         global $error;
 
-                        if (is_uploaded_file($image['tmp_name'])){
-                            if ($image['size'] <= 3000000){
-                                $acceptedFileTypes = ["image/jpg", "image/jpeg", "image/png"];
-                                $fileinfo = finfo_open(FILEINFO_MIME_TYPE);
-                                $uploadedFileType = finfo_file($fileinfo, $image['tmp_name']);
-                                if (in_array($uploadedFileType, $acceptedFileTypes)) {
-                                    if ($image['error'] == 0) {
-                                        if (strlen($image['name']) <= 50) {
-                                            if (!ctype_lower($image['name'])) {
-                                                if (!file_exists('../assets/img/gallery/' . $image['name'])) {
-                                                    if (move_uploaded_file($image['tmp_name'], '../assets/img/gallery/' . $image['name'])) {
-                                                        return true;
-                                                    }
-                                                } else {
-                                                    $error[] = 'Oeps! Een fout. Probeer het opnieuw.';
-                                                    return false;
-                                                }
-                                            } else {
-                                                $error[] = 'Bestandsnaam: ' . $image['name'] . ' bestaat nu al. Upload een foto met een andere naam a.u.b.';
-                                                return false;
-                                            }
-                                        } else {
-                                            $error[] = 'Bestandnaam is te lang. De naam moet 50 karakters of minder zijn.';
-                                            return false;
-                                        }
-                                    } else {
-                                        $error[] = 'Oeps! Een fout. Probeer het met een andere foto.';
-                                        return false;
-                                    }
-                                } else {
-                                    $error[] = 'Het bestandstype van de foto is niet correct. Upload een jpg/jpeg/png.';
-                                    return false;
-                                }
-                            } else {
-                                $error[] = 'Het bestand dat je uploadt is te groot. Upload een foto van maximaal 3MB of minder.';
-                                return false;
-                            }
-                        } else {
+                        if (!is_uploaded_file($image['tmp_name'])) {
                             $error[] = 'Niks gedetecteerd. Weet je zeker dat je iets hebt geuploadt?';
                             return false;
                         }
+
+                        if ($image['size'] > 3000000) {
+                            $error[] = 'Het bestand dat je uploadt is te groot. Upload een foto van maximaal 3MB of minder.';
+                            return false;
+                        }
+
+                        $acceptedFileTypes = ["image/jpg", "image/jpeg", "image/png"];
+                        $fileinfo = finfo_open(FILEINFO_MIME_TYPE);
+                        $uploadedFileType = finfo_file($fileinfo, $image['tmp_name']);
+                        if (!in_array($uploadedFileType, $acceptedFileTypes)) {
+                            $error[] = 'Het bestandstype van de foto is niet correct. Upload een jpg/jpeg/png.';
+                            return false;
+                        }
+                        if ($image['error'] != 0) {
+                            $error[] = 'Oeps! Een fout. Probeer het met een andere foto.';
+                            return false;
+                        }
+
+                        if (strlen($image['name']) > 50) {
+                            $error[] = 'Bestandnaam is te lang. De naam moet 50 karakters of minder zijn.';
+                            return false;
+                        }
+                        if (file_exists('../assets/img/gallery/' . $image['name'])) {
+                            $error[] = 'Bestandsnaam: ' . $image['name'] . ' bestaat nu al. Upload een foto met een andere naam a.u.b.';
+                            return false;
+                        }
+
+                        if (!move_uploaded_file($image['tmp_name'], '../assets/img/gallery/' . $image['name'])) {
+                            $error[] = $message['admin_file_exist_error'];
+                            return false;
+                        }
+                        return true;
                     }
+
 
                     function getImage() {
                         $dir = "../assets/img/gallery";
@@ -233,7 +246,7 @@ $error = array();
                     }
 
                     if (isset($_POST['sendImage'])) { 
-                        if (checkImage($_FILES['photo'])) {
+                        if (uploadImage($_FILES['photo'])) {
                             echo "<h3 class='text-white'> Bestand geupload!</h3>";
                         }
                     }
@@ -259,16 +272,16 @@ $error = array();
                         }
                     }
                     ?>
-                    <div class="row">
-                        <?php
-                        global $error;
-                        if (!empty($error)) {
+                <div class="row">
+                    <?php
+                    global $error;
+                    if (!empty($error)) {
                         ?>
                         <div class="col-md-12 p-0">
                             <div class="alert alert-danger text-black fw-bold p-4 rounded-0" role="alert">
                                 <ul>
                                     <?php
-                                    foreach($error as $errorMsg) {
+                                    foreach ($error as $errorMsg) {
                                         echo '<li>' . $errorMsg . '</li>';
                                     }
                                     ?>
@@ -276,40 +289,41 @@ $error = array();
                             </div>
                         </div>
                         <?php
-                        }
-                        ?>
-                    </div>
+                    }
+                    ?>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <form class="mb-3" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post" enctype="multipart/form-data">
-                                <div class="mb-2">
-                                    <label for="image" class="form-label text-white">Upload gallery picture</label>
-                                    <input required class="form-control" type="file" name="photo" id="image">
-                                </div>
-                                <div>
-                                    <input class="btn btn-primary" type="submit" name="sendImage" value="Upload">
-                                </div>
-                            </form>
-                        </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <form class="mb-3" action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post"
+                              enctype="multipart/form-data">
+                            <div class="mb-2">
+                                <label for="image" class="form-label text-white">Upload gallery picture</label>
+                                <input required class="form-control" type="file" name="photo" id="image">
+                            </div>
+                            <div>
+                                <input class="btn btn-primary" type="submit" name="sendImage" value="Upload">
+                            </div>
+                        </form>
                     </div>
+                </div>
 
-                    <div class="row">
+                <div class="row">
                     <h3 class="text-white">Uploaded images</h3>
                     <?php
                     getImage();
                     ?>
-                    </div>
-
                 </div>
+
             </div>
         </div>
-        </main>
-        
-    <?php
-    // close the connection
-    mysqli_close($conn);
-    ?>
+    </div>
+</main>
 
-    </body>
+<?php
+// close the connection
+mysqli_close($conn);
+?>
+
+</body>
 </html>

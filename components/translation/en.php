@@ -30,20 +30,12 @@ $message['logout']='LOGOUT';
 //Main page translations
 $message['experience']='A NEW WAY TO EXPERIENCE SPACE AS NEVER BEFORE';
 $message['learnmore']='LEARN MORE';
-$message['instagram']='INSTAGRAM';
-$message['twitter']='TWITTER';
 
 /*About page translations*/
 $message['about']='ABOUT';
 $message['aim']='WHAT WE AIM TO DO';
 $message['aboutusinfo']="We want to give mankind a way to experience space as never done before! Feel what it's like to be in a zero gravity surrounding or what it's like to wake up in space with your beloved ones or as a solo adventurer!";
 
-$message['database_error']="There was an issue with loading data from the server.";
-$message['message_delete_error']="There was an issue with deleting the message.";
-$message['reservation_delete_error']="There was an issue with deleting the reservation.";
-//This message is more transparent about what is going on, but it should only happen when the database is not reachable at all.
-//Which should never happen.
-$message['database_connect_error']="There was an issue with connecting to the database.";
 /*Rooms page translations*/
 //Search translations
 $message['search']='SEARCH';
@@ -53,6 +45,14 @@ $message['checkout']='Check out date';
 $message['check']='CHECK';
 //Rooms translations
 $message['bookNow']='BOOK NOW!';
+
+/*Errors*/
+$message['database_error']="There was an issue with loading data from the server.";
+$message['message_delete_error']="There was an issue with deleting the message.";
+$message['reservation_delete_error']="There was an issue with deleting the reservation.";
+//This message is more transparent about what is going on, but it should only happen when the database is not reachable at all.
+//Which should never happen.
+$message['database_connect_error']="There was an issue with connecting to the database.";
 
 /*Booking page translations*/
 $message['booking_page_title']='Booking Confirmation';
@@ -137,4 +137,5 @@ $message['name']='Name';
 $message['email']='Email';
 $message['subject']='Subject';
 $message['message']='Message';
+$message['admin_file_exist_error']='Oops! An error occurred. Please try again..'
 ?>
