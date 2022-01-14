@@ -272,7 +272,7 @@ if (!isset($_GET['dateEnd'])){
                         }
                         ?>
                         <h3><?php echo $info['name'];?></h3>
-                        <p><?php echo $info['name'];?></p>
+                        <p><?php echo "Price per night: &euro;".$info['price'];?></p>
                     </div>
                 </div>
                 <div class="row">
