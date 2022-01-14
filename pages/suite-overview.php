@@ -278,7 +278,7 @@ if (!isset($_GET['dateEnd'])){
                 <div class="row">
                     <div class="col-sm-12 mb-3">
                         <?php
-                        if(in_array($selected, $reservedRooms, true)) {
+                        if(isset($reservedRooms) && in_array($selected, $reservedRooms, true)) {
                             echo "The selected room is unavailable";
                         } else {
                             echo "<a class='btn btn-primary' href='booking.php' class='button' onclick='";
