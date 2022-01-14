@@ -29,6 +29,9 @@ function getImage()
     closedir($dirOpen);
 }
 
+//Translation
+require_once ('../components/translation/en.php');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

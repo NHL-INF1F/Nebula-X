@@ -15,7 +15,26 @@ $message['logininfo']="If you are already a user you can use the button below to
 $message['registerinfo']='Registered users are notified about upcoming events and discounts. By registering you also receive a 5% cost bonus for your next booking!';
 $message['registerbutton']='REGISTER';
 $message['redirected']='You need to be logged in first!';
+
+$message['emailnotcorrect']='Email is not correct';
+$message['firstnameempty']='Firstname may not be empty';
+$message['lastnameempty']='Lastname may not be empty';
+$message['passwordempty']='Password may not be empty';
+$message['passwordrepeat']='Password repeat may not be empty';
+$message['passwordnotmatch']='Passwords do not match';
+$message['emailtoolong']='Email is too long';
+$message['firstnametoolong']='Firstname is too long';
+$message['lastnametoolong']='Lastname is too long';
+$message['passwordtoolong']='Password is too long';
+$message['emailinuse']='This email is already in use, try another email.';
+$message['accountregister']='Account registered, you may now log in.';
+
+$message['']='';
+$message['']='';
+$message['']='';
 //Placeholders
+$message['lastname']='Last Name';
+$message['firstname']='First Name';
 $message['password1']='password';
 
 
@@ -33,11 +52,21 @@ $message['logout']='LOGOUT';
 //Main page translations
 $message['experience']='A NEW WAY TO EXPERIENCE SPACE AS NEVER BEFORE';
 $message['learnmore']='LEARN MORE';
+$message['instagram']='INSTAGRAM';
+$message['twitter']='TWITTER';
 
 /*About page translations*/
 $message['about']='ABOUT';
 $message['aim']='WHAT WE AIM TO DO';
 $message['aboutusinfo']="We want to give mankind a way to experience space as never done before! Feel what it's like to be in a zero gravity surrounding or what it's like to wake up in space with your beloved ones or as a solo adventurer!";
+
+/*Errors*/
+$message['database_error']="There was an issue with loading data from the server.";
+$message['message_delete_error']="There was an issue with deleting the message.";
+$message['reservation_delete_error']="There was an issue with deleting the reservation.";
+//This message is more transparent about what is going on, but it should only happen when the database is not reachable at all.
+//Which should never happen.
+$message['database_connect_error']="There was an issue with connecting to the database.";
 
 /*Rooms page translations*/
 //Search translations
@@ -48,14 +77,6 @@ $message['checkout']='Check out date';
 $message['check']='CHECK';
 //Rooms translations
 $message['bookNow']='BOOK NOW!';
-
-/*Errors*/
-$message['database_error']="There was an issue with loading data from the server.";
-$message['message_delete_error']="There was an issue with deleting the message.";
-$message['reservation_delete_error']="There was an issue with deleting the reservation.";
-//This message is more transparent about what is going on, but it should only happen when the database is not reachable at all.
-//Which should never happen.
-$message['database_connect_error']="There was an issue with connecting to the database.";
 
 /*Booking page translations*/
 $message['booking_page_title']='Booking Confirmation';
@@ -167,5 +188,6 @@ $message['filemanipulated']='This file has an manipulated filetype!';
 $message['fileremove']='The file has been removed';
 $message['nothingfound']='No file found.';
 $message['uploadedimages']='Uploaded images';
+
 
 ?>

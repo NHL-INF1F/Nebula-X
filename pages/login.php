@@ -2,6 +2,9 @@
 //Start a session
 session_start();
 
+//Translation
+require_once ('../components/translation/en.php');
+
 //Check if user is logged
 if (isset($_SESSION['email'])) {
     //Send user to index.php
@@ -198,7 +201,7 @@ require_once('../components/header.php');
                 </div>
                 <div class="mb-4">
                     <label for="password" class="form-label"><?php echo $message['password'] ?></label>
-                    <input maxlength="255" required type="password" class="form-control" placeholder="Password"
+                    <input maxlength="255" required type="password" class="form-control" placeholder=<?php echo $message['password1'] ?>
                            name="password" id="password" value="<?php if (isset($_POST['submit'])) {
                         echo htmlentities($_POST['password']);
                     } ?>">
@@ -221,7 +224,7 @@ require_once('../components/header.php');
                 <div class="col-md-12">
                     <div class="buttonBox">
                         <a href="register.php">
-                            <input class="button" type="submit" name="register" value="register">
+                            <input class="button" type="submit" name="register" value="<?php echo $message['register'] ?>">
                         </a>
                     </div>
                 </div>

@@ -1,6 +1,3 @@
-<?php
-require_once ('translation/en.php');
-?>
 <header class="container-fluid header">
     <div class="row">
         <div class="col-12 col-md-6 d-flex justify-content-md-start">

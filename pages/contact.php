@@ -2,6 +2,9 @@
 //Start a session
 session_start();
 
+//Translation
+require_once ('../components/translation/en.php');
+
 //Include database connections
 require_once('../controllers/database/dbconnect.php');
 

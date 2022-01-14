@@ -2,6 +2,9 @@
 //Start a session
 session_start();
 
+//Translation
+require_once ('../components/translation/en.php');
+
 //Check if user is logged
 if (isset($_SESSION['email'])) {
     //Send user to index.php
@@ -28,37 +31,38 @@ $error = array();
 function checkRegisterFields(string $email, string $firstname, string $lastname, string $password, string $password2) {
     //Call global variable(s)
     global $error;
+    global $message;
 
     //If statements so the error messages will be displayed all at once instead of each individual.
     if (!$email && empty($email)) {
-        $error[] = 'Email is not correct';
+        $error[] = $message['emailnotcorrect'];
     }
     if (!$firstname && empty($firstname)) {
-        $error[] = 'Firstname may not be empty';
+        $error[] = $message['firstnameempty'];
     }
     if (!$lastname && empty($lastname)) {
-        $error[] = 'Lastname may not be empty';
+        $error[] = $message['lastnameempty'];
     }
     if (!$password && empty($password)) {
-        $error[] = 'Password may not be empty';
+        $error[] = $message['passwordempty'];
     }
     if (!$password2 && empty($password2)) {
-        $error[] = 'Password repeat may not be empty';
+        $error[] = $message['passwordrepeat'];
     }
     if ($password != $password2) {
-        $error[] = 'Passwords do not match';
+        $error[] = $message['passwordnotmatch'];
     }
     if (strlen($email) > 255) {
-        $error[] = 'Email is too long';
+        $error[] = $message['emailtoolong'];
     }
     if (strlen($firstname) > 255) {
-        $error[] = 'Firstname is too long';
+        $error[] = $message['firstnametoolong'];
     }
     if (strlen($lastname) > 255) {
-        $error[] = 'Lastname is too long';
+        $error[] = $message['lastnametoolong'];
     }
     if (strlen($password) > 255) {
-        $error[] = 'Password is too long';
+        $error[] = $message['passwordtoolong'];
     }
 
     if (empty($error)) {
@@ -79,6 +83,7 @@ function checkRegisterFields(string $email, string $firstname, string $lastname,
 function checkUserInDataBase(mysqli $conn, string $email) {
     //Call global variable(s)
     global $error;
+    global $message;
 
     //SQL Query for selecting all users where an email is in DB
     $query = "SELECT * FROM user WHERE email = ?";
@@ -111,7 +116,7 @@ function checkUserInDataBase(mysqli $conn, string $email) {
     //Check if a result has been found with number of rows
     if (mysqli_stmt_num_rows($stmt) > 0) {
         mysqli_stmt_close($stmt);
-        $error[] = 'This email is already in use, try another email.';
+        $error[] = $message['emailinuse'];
         return $error;
     } else {
         mysqli_stmt_close($stmt);
@@ -164,7 +169,7 @@ if (isset($_POST['submit'])) {
             mysqli_close($conn);
 
             //Set user message
-            $_SESSION['registered'] = 'Account registered, you may now log in.';
+            $_SESSION['registered'] = $message['accountregister'];
 
             //Send user to index.php
             header('location: login.php');
@@ -236,19 +241,19 @@ if (isset($_POST['submit'])) {
                         <input maxlength="255" required type="email" class="form-control" placeholder="youremail@domain.com" name="email" id="email" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['email']);} ?>" aria-describedby="emailHelp">                    </div>
                     <div class="mb-1">
                         <label for="firstname" class="form-label"><?php echo $message['firstname'] ?></label>
-                        <input maxlength="255" required type="text" class="form-control" placeholder="John" name="firstname" id="firstname" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['firstname']);} ?>">
+                        <input maxlength="255" required type="text" class="form-control" placeholder="<?php echo $message['firstname'] ?>" name="firstname" id="firstname" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['firstname']);} ?>">
                     </div>
                     <div class="mb-1">
                         <label for="lastname" class="form-label"><?php echo $message['lastname'] ?></label>
-                        <input maxlength="255" required type="text" class="form-control" placeholder="Doo" name="lastname" id="lastname" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['lastname']);} ?>">
+                        <input maxlength="255" required type="text" class="form-control" placeholder="<?php echo $message['lastname'] ?>" name="lastname" id="lastname" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['lastname']);} ?>">
                     </div>
                     <div class="mb-1">
                         <label for="password" class="form-label"><?php echo $message['password'] ?></label>
-                        <input maxlength="255" required type="password" class="form-control" placeholder="Password" name="password" id="password" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password']);} ?>">
+                        <input maxlength="255" required type="password" class="form-control" placeholder="<?php echo $message['password1'] ?>" name="password" id="password" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password']);} ?>">
                     </div>
                     <div class="mb-4">
                         <label for="password2" class="form-label"><?php echo $message['password2'] ?></label>
-                        <input maxlength="255" required type="password" class="form-control" placeholder="Password" name="password2" id="password2" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password2']);} ?>">
+                        <input maxlength="255" required type="password" class="form-control" placeholder="<?php echo $message['password1'] ?>" name="password2" id="password2" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['password2']);} ?>">
                     </div>
                     <div class="buttonBox">
                         <input class="button" type="submit" name="submit" value=<?php echo $message['registerbutton'] ?>>
