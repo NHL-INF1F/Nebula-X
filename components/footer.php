@@ -32,10 +32,10 @@
             <div class="col-sm-3">
                 <h1><?php echo $message['explore'] ?></h1>
                 <ul class="p-0 m-0">
-                    <li><a href="pages/gallery.php"><?php echo $message['exploregallery'] ?></a></li>
-                    <li><a href="pages/aboutus.php"><?php echo $message['exploreaboutus'] ?></a></li>
-                    <li><a href="pages/suite-overview.php"><?php echo $message['explorebooking'] ?></a></li>
-                    <li><a href="pages/contact.php"><?php echo $message['explorecontact'] ?></a></li>
+                    <li><a href="gallery.php"><?php echo $message['exploregallery'] ?></a></li>
+                    <li><a href="aboutus.php"><?php echo $message['exploreaboutus'] ?></a></li>
+                    <li><a href="suite-overview.php"><?php echo $message['explorebooking'] ?></a></li>
+                    <li><a href="contact.php"><?php echo $message['explorecontact'] ?></a></li>
                     <?php
                     if (isset($_SESSION['email']) && $_SESSION['role'] == 'admin') {
                         echo '<li><a href="pages/adminpanel.php">'. $message['admin-panel2'] .'</a></li>';
