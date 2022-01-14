@@ -176,26 +176,26 @@ if (isset($_POST['submit'])) {
             }
             ?>
             <div class="col-md-8 p-4 bg-white order-md-1 order-2">
-                <h1>CONTACT</h1>
+                <h1><?php echo $message['contactform'] ?></h1>
                 <form action="<?php echo htmlentities($_SERVER['PHP_SELF']); ?>" method="post">
                     <div class="mb-1">
-                        <label for="name" class="form-label">Name</label>
-                        <input required type="text" class="form-control" placeholder="John" name="name" id="name" value="<?php if(isset($_SESSION['firstname'])) {echo $_SESSION['firstname'];} else { if (isset($_POST['submit'])) {echo htmlentities($_POST['name']);} } ?>">
+                        <label for="name" class="form-label"><?php echo $message['contactformname'] ?></label>
+                        <input required type="text" class="form-control" placeholder="<?php echo $message['contactformname2'] ?>" name="name" id="name" value="<?php if(isset($_SESSION['firstname'])) {echo $_SESSION['firstname'];} else { if (isset($_POST['submit'])) {echo htmlentities($_POST['name']);} } ?>">
                     </div>
                     <div class="mb-1">
-                        <label for="subject" class="form-label">Subject</label>
-                        <input required type="text" class="form-control" placeholder="Problem" name="subject" id="subject" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['subject']);} ?>">
+                        <label for="subject" class="form-label"><?php echo $message['contactformsubject'] ?></label>
+                        <input required type="text" class="form-control" placeholder=<?php echo $message['contactformsubject2'] ?> name="subject" id="subject" value="<?php if (isset($_POST['submit'])) {echo htmlentities($_POST['subject']);} ?>">
                     </div>
                     <div class="mb-1">
-                        <label for="email" class="form-label"><?php echo $message['email'] ?></label>
+                        <label for="email" class="form-label"><?php echo $message['contactformemail'] ?></label>
                         <input required type="email" class="form-control" placeholder="youremail@domain.com" name="email" id="email" value="<?php if(isset($_SESSION['email'])) {echo $_SESSION['email'];} else { if (isset($_POST['submit'])) {echo htmlentities($_POST['email']);} } ?>">
                     </div>
                     <div class="mb-4">
-                        <label for="message" class="form-label">Message</label>
-                        <textarea required class="form-control" placeholder="I have a problem" name="message" id="message"><?php if (isset($_POST['submit'])) {echo htmlentities($_POST['message']);} ?></textarea>
+                        <label for="message" class="form-label"><?php echo $message['contactformmessage'] ?></label>
+                        <textarea required class="form-control" placeholder="<?php echo $message['contactformmessage2'] ?>" name="message" id="message"><?php if (isset($_POST['submit'])) {echo htmlentities($_POST['message']);} ?></textarea>
                     </div>
                     <div class="buttonBox">
-                        <input class="button" type="submit" name="submit" value="Send">
+                        <input class="button" type="submit" name="submit" value=<?php echo $message['sendmessage'] ?>>
                     </div>
                 </form>
             </div>
@@ -203,8 +203,8 @@ if (isset($_POST['submit'])) {
             <div class="col-md-4 p-4 seeThroughBox order-md-2 order-1">
                 <div class="row">
                     <div class="col-md-12">
-                        <h1 class="text-white">Other contact?</h1>
-                        <p class="text-white">You can always contact us through phone or visit us.</p>
+                        <h1 class="text-white"><?php echo $message['othercontact'] ?></h1>
+                        <p class="text-white"><?php echo $message['contactusinfo'] ?></p>
                     </div>
                 </div>
             </div>

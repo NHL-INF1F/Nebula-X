@@ -15,6 +15,9 @@ $message['logininfo']="If you are already a user you can use the button below to
 $message['registerinfo']='Registered users are notified about upcoming events and discounts. By registering you also receive a 5% cost bonus for your next booking!';
 $message['registerbutton']='REGISTER';
 $message['redirected']='You need to be logged in first!';
+//Placeholders
+$message['password1']='password';
+
 
 /*Index page translation*/
 //Header buttons translation
@@ -94,14 +97,18 @@ $message['gallerytitle']='GALLERY';
 $message['viewmore']='VIEW MORE';
 
 /*Contact page translations*/
-$message['contactustitle']='CONTACT US';
-$message['help']='HOW CAN WE HELP?';
-$message['contactusinfo']='We want to hear from you, please feel free to email us or just speak your mind below, please allow up to 1 business day to respond.';
+$message['othercontact']='OTHER CONTACT?';
+$message['contactusinfo']='You can always contact us through phone or visit us.';
 $message['contactform']='CONTACT';
 $message['contactformname']='NAME';
+$message['contactformsubject']='SUBJECT';
 $message['contactformemail']='EMAIL';
 $message['contactformmessage']='MESSAGE';
-$message['sendmessage']='SEND MESSAGE';
+$message['sendmessage']='SEND';
+//Placeholders
+$message['contactformname2']='Name';
+$message['contactformsubject2']='Problem';
+$message['contactformmessage2']='I have a problem';
 
 /*Footer translations*/
 $message['nebulaxmotto']='Space as never before!';
@@ -122,6 +129,7 @@ $message['hq']='HQ';
 $message['legal']='LEGAL';
 $message['trademark']='Trademark';
 $message['privacy']='Privacy';
+
 /*Adminpanel translations*/
 //Reservations
 $message['reservations']='Reservations';
@@ -137,5 +145,27 @@ $message['name']='Name';
 $message['email']='Email';
 $message['subject']='Subject';
 $message['message']='Message';
-$message['admin_file_exist_error']='Oops! An error occurred. Please try again..'
+
+$message['deleteConfirm']='Delete Confirmation';
+$message['deleteMesssage']='Are you sure you want to delete the Message?';
+$message['deleteMesssageWarning']='WARNING: MAKE SURE TO SEND AN EMAIL TO THE USER BEFORE DELETING THE Message IT WILL BE GONE FOREVER!';
+$message['delete']='Delete';
+$message['cancel']='Cancel';
+$message['admingallery']='Gallery';
+
+$message['errortryagain']='Something went wrong. Please try again.';
+$message['filename']='File Name';
+$message['fileexist']='already exists. Please upload a file with a different name.';
+$message['filetolong']='The name of the file is to long. This should be 50 characters or less.';
+$message['filedifferent']='Something went wrong. Please try a different file';
+$message['filetype']='This filetype is not correct. Please upload a jpg/jpeg/png.';
+$message['filetolarge']='This file is to large. Please upload a file of 3MB or less.';
+$message['nofile']='Nothing has been uploaded. Please try again.';
+
+$message['filesucces']='File has been succesfully uploaded!';
+$message['filemanipulated']='This file has an manipulated filetype!';
+$message['fileremove']='The file has been removed';
+$message['nothingfound']='No file found.';
+$message['uploadedimages']='Uploaded images';
+
 ?>
