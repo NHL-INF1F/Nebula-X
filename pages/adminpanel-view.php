@@ -44,7 +44,7 @@ if (!isset($_SESSION['email']) || $_SESSION['role'] != 'admin') {
     </head>
     <body>
     <div class="container-fluid d-flex align-items-center min-vh-100 spaceBackground">
-    <div class="d-flex align-items-center">
+    <main class="d-flex align-items-center">
     <div class="col-md-12 p-6 bg-white">
     <div class="text-center">
         <div>
