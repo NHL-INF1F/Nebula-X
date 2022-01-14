@@ -182,12 +182,12 @@ $error = array();
                         global $error;
 
                         if (!is_uploaded_file($image['tmp_name'])) {
-                            $error[] = 'Niks gedetecteerd. Weet je zeker dat je iets hebt geuploadt?';
+                            $error[] = 'Nothing detected. Are you sure you uploaded something?';
                             return false;
                         }
 
                         if ($image['size'] > 3000000) {
-                            $error[] = 'Het bestand dat je uploadt is te groot. Upload een foto van maximaal 3MB of minder.';
+                            $error[] = 'The file you uploaded is too big. Upload a file with max of 3MB.';
                             return false;
                         }
 
@@ -195,26 +195,25 @@ $error = array();
                         $fileinfo = finfo_open(FILEINFO_MIME_TYPE);
                         $uploadedFileType = finfo_file($fileinfo, $image['tmp_name']);
                         if (!in_array($uploadedFileType, $acceptedFileTypes)) {
-                            $error[] = 'Het bestandstype van de foto is niet correct. Upload een jpg/jpeg/png.';
+                            $error[] = 'The filetype is not correct. Upload a jpg/jpeg/png.';
                             return false;
                         }
                         if ($image['error'] != 0) {
-                            $error[] = 'Oeps! Een fout. Probeer het met een andere foto.';
+                            $error[] = 'A error. Try again with another picture';
                             return false;
                         }
 
                         if (strlen($image['name']) > 50) {
-                            $error[] = 'Bestandnaam is te lang. De naam moet 50 karakters of minder zijn.';
+                            $error[] = 'Filename is too long. The name has to be 50 characters or less.';
                             return false;
                         }
                         if (file_exists('../assets/img/gallery/' . $image['name'])) {
-                            $error[] = 'Bestandsnaam: ' . $image['name'] . ' bestaat nu al. Upload een foto met een andere naam a.u.b.';
+                            $error[] = 'Filename: ' . $image['name'] . ' exists. Upload a picture with another filename.';
                             return false;
                         }
 
                         if (!move_uploaded_file($image['tmp_name'], '../assets/img/gallery/' . $image['name'])) {
                             $error[] = 'file not supported';
-                            
                             return false;
                         }
                         return true;
@@ -238,7 +237,7 @@ $error = array();
 
                                     <form action='" . htmlentities($_SERVER['PHP_SELF']) . "' method='post'>
                                         <input type='hidden' name='imageName' value='" . $file  . "'>
-                                        <input class='btn btn-primary' type='submit' name='delete' value='Verwijderen'>
+                                        <input class='btn btn-primary' type='submit' name='delete' value='Delete'>
                                     </form>
                                 </div>
                             </div>
@@ -249,7 +248,7 @@ $error = array();
 
                     if (isset($_POST['sendImage'])) { 
                         if (uploadImage($_FILES['photo'])) {
-                            echo "<h3 class='text-white'> Bestand geupload!</h3>";
+                            echo "<h3 class='text-white'>File uploaded!</h3>";
                         }
                     }
 
@@ -258,7 +257,7 @@ $error = array();
                         foreach ($supportedFileTypes as $subarray) {
 
                             if (!in_array(htmlentities($_GET['fileType']), $supportedFileTypes)) {
-                                echo "Manipulatie met het bestandstype!!!";
+                                echo "Manipulation with the filetype!";
                                 exit;
                             }
                         }
@@ -268,9 +267,9 @@ $error = array();
 
                     if (isset($_POST['delete'])) {
                         if (unlink('../assets/img/gallery/' . htmlentities($_POST['imageName']))) {
-                            echo 'De foto is verwijderd.';
+                            echo 'Picture deleted';
                         } else {
-                            $error[] = 'Niet gevonden';
+                            $error[] = 'Not found.';
                         }
                     }
                     ?>
